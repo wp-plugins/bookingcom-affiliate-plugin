@@ -5,12 +5,12 @@ Requires at least: 3.0
 Tested up to: 3.3.1
 License: GPLv2 or later
 
-Add a customizable widget to any wordpress theme so your visitors can search the booking.com index with your Affiliate ID on.
+Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site. The search results page will remain branded with your site look and feel and carry your booking.com affiliate ID.
 
 
 == Description ==
 
-Add a customizable widget to any wordpress theme so your visitors can search the booking.com index with your Affiliate ID on.
+Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site. The search results page will remain branded with your site look and feel and carry your booking.com affiliate ID.
 
 
 
