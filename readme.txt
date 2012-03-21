@@ -12,7 +12,7 @@ Booking.com Affiliates, this plugin allows you to add a typical booking.com book
 
 Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site. The search results page will remain branded with your site look and feel and carry your booking.com affiliate ID.
 
-* Configure your "ideal" search box and display it anywhere you want on your site (requires widget-ready temapltes)
+* Configure your "ideal" search box and display it anywhere you want on your site (requires widget-ready templates)
 * Leverage the official settings & parameters as per the booking.com documentation in a couple of clicks.
 
 Check out the plugin official site to suggest new functionalities.
@@ -20,9 +20,9 @@ Check out the plugin official site to suggest new functionalities.
 
 == Installation ==
 
-1) [Download the  plugin](http://downloads.wordpress.org/plugin/bookingcom-affiliate-plugin.zip), add it to your blog in the plugin folder and activate it.
-2) Go to the settings page and fill out the details.
-3) Go to the "Appearance > Widgets" page and add the widget wherever you want.
+* [Download the  plugin](http://downloads.wordpress.org/plugin/bookingcom-affiliate-plugin.zip), add it to your blog in the plugin folder and activate it.
+* Go to the settings page and fill out the details.
+* Go to the "Appearance > Widgets" page and add the widget wherever you want.
 
 A couple of hours later, check your traffic & bookings via the [Booking.com admin panel](https://admin.bookings.org/partner) !
 
