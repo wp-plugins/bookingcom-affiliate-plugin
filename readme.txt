@@ -1,11 +1,11 @@
 === Booking.com Affiliate plugin ===
 Author: Greg Raby
-Tags: affiliate, booking.com, travel
+Tags: affiliates, booking, travel, reservation
 Requires at least: 3.0
 Tested up to: 3.3.1
 License: GPLv2 or later
 
-Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site. The search results page will remain branded with your site look and feel and carry your booking.com affiliate ID.
+Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site.
 
 
 == Description ==
@@ -32,6 +32,7 @@ A couple of hours later, check your traffic & bookings via the [Booking.com admi
 1. Plugin page.
 2. Plugin settings.
 3. Live example.
+
 
 == Changelog ==
 
