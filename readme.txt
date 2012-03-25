@@ -4,7 +4,7 @@ Tags: affiliates, booking, travel, reservation, hotel
 Requires at least: 3.0
 Tested up to: 3.3.1
 License: GPLv2 or later
-Stable tag: 0.1.2
+Stable tag: 0.1.3
 
 Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site.
 
@@ -20,10 +20,12 @@ Check out the [official site](http://www.wordpress-booking-plugin.com) to sugges
 
 == Upgrade Notice ==
 
+= 0.1.3 =
+Cleaner code
+
 = 0.1.2 =
 Fixed compatibility with certain widgets
 Fixed compatibility BuddyPress
-Cleaner code
 
 = 0.1.1 =
 Fixed some sleep-deprivation-related errors
@@ -49,6 +51,9 @@ A couple of hours later, check your traffic & bookings via the [Booking.com admi
 
 
 == Changelog ==
+
+= 0.1.3 =
+* Cleaner code
 
 = 0.1.2 =
 * Bug Fix: The widget class was conflicting with some other widgets. Fixed.
