@@ -1,6 +1,6 @@
-<?php
+<?php 
 /*
-Plugin Name: Booking.com Affiliate plugin
+Plugin Name: Booking.com Affiliate plugin final
 Plugin URI: http://www.wordpress-booking-plugin.com/
 Description: This plugin allows you to add a typical booking.com booking module on any wordpress blog. The search results page will remain branded with your site look and feel and carry your booking.com affiliate ID. Click here to edit the <a href="options-general.php?page=booking-com-affiliate">plugin settings</a> and find all the support information.
 Version: 0.1.1
@@ -9,52 +9,57 @@ Author URI: http://www.wordpress-booking-plugin.com/
 License: GPL
 */
 
-error_reporting(E_ALL);
-add_action("widgets_init", array('Widget_name', 'register'));
-register_activation_hook( __FILE__, array('Widget_name', 'activate'));
-register_deactivation_hook( __FILE__, array('Widget_name', 'deactivate'));
-class Widget_name {
-  function activate(){
-    $data = array( 'option1' => 'Default value' ,'option2' => 55, 'option3' => 'zoom', 'option4' => 800);
-    if ( ! get_option('widget_name')){
-      add_option('widget_name' , $data);
-    } else {
-      update_option('widget_name' , $data);
-    }
-  }
-  function deactivate(){
-    delete_option('widget_name');
-  }
-  function control(){
-//$data = get_option('widget_name');
-  ?>
-  <p>There are so many settings you can play with, I grouped them all under the <a href="options-general.php?page=booking-com-affiliate">Booking.com Affiliates plugin admin page</a> for you !</p>
-  <?
-  }
-  function widget($args){
-    echo $args['before_widget'];
-//    echo $args['before_title'] . get_option('plugin_title') . $args['after_title'];
-	include('render.php');
-    echo $args['after_widget'];
-  }
-  function register(){
-    register_sidebar_widget('Booking.com Affiliate Widget', array('Widget_name', 'widget'));
-    register_widget_control('Booking.com Affiliate Widget', array('Widget_name', 'control'));
-  }
-}
+defined('ABSPATH') or die("Cannot access pages directly.");
+
+/**
+ * Initializing 
+ */
+defined("DS") or define("DS", DIRECTORY_SEPARATOR);
+
+/**
+ * Actions and Filters
+ */
+add_action( 'widgets_init', create_function( '', 'register_widget("Widget_bookingplugin");' ) );
+
+
+/**
+ * Document Widget
+ */
+class Widget_bookingplugin extends WP_Widget
+{
+	/**
+	 * Constructor
+	 */
+	function Widget_bookingplugin()
+	{
+		parent::__construct( false, 'Booking.com Affiliate Widget' );
+	}
+
+	function form($instance)
+	{
+		?>
+<p>There are so many settings you can play with, I grouped them all under the <a href="options-general.php?page=booking-com-affiliate">Booking.com Affiliates plugin admin page</a> for you !</p>		
+		<?php 
+	}
+
+	function widget()
+	{
+echo $args['before_widget'];
+if (get_option('widget_h3_title') == "yes") {echo $args['before_title'] . get_option('widget_title') . $args['after_title'];}
 ?>
+<iframe name="wp_booking_plugin" src="http://www.booking.com/?aid=<?php echo get_option('affiliate_ID'); ?>;&tmpl=searchbox&city=&ifl=1&short_month=1&bgcolor=<?php echo get_option('widget_bgcolor'); ?>&textcolor=<?php echo get_option('widget_txtcolor'); ?>&ss=<?php echo get_option('widget_destination'); ?>&label=<?php echo get_option('affiliate_label'); ?>&lang=<?php echo get_option('widget_language'); ?>&width=<?php echo get_option('widget_width'); ?>&target=_top<?php if (get_option('widget_cal_icons') == "yes") echo'&calendar=1' ?>" frameborder="0" scrolling="no" width="<?php echo get_option('widget_width'); ?>px" height="<?php echo get_option('widget_height'); ?>"></iframe>
 <?php
+echo $args['after_widget'];
+	}
+}
 if ( is_admin() ){
 
-/* Call the html code */
 add_action('admin_menu', 'Affiliation_booking_admin_menu');
-
 function Affiliation_booking_admin_menu() {
 add_options_page('Booking.com Affiliate plugin', 'Booking.com Affiliate plugin', 'administrator', 'booking-com-affiliate', 'Affiliates_booking_admin_html_page');
 }
 }
-?>
-<?php
+
 function Affiliates_booking_admin_html_page() {
 ?>
 <div>
@@ -63,14 +68,13 @@ function Affiliates_booking_admin_html_page() {
 <form method="post" action="options.php">
 <?php wp_nonce_field('update-options'); ?>
     
- <STYLE type="text/css">
+<STYLE type="text/css">
   .tables {width: 600px}
   .td_left {width: 280px; text-align: right}
   .td_divider {width: 30px}
   .td_right {width: 290px}
   .divider {width:600px; border-color: #DFDFDF; border-style: solid; border-width: 1px 0 0 0; line-height: 1.6em; margin: 20px 8px; overflow:auto; padding:5px 10px; position: relative}
-</STYLE>
- 
+</STYLE> 
  
 <table class="tables">
 <tr>
@@ -212,7 +216,6 @@ function Affiliates_booking_admin_html_page() {
 	</td>
 </tr>
 </table>
-
 
 <?php
 }

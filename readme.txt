@@ -15,7 +15,7 @@ Booking.com Affiliates, this plugin allows you to add a typical booking.com book
 * Configure your "ideal" search box and display it anywhere you want on your site (requires widget-ready templates)
 * Leverage the official settings & parameters as per the booking.com documentation in a couple of clicks.
 
-Check out the plugin official site to suggest new functionalities.
+Check out the [official site](http://www.wordpress-booking-plugin.com) to suggest new functionalities, report bugs and showcase your site.
 
 
 == Installation ==
@@ -36,6 +36,10 @@ A couple of hours later, check your traffic & bookings via the [Booking.com admi
 
 == Changelog ==
 
+= 0.1.2 =
+* Bug Fix: The widget class was conflicting with some other widgets. Fixed.
+* Bug Fix: The plugin could not be activated when using BuddyPress. Fixed.
+
 
 = 0.1.1 =
 * Bug Fix: Forgot to update the Widget name... Ooops !
@@ -45,5 +49,4 @@ A couple of hours later, check your traffic & bookings via the [Booking.com admi
 
 = 0.1 =
 * First release of this Plugin. Offers all the out-of-the-box capabilities documented by the Booking.com Affiliates team.
-
 
