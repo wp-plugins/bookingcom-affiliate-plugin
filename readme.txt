@@ -18,6 +18,19 @@ Booking.com Affiliates, this plugin allows you to add a typical booking.com book
 
 Check out the [official site](http://www.wordpress-booking-plugin.com) to suggest new functionalities, report bugs and showcase your site.
 
+== Upgrade Notice ==
+
+= 0.1.2 =
+Fixed compatibility with certain widgets
+Fixed compatibility BuddyPress
+Cleaner code
+
+= 0.1.1 =
+Fixed some sleep-deprivation-related errors
+
+= 0.1 =
+Initial Release
+
 
 == Installation ==
 
