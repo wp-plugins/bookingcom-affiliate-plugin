@@ -6,6 +6,7 @@ Description: This plugin allows you to add a typical booking.com booking module 
 Version: 0.1.3
 Author: Gregory Raby
 Author URI: http://www.wordpress-booking-plugin.com/
+Donate link: http://www.wordpress-booking-plugin.com/
 License: GPL
 */
 
