@@ -1,6 +1,7 @@
 === Booking.com Affiliate plugin ===
 Author: Greg Raby
-Tags: affiliates, booking, travel, reservation, hotel
+Donate link: http://www.wordpress-booking-plugin.com/
+Tags: affiliates, booking, travel, reservation, hotel, affiliation, hotels
 Requires at least: 3.0
 Tested up to: 3.3.1
 License: GPLv2 or later
