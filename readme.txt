@@ -1,6 +1,6 @@
 === Booking.com Affiliate plugin ===
 Author: Greg Raby
-Donate link: http://www.wordpress-booking-plugin.com/
+Donate link: http://www.booking-plugin.com/
 Tags: affiliates, booking, travel, reservation, hotel, affiliation, hotels
 Requires at least: 3.0
 Tested up to: 3.3.1
@@ -17,7 +17,7 @@ Booking.com Affiliates, this plugin allows you to add a typical booking.com book
 * Configure your "ideal" search box and display it anywhere you want on your site (requires widget-ready templates)
 * Leverage the official settings & parameters as per the booking.com documentation in a couple of clicks.
 
-Check out the [official site](http://www.wordpress-booking-plugin.com) to suggest new functionalities, report bugs and showcase your site.
+Check out the [official site](http://www.booking-plugin.com) to suggest new functionalities, report bugs and showcase your site.
 
 == Upgrade Notice ==
 
@@ -37,7 +37,7 @@ Initial Release
 
 == Installation ==
 
-* [Download the  plugin](http://downloads.wordpress.org/plugin/bookingcom-affiliate-plugin.zip), add it to your blog in the plugin folder and activate it.
+* Download the  plugin, add it to your blog in the plugin folder and activate it.
 * Go to the settings page and fill out the details.
 * Go to the "Appearance > Widgets" page and add the widget wherever you want.
 
