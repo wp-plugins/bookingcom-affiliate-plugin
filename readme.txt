@@ -1,11 +1,10 @@
 === Booking.com Affiliate plugin ===
 Author: Greg Raby
-Donate link: http://www.booking-plugin.com/
-Tags: affiliates, booking, travel, reservation, hotel, affiliation, hotels
+Tags: affiliates, booking, travel, reservation, hotel
 Requires at least: 3.0
-Tested up to: 3.3.1
+Tested up to: 3.3.2
 License: GPLv2 or later
-Stable tag: 0.1.3
+Stable tag: 0.2
 
 Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site.
 
@@ -21,18 +20,24 @@ Check out the [official site](http://www.booking-plugin.com) to suggest new func
 
 == Upgrade Notice ==
 
+= 0.2 =
+* Rebuilt from the ground up from the original booking.com code. No more iframe = better browser handling, better user interface integration and better analytics tracking... but above anything else : Calendars will now show up correctly !
+* No more "height" required
+* English, French, German, Dutch and Spanish supported (more languages to come soon)
+* Compliance fixes
+
 = 0.1.3 =
-Cleaner code
+* Cleaner code
 
 = 0.1.2 =
-Fixed compatibility with certain widgets
-Fixed compatibility BuddyPress
+* Fixed compatibility with certain widgets
+* Fixed compatibility BuddyPress
 
 = 0.1.1 =
-Fixed some sleep-deprivation-related errors
+* Fixed some sleep-deprivation-related errors
 
 = 0.1 =
-Initial Release
+* Initial Release
 
 
 == Installation ==
@@ -52,6 +57,13 @@ A couple of hours later, check your traffic & bookings via the [Booking.com admi
 
 
 == Changelog ==
+
+
+= 0.2 =
+* Rebuilt from the ground up from the original booking.com code. No more iframe = better browser handling, better user interface integration and better analytics tracking... but above anything else : Calendars will now show up correctly !
+* No more "height" required
+* English, French, German, Dutch and Spanish supported (more languages to come soon)
+* Compliance fixes
 
 = 0.1.3 =
 * Cleaner code

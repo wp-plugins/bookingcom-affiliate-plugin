@@ -1,12 +1,11 @@
 <?php 
 /*
 Plugin Name: Booking.com Affiliate plugin
-Plugin URI: http://www.wordpress-booking-plugin.com/
+Plugin URI: http://www.booking-plugin.com/
 Description: This plugin allows you to add a typical booking.com booking module on any wordpress blog. The search results page will remain branded with your site look and feel and carry your booking.com affiliate ID. Click here to edit the <a href="options-general.php?page=booking-com-affiliate">plugin settings</a> and find all the support information.
-Version: 0.1.3
+Version: 0.2
 Author: Gregory Raby
-Author URI: http://www.wordpress-booking-plugin.com/
-Donate link: http://www.wordpress-booking-plugin.com/
+Author URI: http://www.booking-plugin.com/
 License: GPL
 */
 
@@ -47,9 +46,7 @@ class Widget_bookingplugin extends WP_Widget
 	{
 echo $args['before_widget'];
 if (get_option('widget_h3_title') == "yes") {echo $args['before_title'] . get_option('widget_title') . $args['after_title'];}
-?>
-<iframe name="wp_booking_plugin" src="http://www.booking.com/?aid=<?php echo get_option('affiliate_ID'); ?>;&tmpl=searchbox&city=&ifl=1&short_month=1&bgcolor=<?php echo get_option('widget_bgcolor'); ?>&textcolor=<?php echo get_option('widget_txtcolor'); ?>&ss=<?php echo get_option('widget_destination'); ?>&label=<?php echo get_option('affiliate_label'); ?>&lang=<?php echo get_option('widget_language'); ?>&width=<?php echo get_option('widget_width'); ?>&target=_top<?php if (get_option('widget_cal_icons') == "yes") echo'&calendar=1' ?>" frameborder="0" scrolling="no" width="<?php echo get_option('widget_width'); ?>px" height="<?php echo get_option('widget_height'); ?>"></iframe>
-<?php
+include ('render.php');
 echo $args['after_widget'];
 	}
 }
@@ -82,7 +79,7 @@ function Affiliates_booking_admin_html_page() {
 <td>
 <p>Dear Booking.com Affiliates,</p>
 <p>This plugin allows you to add a customizable widget to any wordpress theme so your visitors can search the booking.com index with your Affiliate ID on.</p>
-<p>Visit my site for <a href="http://www.wordpress-booking-plugin.com/get-started" target="_blank">detailed setup info and tips</a>, <a href="http://www.wordpress-booking-plugin.com/suggest-new-features" target="_blank">suggest new features</a> or <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3Z8NM7TRLNXSC" target="_blank">Donate via PayPal</a></p></td>
+<p>Visit my site for <a href="http://www.booking-plugin.com/get-started" target="_blank">detailed setup info and tips</a>, <a href="http://www.booking-plugin.com/suggest-new-features" target="_blank">suggest new features</a> or <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3Z8NM7TRLNXSC" target="_blank" class="button">Donate via PayPal</a></p></td>
 </tr>
 </table>
 
@@ -107,9 +104,10 @@ function Affiliates_booking_admin_html_page() {
 <h3><span class="icon16 icon-appearance"></span> Customize your booking widget</h3>
 <table class="tables">
 <tr>
-  <td class="td_left">Want to specify a destination ?</td>
+  <td class="td_left">Want to specify a default destination ?</td>
   <td class="td_divider">&nbsp;</td>
-  <td><input name="widget_destination" type="text" id="widget_destination" value="<?php echo get_option('widget_destination'); ?>" /> (ex. "Paris")</td>
+  <td><input name="widget_destination" type="text" id="widget_destination" value="<?php echo get_option('widget_destination'); ?>" /> 
+  (ex. "Paris" or blank)</td>
 </tr>
 <tr>
   <td class="td_left">Widget background color</td>
@@ -139,9 +137,10 @@ function Affiliates_booking_admin_html_page() {
   <option value="<?php echo get_option('widget_language'); ?>" selected="selected"><?php echo get_option('widget_language'); ?></option>
   <option value="en">English</option>
   <option value="de">German</option>
-  <option value="nl">Dutch</option>
   <option value="fr">French</option>
   <option value="es">Spanish</option>
+  <option value="nl">Dutch</option>
+  <!--  
   <option value="it">Italian</option>
   <option value="pt">Portuguese</option>
   <option value="no">Norwegian</option>
@@ -162,7 +161,8 @@ function Affiliates_booking_admin_html_page() {
   <option value="ko">Korean</option>
   <option value="he">Hebrew</option>
   <option value="lv">Latvian</option>
-  </select>
+-->
+</select>
   </td>
 </tr>
 </table>
@@ -191,12 +191,12 @@ function Affiliates_booking_admin_html_page() {
   <td class="td_divider">&nbsp;</td>
   <td><input name="widget_width" type="text" id="widget_width" value="<?php echo get_option('widget_width'); ?>" /> (ex. "200")</td>
 </tr>
-<tr>
+<!--<tr>
   <td class="td_left">Widget Height (pixels)</td>
   <td class="td_divider">&nbsp;</td>
   <td><input name="widget_height" type="text" id="widget_height" value="<?php echo get_option('widget_height'); ?>" /> (ex. "300")</td>
 </tr>
-</table>
+--></table>
 <br /><br />
 
 <input type="hidden" name="action" value="update" />
