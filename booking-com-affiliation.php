@@ -3,7 +3,7 @@
 Plugin Name: Booking.com Affiliate plugin
 Plugin URI: http://www.booking-plugin.com/
 Description: This plugin allows you to add a typical booking.com booking module on any wordpress blog. The search results page will remain branded with your site look and feel and carry your booking.com affiliate ID. Click here to edit the <a href="options-general.php?page=booking-com-affiliate">plugin settings</a> and find all the support information.
-Version: 0.2.1
+Version: 0.2.2
 Author: Gregory Raby
 Author URI: http://www.booking-plugin.com/
 License: GPL
@@ -140,8 +140,8 @@ function Affiliates_booking_admin_html_page() {
   <option value="fr">French</option>
   <option value="es">Spanish</option>
   <option value="nl">Dutch</option>
+  <option value="it">Italian</option>  
   <!--  
-  <option value="it">Italian</option>
   <option value="pt">Portuguese</option>
   <option value="no">Norwegian</option>
   <option value="fi">Finish</option>
@@ -164,6 +164,15 @@ function Affiliates_booking_admin_html_page() {
 -->
 </select>
   </td>
+</tr>
+<tr>
+  <td class="td_left">Show results in a new browser window ?</td>
+  <td class="td_divider">&nbsp;</td>
+  <td><select name="widget_target" id="widget_target">
+  <option value="<?php echo get_option('widget_target'); ?>" selected="selected"><?php echo get_option('widget_target'); ?></option>
+  <option value="yes">Yes, display results in a new window</option>
+  <option value="no">No, open booking.com in the same window</option>
+</select></td>
 </tr>
 </table>
 <br /><br />
@@ -200,7 +209,7 @@ function Affiliates_booking_admin_html_page() {
 <br /><br />
 
 <input type="hidden" name="action" value="update" />
-<input type="hidden" name="page_options" value="affiliate_ID, affiliate_label, widget_destination, widget_bgcolor, widget_txtcolor, widget_cal_icons, widget_language, widget_h3_title, widget_title, widget_width, widget_height" />
+<input type="hidden" name="page_options" value="affiliate_ID, affiliate_label, widget_destination, widget_bgcolor, widget_txtcolor, widget_cal_icons, widget_language, widget_target, widget_h3_title, widget_title, widget_height" />
 
 <p>
 <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />

@@ -174,6 +174,49 @@ switch ($widget_language) {
 		$cal_next="Volgende maand";
 		$cal_prev="Vorige maand";
 		$cal_close="Kalender sluiten";
+	break;
+    case "it":
+		$weekdays_short_1 = "Lu";
+		$weekdays_short_2 = "Ma";
+		$weekdays_short_3 = "Me";
+		$weekdays_short_4 = "Gi";
+		$weekdays_short_5 = "Ve";
+		$weekdays_short_6 = "Sa";
+		$weekdays_short_7 = "Do";
+		$month_1 ="Gennaio";
+		$month_short_1 ="Gen";
+		$month_2 ="Febbraio";
+		$month_short_2 ="Feb";
+		$month_3 ="Marzo";
+		$month_short_3 ="Mar";
+		$month_4 ="Aprile";
+		$month_short_4 ="Apr";
+		$month_5 ="Maggio";
+		$month_short_5 ="Mag";
+		$month_6 ="Giugno";
+		$month_short_6 ="Giu";
+		$month_7 ="Luglio";
+		$month_short_7 ="Lug";
+		$month_8 ="Agosto";
+		$month_short_8 ="Ago";
+		$month_9 ="Settembre";
+		$month_short_9 ="Set";
+		$month_10 ="Ottobre";
+		$month_short_10 ="Ott";
+		$month_11 ="Novembre";
+		$month_short_11 ="Nov";
+		$month_12 ="Dicembre";
+		$month_short_12 ="Dic";
+		$desc_search_hotels ="Cerca hotel";
+		$desc_destination ="Destinazione";
+		$desc_vanity ="Ciudad, Regi&oacute;n, Pa&iacute;s...";
+		$desc_checkin = "Data di arrivo";
+		$desc_checkout ="Data di partenza";
+		$desc_nodates = "Decidi le date più tardi";
+		$desc_search="Cerca";
+		$cal_next="Mese successivo";
+		$cal_prev="Mese precedente";
+		$cal_close="Chiudi calendario";
 	break;	
     default:
 		$weekdays_short_1 = "Mo";
@@ -362,7 +405,7 @@ document.writeln("<option value=\""+fullYear+"-"+(countMonth+1)+"\">"+monthArray
 </div>
 </div>
 <div class="but">
-<button type="submit"><?php echo $desc_search;?></button>
+<button type="submit" <?php if (get_option('widget_target') == "yes") {?>formtarget="_new"<? }?>><?php echo $desc_search;?></button>
 </div>
 </fieldset>
 </form>
