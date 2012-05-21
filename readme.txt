@@ -4,7 +4,7 @@ Tags: affiliates, booking, travel, reservation, hotel
 Requires at least: 3.0
 Tested up to: 3.3.2
 License: GPLv2 or later
-Stable tag: 0.2
+Stable tag: 0.2.1
 
 Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site.
 
@@ -19,6 +19,10 @@ Booking.com Affiliates, this plugin allows you to add a typical booking.com book
 Check out the [official site](http://www.booking-plugin.com) to suggest new functionalities, report bugs and showcase your site.
 
 == Upgrade Notice ==
+
+
+= 0.2.1 =
+* Added missing CSS file.
 
 = 0.2 =
 * Rebuilt from the ground up from the original booking.com code. No more iframe = better browser handling, better user interface integration and better analytics tracking... but above anything else : Calendars will now show up correctly !
@@ -58,6 +62,8 @@ A couple of hours later, check your traffic & bookings via the [Booking.com admi
 
 == Changelog ==
 
+= 0.2.1 =
+* Added missing CSS file.
 
 = 0.2 =
 * Rebuilt from the ground up from the original booking.com code. No more iframe = better browser handling, better user interface integration and better analytics tracking... but above anything else : Calendars will now show up correctly !
