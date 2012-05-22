@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="wp-content/plugins/bookingcom-affiliate-plugin/default.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo plugins_url(); ?>/bookingcom-affiliate-plugin/default.css" />
 
 <?php
 $widget_language = get_option('widget_language');
