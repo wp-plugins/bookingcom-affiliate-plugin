@@ -5,7 +5,7 @@ Tags: affiliates, booking, travel, reservation, hotel, booking.com, affiliation,
 Requires at least: 3.0
 Tested up to: 3.5
 License: GPLv3
-Stable tag: 0.2.5
+Stable tag: 0.2.4
 
 Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site.
 
@@ -24,7 +24,7 @@ Please note the next few updates coming up are relatively large. The first big u
 
 == Upgrade Notice ==
 
-= 0.2.5 =
+= 0.2.4 =
 * Added Turkish, per (anonymous) user request via the [suggestion form](http://www.booking-plugin.com/suggest-new-features).
 * Please note the next few updates coming up are relatively large. The first big update should come early june 2013. Make sure you do not do the update on the road or without a few spare mins in front of you... Just so you can get used to the new shiny stuff and reconfigure it all as needed.
 
