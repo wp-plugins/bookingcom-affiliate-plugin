@@ -1,12 +1,29 @@
 <?php 
 /*
 Plugin Name: Booking.com Affiliate plugin
-Plugin URI: http://www.booking-plugin.com/
+Version: 0.2.4
+Plugin URI: http://www.booking-plugin.com/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=bookingplugin
 Description: This plugin allows you to add a typical booking.com booking module on any wordpress blog. The search results page will remain branded with your site look and feel and carry your booking.com affiliate ID. Click here to edit the <a href="options-general.php?page=booking-com-affiliate">plugin settings</a> and find all the support information.
-Version: 0.2.3
 Author: Gregory Raby
+Contributors: gregoryraby
 Author URI: http://www.booking-plugin.com/
-License: GPL
+License: GPL v3
+
+WordPress Booking.com Affiliate Plugin
+Copyright (C) 2011-2013, Gregory Raby - http://www.booking-plugin.com/send-me-a-note
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 defined('ABSPATH') or die("Cannot access pages directly.");
@@ -141,6 +158,7 @@ function Affiliates_booking_admin_html_page() {
   <option value="es">Spanish</option>
   <option value="nl">Dutch</option>
   <option value="it">Italian</option>  
+  <option value="tr">Turkish</option>
   <!--  
   <option value="pt">Portuguese</option>
   <option value="no">Norwegian</option>
@@ -154,8 +172,7 @@ function Affiliates_booking_admin_html_page() {
   <option value="zh">Chinese (Traditional)</option>
   <option value="pl">Polish</option>
   <option value="el">Greek</option>
-  <option value="ru">Russian</option>
-  <option value="tr">Turkish</option>
+  <option value="ru">Russian</option>  
   <option value="bg">Bulgarian</option>
   <option value="ar">Arabic</option>
   <option value="ko">Korean</option>

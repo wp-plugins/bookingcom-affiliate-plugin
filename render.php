@@ -1,5 +1,4 @@
 <link rel="stylesheet" type="text/css" href="<?php echo plugins_url(); ?>/bookingcom-affiliate-plugin/default.css" />
-
 <?php
 $widget_language = get_option('widget_language');
 switch ($widget_language) {
@@ -217,7 +216,50 @@ switch ($widget_language) {
 		$cal_next="Mese successivo";
 		$cal_prev="Mese precedente";
 		$cal_close="Chiudi calendario";
-	break;	
+	break;
+	case "tr":
+        $weekdays_short_1 = "Pa";
+        $weekdays_short_2 = "Sa";
+        $weekdays_short_3 = "Ça";
+        $weekdays_short_4 = "Pe";
+        $weekdays_short_5 = "Cu";
+        $weekdays_short_6 = "Cm";
+        $weekdays_short_7 = "Pa";
+        $month_1 ="Ocak";
+        $month_short_1 ="Oca";
+        $month_2 ="Şubat";
+        $month_short_2 ="Şub";
+        $month_3 ="Mart";
+        $month_short_3 ="Mar";
+        $month_4 ="Nisan";
+        $month_short_4 ="Nis";
+        $month_5 ="Mayıs";
+        $month_short_5 ="May";
+        $month_6 ="Haziran";
+        $month_short_6 ="Haz";
+        $month_7 ="Temmuz";
+        $month_short_7 ="Tem";
+        $month_8 ="Ağustos";
+        $month_short_8 ="Ağu";
+        $month_9 ="Eylül";
+        $month_short_9 ="Eyl";
+        $month_10 ="Ekim";
+        $month_short_10 ="Eki";
+        $month_11 ="Kasım";
+        $month_short_11 ="Kas";
+        $month_12 ="Aralık";
+        $month_short_12 ="Ara";
+        $desc_search_hotels ="Otel Ara";
+        $desc_destination ="Destinasyon";
+        $desc_vanity ="Şehir, Bölge, Ülke, ...";
+        $desc_checkin = "Check-in tarihi";
+        $desc_checkout ="Check-out tarihi";
+        $desc_nodates = "Tarihlerim daha kesinleşmedi";
+        $desc_search="Ara";
+        $cal_next="Sonraki ay";
+        $cal_prev="Önceki ay";
+        $cal_close="Takvimi kapat";
+     break;   
     default:
 		$weekdays_short_1 = "Mo";
 		$weekdays_short_2 = "Tu";
@@ -262,18 +304,19 @@ switch ($widget_language) {
 		$cal_close="Close calendar";	
 }
 ?>
-
 <STYLE type="text/css">
 #searchboxInc {
-font: 12px/1.5 Arial, Helvetica, sans-serif;
-color: #<?php echo get_option('widget_txtcolor'); ?> !important;
-width: <?php echo get_option('widget_width'); ?>px;
+	font: 12px/1.5 Arial, Helvetica, sans-serif;
+color: #<?php echo get_option('widget_txtcolor');
+?> !important;
+width: <?php echo get_option('widget_width');
+?>px;
 }
 #searchboxInc form {
-background: #<?php echo get_option('widget_bgcolor'); ?>;
+background: #<?php echo get_option('widget_bgcolor');
+?>;
 }
-</STYLE> 
-
+</STYLE>
 <script type="text/javascript">
 var booking = {
 env : {
@@ -310,35 +353,61 @@ frm[co_month_year].value = co.getFullYear() + "-" + com;
 }
 }
 </script>
-</head>
-<body id="searchboxHolder"> 
+</head><body id="searchboxHolder">
 <!-- start copy sourcecode from here -->
 <div id="searchboxInc">
-<form id="frm" name="frm" action="http://www.booking.com/searchresults.html" method="get" target="_top" autocomplete="off">
-<fieldset>
-<div id="destinationSearch">
-<input type="hidden" name="aid" value="<?php echo get_option('affiliate_ID'); ?>" />
-<input type="hidden" name="error_url" value="http://www.booking.com/?aid=<?php echo get_option('affiliate_ID'); ?>;" />
-<input type="hidden" name="si" value="ai,co,ci,re,di" />
-<input type="hidden" name="label" value="<?php echo get_option('affiliate_label'); ?>" />
-<input type="hidden" name="lang" value="<?php echo get_option('widget_language'); ?>" />
-<input type="hidden" name="ifl" value="1" />
-
-
-
-<p><?php echo $desc_search_hotels;?></p>
-<label for="destination"><?php echo $desc_destination;?></label>
-<input 
+  <form id="frm" name="frm" action="http://www.booking.com/searchresults.html" method="get" target="_top" autocomplete="off">
+    <fieldset>
+      <div id="destinationSearch">
+        <input type="hidden" name="aid" value="<?php echo get_option('affiliate_ID'); ?>" />
+        <input type="hidden" name="error_url" value="http://www.booking.com/?aid=<?php echo get_option('affiliate_ID'); ?>;" />
+        <input type="hidden" name="si" value="ai,co,ci,re,di" />
+        <input type="hidden" name="label" value="<?php echo get_option('affiliate_label'); ?>" />
+        <input type="hidden" name="lang" value="<?php echo get_option('widget_language'); ?>" />
+        <input type="hidden" name="ifl" value="1" />
+        <p><?php echo $desc_search_hotels;?></p>
+        <label for="destination"><?php echo $desc_destination;?></label>
+        <input 
 class="text" type="text blur" id="destination" name="ss" value="<?php echo get_option('widget_destination'); ?>" title="<?php echo get_option('widget_destination'); ?>"  autocomplete="off" />
-</div>
-<div id="inout">
-<div id="homein">
-<h3><?php echo $desc_checkin;?></h3>
-<select id="b_checkin_day" name="checkin_monthday" onChange="checkDateOrder('frm', 'b_checkin_day', 'b_checkin_month', 'b_checkout_day', 'b_checkout_month') ; tickCheckBox('b_availcheck');">
-<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
-</select>
-<select id="b_checkin_month" name="checkin_year_month" onChange="checkDateOrder('frm', 'b_checkin_day', 'b_checkin_month', 'b_checkout_day', 'b_checkout_month') ; tickCheckBox('b_availcheck');">
-<script language="Javascript"> 
+      </div>
+      <div id="inout">
+        <div id="homein">
+          <h3><?php echo $desc_checkin;?></h3>
+          <select id="b_checkin_day" name="checkin_monthday" onChange="checkDateOrder('frm', 'b_checkin_day', 'b_checkin_month', 'b_checkout_day', 'b_checkout_month') ; tickCheckBox('b_availcheck');">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
+          </select>
+          <select id="b_checkin_month" name="checkin_year_month" onChange="checkDateOrder('frm', 'b_checkin_day', 'b_checkin_month', 'b_checkout_day', 'b_checkout_month') ; tickCheckBox('b_availcheck');">
+            <script language="Javascript"> 
 var monthArray=new Array("<?php echo $month_short_1;?>","<?php echo $month_short_2;?>","<?php echo $month_short_3;?>","<?php echo $month_short_4;?>","<?php echo $month_short_5;?>","<?php echo $month_short_6;?>","<?php echo $month_short_7;?>","<?php echo $month_short_8;?>","<?php echo $month_short_9;?>","<?php echo $month_short_10;?>","<?php echo $month_short_11;?>","<?php echo $month_short_12;?>");
 
 var today = new Date();
@@ -359,20 +428,48 @@ fullYear++;
 document.writeln("<option value=\""+fullYear+"-"+(countMonth+1)+"\">"+monthArray[countMonth]+" '"+year);
 }
 </script>
-</select>
-
-<?php if (get_option('widget_cal_icons') == "yes") {?>
-<a onClick="showCalendar(this, 'calendar', 'checkin');" class="calender inlineJsRequired" href="#calender"><img src="http://q.bstatic.com/static/img/button-calender.png" width="21" height="17" alt="calendar" title="Open the calendar to pick a date" /></a>
-<?php } ?>
-
-</div>
-<div id="homeout">
-<h3><?php echo $desc_checkout;?></h3>
-<select id="b_checkout_day" name="checkout_monthday" onChange="tickCheckBox('b_availcheck');">
-<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
-</select>
-<select id="b_checkout_month" name="checkout_year_month" onChange="tickCheckBox('b_availcheck');">
-<script language="Javascript">
+          </select>
+          <?php if (get_option('widget_cal_icons') == "yes") {?>
+          <a onClick="showCalendar(this, 'calendar', 'checkin');" class="calender inlineJsRequired" href="#calender"><img src="http://q.bstatic.com/static/img/button-calender.png" width="21" height="17" alt="calendar" title="Open the calendar to pick a date" /></a>
+          <?php } ?>
+        </div>
+        <div id="homeout">
+          <h3><?php echo $desc_checkout;?></h3>
+          <select id="b_checkout_day" name="checkout_monthday" onChange="tickCheckBox('b_availcheck');">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
+          </select>
+          <select id="b_checkout_month" name="checkout_year_month" onChange="tickCheckBox('b_availcheck');">
+            <script language="Javascript">
 var monthArray=new Array("<?php echo $month_short_1;?>","<?php echo $month_short_2;?>","<?php echo $month_short_3;?>","<?php echo $month_short_4;?>","<?php echo $month_short_5;?>","<?php echo $month_short_6;?>","<?php echo $month_short_7;?>","<?php echo $month_short_8;?>","<?php echo $month_short_9;?>","<?php echo $month_short_10;?>","<?php echo $month_short_11;?>","<?php echo $month_short_12;?>");
 var today = new Date();
 var month= today.getMonth();
@@ -392,24 +489,22 @@ fullYear++;
 document.writeln("<option value=\""+fullYear+"-"+(countMonth+1)+"\">"+monthArray[countMonth]+" '"+year);
 }
 </script>
-</select>
-
-<?php if (get_option('widget_cal_icons') == "yes") {?>
-<a onClick="showCalendar(this, 'calendar', 'checkout');" class="calender inlineJsRequired" href="#calender"><img src="http://q.bstatic.com/static/img/button-calender.png" width="21" height="17" alt="calendar" title="Open the calendar to pick a date" /></a>
-<?php } ?>
-
-</div>
-<div class="avail">
-<input id="availcheck" type="checkbox" name="idf" value="on" />
-<label id="labfor" for="availcheck"><?php echo $desc_nodates;?></label>
-</div>
-</div>
-<div class="but">
-<button type="submit" <?php if (get_option('widget_target') == "yes") {?>formtarget="_new"<? }?>><?php echo $desc_search;?></button>
-</div>
-</fieldset>
-</form>
-<script language="Javascript">
+          </select>
+          <?php if (get_option('widget_cal_icons') == "yes") {?>
+          <a onClick="showCalendar(this, 'calendar', 'checkout');" class="calender inlineJsRequired" href="#calender"><img src="http://q.bstatic.com/static/img/button-calender.png" width="21" height="17" alt="calendar" title="Open the calendar to pick a date" /></a>
+          <?php } ?>
+        </div>
+        <div class="avail">
+          <input id="availcheck" type="checkbox" name="idf" value="on" />
+          <label id="labfor" for="availcheck"><?php echo $desc_nodates;?></label>
+        </div>
+      </div>
+      <div class="but">
+        <button type="submit" <?php if (get_option('widget_target') == "yes") {?>formtarget="_new"<? }?>><?php echo $desc_search;?></button>
+      </div>
+    </fieldset>
+  </form>
+  <script language="Javascript">
 var currentDate = new Date(); var currentYear = 1900 + currentDate.getYear();
 var dailyMS = 24*60*60*1000;
 var arrivalDate = new Date(currentDate.getTime());
@@ -438,9 +533,8 @@ frm['b_checkout_day'].value = co.getDate();
 var com = co.getMonth()+1;
 frm['b_checkout_month'].value = co.getFullYear() + "-" + com;
 }
-</script>
+</script> 
 </div>
-
 <?php if (get_option('widget_cal_icons') == "yes") {?>
 <div id="calendar"></div>
 <script type="text/javascript">
