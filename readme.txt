@@ -3,9 +3,9 @@ Author: Greg Raby
 Contributors: gregory.raby
 Tags: affiliates, booking, travel, reservation, hotel, booking.com, affiliation, hotels
 Requires at least: 3.0
-Tested up to: 3.5
+Tested up to: 3.5.1
 License: GPLv3
-Stable tag: 0.2.5
+Stable tag: 0.2.6
 
 Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site.
 
@@ -23,6 +23,9 @@ Please note the next few updates coming up are relatively large. The first big u
 
 
 == Upgrade Notice ==
+
+= 0.2.6 =
+* While preparing the UI for the next major release, I found out the code provided by booking.com is actually missing 1 div closing bracket ! I added it back in. This should hopefully address a number of template issues reported by users. Please note on narrow sites displayed on wide monitors, the calendars might show a bit higher on the page than they should. This is the "correct" behaviour of the script provided by Booking.com.
 
 = 0.2.5 =
 * Added Turkish, per (anonymous) user request via the [suggestion form](http://www.booking-plugin.com/suggest-new-features).
@@ -75,6 +78,13 @@ A couple of hours later, check your traffic & bookings via the [Booking.com admi
 
 
 == Changelog ==
+
+= 0.2.6 =
+* While preparing the UI for the next major release, I found out the code provided by booking.com is actually missing 1 div closing bracket ! I added it back in. This should hopefully address a number of template issues reported by users. Please note on narrow sites displayed on wide monitors, the calendars might show a bit higher on the page than they should. This is the "correct" behaviour of the script provided by Booking.com.
+
+= 0.2.5 =
+* Added Turkish, per (anonymous) user request via the [suggestion form](http://www.booking-plugin.com/suggest-new-features).
+* Please note the next few updates coming up are relatively large. The first big update should come early june 2013. Make sure you do not do the update on the road or without a few spare mins in front of you... Just so you can get used to the new shiny stuff and reconfigure it all as needed.
 
 = 0.2.3 =
 * Another bug fix with the CSS inclusion.

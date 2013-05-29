@@ -353,7 +353,7 @@ frm[co_month_year].value = co.getFullYear() + "-" + com;
 }
 }
 </script>
-</head><body id="searchboxHolder">
+<div id="searchboxHolder">
 <!-- start copy sourcecode from here -->
 <div id="searchboxInc">
   <form id="frm" name="frm" action="http://www.booking.com/searchresults.html" method="get" target="_top" autocomplete="off">
@@ -535,6 +535,7 @@ frm['b_checkout_month'].value = co.getFullYear() + "-" + com;
 }
 </script> 
 </div>
+</div> <!--That was the missing div :)-->
 <?php if (get_option('widget_cal_icons') == "yes") {?>
 <div id="calendar"></div>
 <script type="text/javascript">
