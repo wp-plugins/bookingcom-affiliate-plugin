@@ -1,16 +1,16 @@
-<?php 
+<?php
 /*
 Plugin Name: Booking.com Affiliate plugin
-Version: 0.2.6
+Version: 1.0
 Plugin URI: http://www.booking-plugin.com/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=bookingplugin
-Description: This plugin allows you to add a typical booking.com booking module on any wordpress blog. The search results page will remain branded with your site look and feel and carry your booking.com affiliate ID. Click here to edit the <a href="options-general.php?page=booking-com-affiliate">plugin settings</a> and find all the support information.
+Description: Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site. Simply configure what you want the searchbox to look like and generate traffic to your booking.com  affiliate pages. Be sure to visit the plugin site to find live integration examples, booking.com affiliation tips and showcase your site.
 Author: Gregory Raby
 Contributors: gregory.raby
 Author URI: http://www.booking-plugin.com/
 License: GPL v3
-
 WordPress Booking.com Affiliate Plugin
-Copyright (C) 2011-2013, Gregory Raby - http://www.booking-plugin.com/send-me-a-note
+
+Copyright (C) 2012-2013, Gregory Raby - http://www.booking-plugin.com/send-me-a-note
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -26,224 +26,288 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-defined('ABSPATH') or die("Cannot access pages directly.");
+require 'includes/post-type.php';
+require 'includes/shortcodes.php';
+require 'includes/metaboxes.php';
 
-/**
- * Initializing 
- */
-defined("DS") or define("DS", DIRECTORY_SEPARATOR);
+// Custom Columns
+add_action("manage_posts_custom_column",  "booking_pluginbox_columns");
+add_filter("manage_edit-booking-pluginbox_columns", "booking_pluginbox_edit_columns");
 
-/**
- * Actions and Filters
- */
-add_action( 'widgets_init', create_function( '', 'register_widget("Widget_bookingplugin");' ) );
-
-
-/**
- * Document Widget
- */
-class Widget_bookingplugin extends WP_Widget
-{
-	/**
-	 * Constructor
-	 */
-	function Widget_bookingplugin()
-	{
-		parent::__construct( false, 'Booking.com Affiliate Widget' );
-	}
-
-	function form($instance)
-	{
-		?>
-<p>There are so many settings you can play with, I grouped them all under the <a href="options-general.php?page=booking-com-affiliate">Booking.com Affiliates plugin admin page</a> for you !</p>		
-		<?php 
-	}
-
-	function widget()
-	{
-echo $args['before_widget'];
-if (get_option('widget_h3_title') == "yes") {echo $args['before_title'] . get_option('widget_title') . $args['after_title'];}
-include ('render.php');
-echo $args['after_widget'];
-	}
-}
-if ( is_admin() ){
-
-add_action('admin_menu', 'Affiliation_booking_admin_menu');
-function Affiliation_booking_admin_menu() {
-add_options_page('Booking.com Affiliate plugin', 'Booking.com Affiliate plugin', 'administrator', 'booking-com-affiliate', 'Affiliates_booking_admin_html_page');
-}
+function booking_pluginbox_edit_columns($columns){
+  $columns = array(
+    'cb'                   => "<input type=\"checkbox\" />",
+    'title'                => 'Title',
+    'booking_plugin_DESTINATION' => 'Destination',
+    'shortcode'            => 'Shortcode',
+    'date'                 => 'Date'
+  );
+  return $columns;
 }
 
-function Affiliates_booking_admin_html_page() {
-?>
-<div>
-<h2>Booking.com Affiliate plugin</h2>
+function booking_pluginbox_columns($column){
+  global $post;
 
-<form method="post" action="options.php">
-<?php wp_nonce_field('update-options'); ?>
-    
-<STYLE type="text/css">
-  .tables {width: 600px}
-  .td_left {width: 280px; text-align: right}
-  .td_divider {width: 30px}
-  .td_right {width: 290px}
-  .divider {width:600px; border-color: #DFDFDF; border-style: solid; border-width: 1px 0 0 0; line-height: 1.6em; margin: 20px 8px; overflow:auto; padding:5px 10px; position: relative}
-</STYLE> 
- 
-<table class="tables">
-<tr>
-<td>
-<p>Dear Booking.com Affiliates,</p>
-<p>This plugin allows you to add a customizable widget to any wordpress theme so your visitors can search the booking.com index with your Affiliate ID on.</p>
-<p>Visit my site for <a href="http://www.booking-plugin.com/get-started" target="_blank">detailed setup info and tips</a>, <a href="http://www.booking-plugin.com/suggest-new-features" target="_blank">suggest new features</a> or <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3Z8NM7TRLNXSC" target="_blank" class="button">Donate via PayPal</a></p></td>
-</tr>
-</table>
-
-<div class="divider"></div>
-
-
-<h3><span class="icon16 icon-settings"></span> Your affiliation program</h3>
-<table class="tables">
-<tr>
-	<td class="td_left">Your Booking.com Affiliate ID ("AID")</td>
-    <td class="td_divider">&nbsp;</td>
-	<td class="td_right"><input name="affiliate_ID" type="text" id="affiliate_ID" value="<?php echo get_option('affiliate_ID'); ?>" /> (ex. "345164")</td>
-</tr>
-<tr>
-	<td class="td_left">Label name for your booking.com tracking</td>
-    <td class="td_divider">&nbsp;</td>
-	<td class="td_right"><input name="affiliate_label" type="text" id="affiliate_label" value="<?php echo get_option('affiliate_label'); ?>" /> (ex. "Homepage")</td>
-</tr>
-</table>
-<br /><br />
-
-<h3><span class="icon16 icon-appearance"></span> Customize your booking widget</h3>
-<table class="tables">
-<tr>
-  <td class="td_left">Want to specify a default destination ?</td>
-  <td class="td_divider">&nbsp;</td>
-  <td><input name="widget_destination" type="text" id="widget_destination" value="<?php echo get_option('widget_destination'); ?>" /> 
-  (ex. "Paris" or blank)</td>
-</tr>
-<tr>
-  <td class="td_left">Widget background color</td>
-  <td class="td_divider">&nbsp;</td>
-  <td><input name="widget_bgcolor" type="text" id="widget_bgcolor" value="<?php echo get_option('widget_bgcolor'); ?>" /> (ex. "FEBA02" - no '#')</td>
-</tr>
-<tr>
-  <td class="td_left">Widget text color</td>
-  <td class="td_divider">&nbsp;</td>
-  <td><input name="widget_txtcolor" type="text" id="widget_txtcolor" value="<?php echo get_option('widget_txtcolor'); ?>" /> (ex. "003580" - no '#')</td>
-</tr>
-<tr>
-  <td class="td_left">Display the calendar icons ?</td>
-  <td class="td_divider">&nbsp;</td>
-  <td>
-  <select name="widget_cal_icons" id="widget_cal_icons">
-  <option value="<?php echo get_option('widget_cal_icons'); ?>" selected="selected"><?php echo get_option('widget_cal_icons'); ?></option>
-  <option value="yes">Display the calendar icons</option>
-  <option value="no">Do not display the calendar icons</option>
-  </select>  
-  </td>
-</tr>
-<tr>
-  <td class="td_left">Widget Language (applies to results page too)</td>
-  <td class="td_divider">&nbsp;</td>
-  <td><select name="widget_language" id="widget_language">
-  <option value="<?php echo get_option('widget_language'); ?>" selected="selected"><?php echo get_option('widget_language'); ?></option>
-  <option value="en">English</option>
-  <option value="de">German</option>
-  <option value="fr">French</option>
-  <option value="es">Spanish</option>
-  <option value="nl">Dutch</option>
-  <option value="it">Italian</option>  
-  <option value="tr">Turkish</option>
-  <!--  
-  <option value="pt">Portuguese</option>
-  <option value="no">Norwegian</option>
-  <option value="fi">Finish</option>
-  <option value="sv">Swedish</option>
-  <option value="da">Danish</option>
-  <option value="cs">Czech</option>
-  <option value="hu">Hungarian</option>
-  <option value="ro">Romanian</option>
-  <option value="ja">Japanese</option>
-  <option value="zh">Chinese (Traditional)</option>
-  <option value="pl">Polish</option>
-  <option value="el">Greek</option>
-  <option value="ru">Russian</option>  
-  <option value="bg">Bulgarian</option>
-  <option value="ar">Arabic</option>
-  <option value="ko">Korean</option>
-  <option value="he">Hebrew</option>
-  <option value="lv">Latvian</option>
--->
-</select>
-  </td>
-</tr>
-<tr>
-  <td class="td_left">Show results in a new browser window ?</td>
-  <td class="td_divider">&nbsp;</td>
-  <td><select name="widget_target" id="widget_target">
-  <option value="<?php echo get_option('widget_target'); ?>" selected="selected"><?php echo get_option('widget_target'); ?></option>
-  <option value="yes">Yes, display results in a new window</option>
-  <option value="no">No, open booking.com in the same window</option>
-</select></td>
-</tr>
-</table>
-<br /><br />
-
-<h3><span class="icon16 icon-appearance"></span> Integrate in your widget-ready pages</h3>
-<table class="tables">
-<tr>
-  <td class="td_left">Keep the default title bar ?</td>
-  <td class="td_divider">&nbsp;</td>
-  <td>
-  <select name="widget_h3_title" id="widget_h3_title">
-  <option value="<?php echo get_option('widget_h3_title'); ?>" selected="selected"><?php echo get_option('widget_h3_title'); ?></option>
-  <option value="yes">Display the default theme widget title</option>
-  <option value="no">Do not display the theme default widget title</option>
-  </select>  
-  </td>
-</tr>
-<tr>
-  <td class="td_left">Widget title</td>
-  <td class="td_divider">&nbsp;</td>
-  <td><input name="widget_title" type="text" id="widget_title" value="<?php echo get_option('widget_title'); ?>" /></td>
-</tr>
-<tr>
-  <td class="td_left">Widget Width (pixels)</td>
-  <td class="td_divider">&nbsp;</td>
-  <td><input name="widget_width" type="text" id="widget_width" value="<?php echo get_option('widget_width'); ?>" /> (ex. "200")</td>
-</tr>
-<!--<tr>
-  <td class="td_left">Widget Height (pixels)</td>
-  <td class="td_divider">&nbsp;</td>
-  <td><input name="widget_height" type="text" id="widget_height" value="<?php echo get_option('widget_height'); ?>" /> (ex. "300")</td>
-</tr>
---></table>
-<br /><br />
-
-<input type="hidden" name="action" value="update" />
-<input type="hidden" name="page_options" value="affiliate_ID, affiliate_label, widget_destination, widget_bgcolor, widget_txtcolor, widget_cal_icons, widget_language, widget_target, widget_h3_title, widget_title, widget_height" />
-
-<p>
-<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
-</p>
-
-<div class="divider"></div>
-
-<h4><span class="icon16 icon-page"></span> Additional notes</h4>
-<table class="tables">
-<tr>
-	<td>
-	<p>The results will be displayed in a new browser window. Of course, your Booking.com Affiliate ID ("AID") will be carried so the traffic and revenue generated will show up in your Booking.com Admin page.</p>
-	<p>If you are already pulling some traffic to your site, chances are you will want to have the ability to display the booking.com results on your own sites. This feature will absolutely become available in the coming months. If you need it sooner, <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3Z8NM7TRLNXSC">consider donating</a> to help me focus on the development of this plugin. It takes time to do things right.</p>
-	</td>
-</tr>
-</table>
-
-<?php
+  switch ($column) {
+    case 'booking_plugin_DESTINATION':
+      echo get_post_meta($post->ID, 'booking_plugin_DESTINATION', true);
+      break;
+    case 'shortcode':
+      echo '[booking_pluginbox id="' . $post->ID . '"]';
+      break;
+  }
 }
-?>
+
+// Change the default "Enter title here" text
+function booking_pluginbox_post_title($title) {
+  $screen = get_current_screen();
+  if ('booking-pluginbox' == $screen->post_type) {
+    $title = 'Type in a good title for this Booking.com searchbox';
+  }
+  return $title;
+}
+add_filter('enter_title_here', 'booking_pluginbox_post_title');
+
+// Add filter
+add_filter( 'post_updated_messages', 'booking_plugin_updated_messages' );
+function booking_plugin_updated_messages( $messages ) {
+  global $post, $post_ID;
+
+  $messages['booking-pluginbox'] = array(
+    0  => '', // Unused. Messages start at index 1.
+    1  => sprintf( __('Booking.com searchbox updated.')),
+    2  => __('Custom field updated.'),
+    3  => __('Custom field deleted.'),
+    4  => __('Booking.com searchbox updated.'),
+    5  => isset($_GET['revision']) ? sprintf( __('Booking.com searchbox restored to revision from %s'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+    6  => sprintf( __('Booking.com searchbox published.')),
+    7  => __('Booking.com searchbox saved.'),
+    8  => sprintf( __('Booking.com searchbox submitted. ') ),
+    9  => sprintf( __('Booking.com searchbox scheduled for: <strong>%1$s</strong>.'),
+      date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) )),
+    10 => sprintf( __('Booking.com searchbox draft updated.') ),
+  );
+
+  return $messages;
+}
+
+function booking_pluginbox_meta_boxes() {
+  global $post;
+  $pagename = 'booking-pluginbox';
+  add_meta_box( 'booking_pluginbox_form', 'Booking.com Affiliate Plugin', 'booking_pluginbox_form', $pagename, 'normal', 'high' );
+}
+
+function booking_pluginbox_save_postdata($post_id) {
+  if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+    return $post_id;
+  } 
+
+//   Check user permissions
+  if ($_POST['post_type'] == 'page') {
+    if (!current_user_can('edit_page', $post_id)) return $post_id;
+  } else {
+    if (!current_user_can('edit_post', $post_id)) return $post_id;
+  }
+
+//   OK, we're authenticated: we need to find and save the data
+  $current_bp_AID = get_post_meta($post_id, 'booking_plugin_AID', false);
+  $new_bp_AID = (isset($_POST['booking_plugin_AID'])) ? $_POST['booking_plugin_AID'] : '';
+  $current_bp_TRACKING = get_post_meta($post_id, 'booking_plugin_TRACKING', false);
+  $new_bp_TRACKING = (isset($_POST['booking_plugin_TRACKING'])) ? $_POST['booking_plugin_TRACKING'] : '';
+  $current_bp_DESTINATION = get_post_meta($post_id, 'booking_plugin_DESTINATION', false);
+  $new_bp_DESTINATION = (isset($_POST['booking_plugin_DESTINATION'])) ? $_POST['booking_plugin_DESTINATION'] : ''; 
+  $current_bp_DESTINATION_RESTRICTION = get_post_meta($post_id, 'booking_plugin_DESTINATION_RESTRICTION', false);
+  $new_bp_DESTINATION_RESTRICTION = (isset($_POST['booking_plugin_DESTINATION_RESTRICTION'])) ? $_POST['booking_plugin_DESTINATION_RESTRICTION'] : '';
+  $current_bp_DESTINATION_UI = get_post_meta($post_id, 'booking_plugin_DESTINATION_UI', false);
+  $new_bp_DESTINATION_UI = (isset($_POST['booking_plugin_DESTINATION_UI'])) ? $_POST['booking_plugin_DESTINATION_UI'] : '';
+  $current_bp_bbgc = get_post_meta($post_id, 'booking_plugin_bbg_color', false);
+  $new_bp_bbgc = (isset($_POST['booking_plugin_bbg_color'])) ? $_POST['booking_plugin_bbg_color'] : '';
+  $current_bp_btc = get_post_meta($post_id, 'booking_plugin_bt_color', false);
+  $new_bp_btc = (isset($_POST['booking_plugin_bt_color'])) ? $_POST['booking_plugin_bt_color'] : '';
+  $current_bp_calic = get_post_meta($post_id, 'booking_plugin_calic', false);
+  $new_bp_calic = (isset($_POST['booking_plugin_calic'])) ? $_POST['booking_plugin_calic'] : '';
+  $current_bp_cal_display = get_post_meta($post_id, 'booking_plugin_cal_display', false);
+  $new_bp_cal_display = (isset($_POST['booking_plugin_cal_display'])) ? $_POST['booking_plugin_cal_display'] : '';
+  $current_bp_LANGUAGE = get_post_meta($post_id, 'booking_plugin_box_language', false);
+  $new_bp_LANGUAGE = (isset($_POST['booking_plugin_box_language'])) ? $_POST['booking_plugin_box_language'] : '';
+  $current_bp_TARGET = get_post_meta($post_id, 'booking_plugin_TARGET', false);
+  $new_bp_TARGET = (isset($_POST['booking_plugin_TARGET'])) ? $_POST['booking_plugin_TARGET'] : '';
+  $current_bp_FORMAT = get_post_meta($post_id, 'booking_plugin_FORMAT', false);
+  $new_bp_FORMAT = (isset($_POST['booking_plugin_FORMAT'])) ? $_POST['booking_plugin_FORMAT'] : '';
+   $current_bp_FLEX = get_post_meta($post_id, 'booking_plugin_FLEX', false);
+  $new_bp_FLEX = (isset($_POST['booking_plugin_FLEX'])) ? $_POST['booking_plugin_FLEX'] : '';
+  $current_bp_wt = get_post_meta($post_id, 'booking_plugin_widget_title', false);
+  $new_bp_wt = (isset($_POST['booking_plugin_widget_title'])) ? $_POST['booking_plugin_widget_title'] : '';
+  $current_bp_wpx = get_post_meta($post_id, 'booking_plugin_widget_px', false);
+  $new_bp_wpx = (isset($_POST['booking_plugin_widget_px'])) ? $_POST['booking_plugin_widget_px'] : '';
+  
+  booking_pluginbox_clean($new_bp_AID);
+  booking_pluginbox_clean($new_bp_TRACKING);
+  booking_pluginbox_clean($new_bp_DESTINATION);
+  booking_pluginbox_clean($new_bp_DESTINATION_RESTRICTION);
+  booking_pluginbox_clean($new_bp_DESTINATION_UI);
+  booking_pluginbox_clean($new_bp_bbgc);
+  booking_pluginbox_clean($new_bp_btc);
+  booking_pluginbox_clean($new_bp_calic);
+  booking_pluginbox_clean($new_bp_cal_display);
+  booking_pluginbox_clean($new_bp_LANGUAGE);
+  booking_pluginbox_clean($new_bp_TARGET);
+  booking_pluginbox_clean($new_bp_FORMAT);
+  booking_pluginbox_clean($new_bp_FLEX);
+  booking_pluginbox_clean($new_bp_wt);
+  booking_pluginbox_clean($new_bp_wpx);
+  
+
+  if (!empty($current_bp_AID)) {
+    if (is_null($new_bp_AID)) {
+      delete_post_meta($post_id,'booking_plugin_AID');
+    } else {
+      update_post_meta($post_id,'booking_plugin_AID',$new_bp_AID);
+    }
+  } elseif (!is_null($new_bp_AID)) {
+      add_post_meta($post_id,'booking_plugin_AID',$new_bp_AID,true);
+  }
+  
+  if (!empty($current_bp_TRACKING)) {
+    if (is_null($new_bp_TRACKING)) {
+      delete_post_meta($post_id,'booking_plugin_TRACKING');
+    } else {
+      update_post_meta($post_id,'booking_plugin_TRACKING',$new_bp_TRACKING);
+    }
+  } elseif (!is_null($new_bp_TRACKING)) {
+      add_post_meta($post_id,'booking_plugin_TRACKING',$new_bp_TRACKING,true);
+  }
+
+  if (!empty($current_bp_DESTINATION)) {
+    if (is_null($new_bp_DESTINATION)) {
+      delete_post_meta($post_id,'booking_plugin_DESTINATION');
+    } else {
+      update_post_meta($post_id,'booking_plugin_DESTINATION',$new_bp_DESTINATION);
+    }
+  } elseif (!is_null($new_bp_DESTINATION)) {
+      add_post_meta($post_id,'booking_plugin_DESTINATION',$new_bp_DESTINATION,true);
+  }
+  
+    if (!empty($current_bp_DESTINATION_RESTRICTION)) {
+    if (is_null($new_bp_DESTINATION_RESTRICTION)) {
+      delete_post_meta($post_id,'booking_plugin_DESTINATION_RESTRICTION');
+    } else {
+      update_post_meta($post_id,'booking_plugin_DESTINATION_RESTRICTION',$new_bp_DESTINATION_RESTRICTION);
+    }
+  } elseif (!is_null($new_bp_DESTINATION_RESTRICTION)) {
+      add_post_meta($post_id,'booking_plugin_DESTINATION_RESTRICTION',$new_bp_DESTINATION_RESTRICTION,true);
+  }
+  
+    if (!empty($current_bp_DESTINATION_UI)) {
+    if (is_null($new_bp_DESTINATION_UI)) {
+      delete_post_meta($post_id,'booking_plugin_DESTINATION_UI');
+    } else {
+      update_post_meta($post_id,'booking_plugin_DESTINATION_UI',$new_bp_DESTINATION_UI);
+    }
+  } elseif (!is_null($new_bp_DESTINATION_UI)) {
+      add_post_meta($post_id,'booking_plugin_DESTINATION_UI',$new_bp_DESTINATION_UI,true);
+  }
+  
+  
+if (!empty($current_bp_bbgc)) {
+    if (is_null($new_bp_bbgc)) {
+      delete_post_meta($post_id,'booking_plugin_bbg_color');
+    } else {
+      update_post_meta($post_id,'booking_plugin_bbg_color',$new_bp_bbgc);
+    }
+  } elseif (!is_null($new_bp_bbgc)) {
+      add_post_meta($post_id,'booking_plugin_bbg_color',$new_bp_bbgc,true);
+  }
+  
+if (!empty($current_bp_btc)) {
+    if (is_null($new_bp_btc)) {
+      delete_post_meta($post_id,'booking_plugin_bt_color');
+    } else {
+      update_post_meta($post_id,'booking_plugin_bt_color',$new_bp_btc);
+    }
+  } elseif (!is_null($new_bp_btc)) {
+      add_post_meta($post_id,'booking_plugin_bt_color',$new_bp_btc,true);
+  }   
+  
+  if (!empty($current_bp_calic)) {
+    if (is_null($new_bp_calic)) {
+      delete_post_meta($post_id,'booking_plugin_calic');
+    } else {
+      update_post_meta($post_id,'booking_plugin_calic',$new_bp_calic);
+    }
+  } elseif (!is_null($new_bp_calic)) {
+      add_post_meta($post_id,'booking_plugin_calic',$new_bp_calic,true);
+  } 
+  
+  if (!empty($current_bp_cal_display)) {
+    if (is_null($new_bp_cal_display)) {
+      delete_post_meta($post_id,'booking_plugin_cal_display');
+    } else {
+      update_post_meta($post_id,'booking_plugin_cal_display',$new_bp_cal_display);
+    }
+  } elseif (!is_null($new_bp_cal_display)) {
+      add_post_meta($post_id,'booking_plugin_cal_display',$new_bp_cal_display,true);
+  } 
+  
+  if (!empty($current_bp_LANGUAGE)) {
+    if (is_null($new_bp_LANGUAGE)) {
+      delete_post_meta($post_id,'booking_plugin_box_language');
+    } else {
+      update_post_meta($post_id,'booking_plugin_box_language',$new_bp_LANGUAGE);
+    }
+  } elseif (!is_null($new_bp_LANGUAGE)) {
+      add_post_meta($post_id,'booking_plugin_box_language',$new_bp_LANGUAGE,true);
+  }  
+  
+    if (!empty($current_bp_TARGET)) {
+    if (is_null($new_bp_TARGET)) {
+      delete_post_meta($post_id,'booking_plugin_TARGET');
+    } else {
+      update_post_meta($post_id,'booking_plugin_TARGET',$new_bp_TARGET);
+    }
+  } elseif (!is_null($new_bp_TARGET)) {
+      add_post_meta($post_id,'booking_plugin_TARGET',$new_bp_TARGET,true);
+  }  
+  
+   if (!empty($current_bp_FORMAT)) {
+    if (is_null($new_bp_FORMAT)) {
+      delete_post_meta($post_id,'booking_plugin_FORMAT');
+    } else {
+      update_post_meta($post_id,'booking_plugin_FORMAT',$new_bp_FORMAT);
+    }
+  } elseif (!is_null($new_bp_FORMAT)) {
+      add_post_meta($post_id,'booking_plugin_FORMAT',$new_bp_FORMAT,true);
+  }
+  
+  if (!empty($current_bp_FLEX)) {
+    if (is_null($new_bp_FLEX)) {
+      delete_post_meta($post_id,'booking_plugin_FLEX');
+    } else {
+      update_post_meta($post_id,'booking_plugin_FLEX',$new_bp_FLEX);
+    }
+  } elseif (!is_null($new_bp_FLEX)) {
+      add_post_meta($post_id,'booking_plugin_FLEX',$new_bp_FLEX,true);
+  }
+
+  return $post_id;
+}
+
+function booking_pluginbox_clean(&$arr) {
+  if (is_array($arr)) {
+    foreach ($arr as $i => $v) {
+      if (is_array($arr[$i])) {
+        my_meta_clean($arr[$i]);
+        if (!count($arr[$i])) {
+          unset($arr[$i]);
+        }
+      } else {
+        if (trim($arr[$i]) == '') {
+          unset($arr[$i]);
+        }
+      }
+    }
+    if (!count($arr)) {
+      $arr = NULL;
+    }
+  }
+}

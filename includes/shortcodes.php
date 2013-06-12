@@ -1,7 +1,110 @@
-<link rel="stylesheet" type="text/css" href="<?php echo plugins_url(); ?>/bookingcom-affiliate-plugin/default.css" />
 <?php
-$widget_language = get_option('widget_language');
-switch ($widget_language) {
+/* ------------------------------------ */
+/* Shortcode Generator                  */
+/* ------------------------------------ */
+
+// Action target that adds the "Insert Product(s)" button to the post/page edit screen.
+function js_add_booking_pluginbox_button($context){
+    $image_btn = plugins_url('images/booking_plugin-icon.png', dirname(__FILE__));
+    $out = '<a href="#TB_inline?width=400&height=300&inlineId=insert_booking_plugin" class="thickbox" title="Insert Booking.com Search Box"><img src="'.$image_btn.'" alt="Insert Booking.com Search Box" /></a>';
+    return $context . $out;
+}
+
+add_action('admin_footer','js_add_booking_pluginbox_popup');
+add_action('media_buttons_context','js_add_booking_pluginbox_button');
+
+//Action target that displays the popup to insert a form to a post/page
+function js_add_booking_pluginbox_popup(){
+  $booking_searchboxes = get_posts(array('post_type' => 'booking-pluginbox'));
+  foreach ($booking_searchboxes as $booking_searchbox) {
+    $booking_searchbox_data[$booking_searchbox->ID] = (strlen($booking_searchbox->post_title) > 40) ? substr($booking_searchbox->post_title, 0, 37) . '...' : $booking_searchbox->post_title;
+  }
+  ?>
+
+<div id="insert_booking_plugin" class="folded" style="display:none;">
+  <div class="wrap">
+    <div>
+      <div style="padding:15px 15px 0 15px;">
+        <h3 class="media-title">Booking.com search box Shortcode Generator</h3>
+        <span>Which Booking.com Search Box do you want to insert ?</span> </div>
+      <div style="padding:15px 15px 0 15px;">
+        <select id="js_booking_pluginbox_shortcode_select">
+          <option value="">Select here</option>
+          <?php foreach ($booking_searchbox_data as $key => $val) : ?>
+          <option value="<?php echo $key; ?>"><?php echo $val; ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+      <div style="padding:15px;">
+        <input type="button" class="button-primary" value="Insert into Post" onclick="InsertBookingPluginSearchBox();"/>
+        &nbsp;&nbsp;&nbsp; <a class="button" style="color:#bbb;" href="#" onclick="tb_remove(); return false;">Cancel</a> </div>
+    </div>
+    <div style="padding:15px 15px 0 15px;">
+    <h3 class="media-title">Prefer the manual way ?</h3>
+        <span>Simply paste the following shortcode where it pleases you:<pre>[booking_pluginbox id="XYZ"]</pre>Obviously, "XYZ" is the ID of your searchbox. <a href="<?php echo bloginfo('url');?>/wp-admin/edit.php?post_type=booking-pluginbox">Find all IDs here</a>.</span> </div>
+  </div></div>
+</div>
+<script type="text/javascript">
+
+    function InsertBookingPluginSearchBox(){
+      var booking_searchbox  = jQuery("#js_booking_pluginbox_shortcode_select").val();
+      var win    = window.dialogArguments || opener || parent || top;
+
+      if (booking_searchbox){
+        select = jQuery("#js_booking_pluginbox_shortcode_select");
+        select.val(jQuery('options:first', select).val());
+        win.send_to_editor('[booking_pluginbox id="' + booking_searchbox + '"]');
+      } else {
+        alert("Please select or enter a valid option(s) to display a booking_searchbox");
+        return;
+      }
+    }
+	
+
+  </script>
+<?php
+}
+
+// Shortcode [booking_pluginbox id="XXX"]
+function booking_pluginbox_func($atts) {
+  extract(shortcode_atts(array('id' => null, 'num' => null, 'random' => null, 'cat' => null), $atts));
+  if ($id == null && $num == null & $random == null) {
+    return false;
+  } else if ($id){
+    $args = array(
+      'p'         => $id,
+      'post_type' => 'booking-pluginbox'
+    );
+  } 
+/////////////////////////////////////////////////////////////////
+// Generate html
+/////////////////////////////////////////////////////////////////	
+	wp_enqueue_style('booking_pluginbox', plugins_url('style.css', __FILE__));
+
+  ob_start();
+
+  $query = new WP_Query($args);
+
+    $query->the_post();
+	$post_bp_AID = get_post_meta(get_the_ID(), 'booking_plugin_AID', true);
+	$post_bp_TRACKING = get_post_meta(get_the_ID(), 'booking_plugin_TRACKING', true); 
+	$post_bp_DESTINATION = get_post_meta(get_the_ID(), 'booking_plugin_DESTINATION', true);
+	$post_bp_DESTINATION_RESTRICTION = get_post_meta(get_the_ID(), 'booking_plugin_DESTINATION_RESTRICTION', true);
+	$post_bp_DESTINATION_UI = get_post_meta(get_the_ID(), 'booking_plugin_DESTINATION_UI', true);
+	$post_bp_bbgc = get_post_meta(get_the_ID(), 'booking_plugin_bbg_color', true);
+	$post_bp_btc = get_post_meta(get_the_ID(), 'booking_plugin_bt_color', true);
+	$post_bp_calic = get_post_meta(get_the_ID(), 'booking_plugin_calic', true);
+	$post_bp_cal_display = get_post_meta(get_the_ID(), 'booking_plugin_cal_display', true);
+	$post_bp_LANGUAGE = get_post_meta(get_the_ID(), 'booking_plugin_box_language', true);
+	$post_bp_TARGET = get_post_meta(get_the_ID(), 'booking_plugin_TARGET', true);
+	$post_bp_FORMAT = get_post_meta(get_the_ID(), 'booking_plugin_FORMAT', true);
+	$post_bp_FLEX = get_post_meta(get_the_ID(), 'booking_plugin_FLEX', true);
+  	
+	if (!empty($id) ) {
+///////////////////////////
+// Building up the locales
+///////////////////////////
+switch ($post_bp_LANGUAGE) {
     case "fr":
 		$weekdays_short_1 = "Lu";
 		$weekdays_short_2 = "Ma";
@@ -259,7 +362,50 @@ switch ($widget_language) {
         $cal_next="Sonraki ay";
         $cal_prev="Önceki ay";
         $cal_close="Takvimi kapat";
-     break;   
+     break;
+	 case "pt":
+                $weekdays_short_1 = "Seg";
+                $weekdays_short_2 = "Ter";
+                $weekdays_short_3 = "Qua";
+                $weekdays_short_4 = "Qui";
+                $weekdays_short_5 = "Sex";
+                $weekdays_short_6 = "Sab";
+                $weekdays_short_7 = "Dom";
+                $month_1 ="Janeiro";
+                $month_short_1 ="Jan";
+                $month_2 ="Fevereiro";
+                $month_short_2 ="Fev";
+                $month_3 ="Marco";
+                $month_short_3 ="Mar";
+                $month_4 ="Abril";
+                $month_short_4 ="Abr";
+                $month_5 ="Maio";
+                $month_short_5 ="Ma";
+                $month_6 ="Junho";
+                $month_short_6 ="Jun";
+                $month_7 ="Julho";
+                $month_short_7 ="Jul";
+                $month_8 ="Agosto";
+                $month_short_8 ="Ago";
+                $month_9 ="Setembro";
+                $month_short_9 ="Set";
+                $month_10 ="Outubro";
+                $month_short_10 ="Out";
+                $month_11 ="Novembro";
+                $month_short_11 ="Nov";
+                $month_12 ="Dezembro";
+                $month_short_12 ="Dez";
+                $desc_search_hotels ="Buscar hotel";
+                $desc_destination ="Destino";
+                $desc_vanity ="Cidade, Região, Pa&iacute;s...";
+                $desc_checkin = "Data de entrada";
+                $desc_checkout ="Data de saida";
+                $desc_nodates = "No momento ainda sem data efetiva";
+                $desc_search="Buscar";
+                $cal_next="Mes seguinte";
+                $cal_prev="Mes anterior";
+                $cal_close="Fechar calendario";
+        break;   
     default:
 		$weekdays_short_1 = "Mo";
 		$weekdays_short_2 = "Tu";
@@ -303,21 +449,67 @@ switch ($widget_language) {
 		$cal_prev="Previous month";
 		$cal_close="Close calendar";	
 }
+///////////////////////////
+// Dynamic styling & HTML
+///////////////////////////
 ?>
 <STYLE type="text/css">
-#searchboxInc {
-	font: 12px/1.5 Arial, Helvetica, sans-serif;
-color: #<?php echo get_option('widget_txtcolor');
-?> !important;
-width: <?php echo get_option('widget_width');
-?>px;
+#calendar {
+font: 12px/1.5 Arial, Helvetica, sans-serif;
+color: #003580;
+display: none;
+width: 220px;
+z-index:10;
+<?php if ($post_bp_cal_display == "inherit") { ?>
+position: inherit !important;
+<? }?>
+<?php if ($post_bp_cal_display == "absolute") { ?>
+position: absolute;
+<? }?>
+<?php if ($post_bp_cal_display == "fixed") { ?>
+position: fixed !important;
+<? }?>
 }
-#searchboxInc form {
-background: #<?php echo get_option('widget_bgcolor');
-?>;
+#searchboxInc_<?php echo $id; ?> {
+font: 12px/1.5 Arial, Helvetica, sans-serif;
+color: #<?php echo $post_bp_btc;?> !important;
+}
+#searchboxInc_<?php echo $id; ?> form {
+background: #<?php echo $post_bp_bbgc;?>;
+<?php if ($post_bp_FORMAT) {?> width: <?php echo $post_bp_FORMAT;?>px;<?php } ?>
+
+}
+#searchboxInc_<?php echo $id; ?> fieldset, #searchboxInc_<?php echo $id; ?> img {
+border: 0;
+}
+#searchboxInc_<?php echo $id; ?> fieldset {
+padding: 8px;
+}
+#searchboxInc_<?php echo $id; ?> #inout h3 {
+background-color:transparent;
+font-size:1.1em;
+}
+#searchboxInc_<?php echo $id; ?> h3 {
+margin-bottom:0.2em;
+position:static;
+font-size:118%;
+font-weight:bold;
+margin: 0;
+}
+#searchboxInc_<?php echo $id; ?> p {
+font-size: 2em;
+margin: 0;
+}
+#searchboxInc_<?php echo $id; ?> a.calender {
+vertical-align: -4px;
+}
+#searchboxInc_<?php echo $id; ?> a.calender img {
+background: #0896ff;
 }
 </STYLE>
-<script type="text/javascript">
+<div class="booking-pluginbox">
+<div id="searchboxHolder"> 
+  <script type="text/javascript">
 var booking = {
 env : {
 b_simple_weekdays: ['<?php echo $weekdays_short_1;?>','<?php echo $weekdays_short_2;?>','<?php echo $weekdays_short_3;?>','<?php echo $weekdays_short_4;?>','<?php echo $weekdays_short_5;?>','<?php echo $weekdays_short_6;?>','<?php echo $weekdays_short_7;?>'],
@@ -352,62 +544,87 @@ frm[co_month_year].value = co.getFullYear() + "-" + com;
 }
 }
 }
+function getPosition(element)
+    {
+            var left = 0;
+            var top = 0;
+            /*On récupère l'élément*/
+            var e = document.getElementById(element);
+            /*Tant que l'on a un élément parent*/
+            while (e.offsetParent != undefined && e.offsetParent != null)
+            {
+                    /*On ajoute la position de l'élément parent*/
+                    left += e.offsetLeft + (e.clientLeft != null ? e.clientLeft : 0);
+                    top += e.offsetTop + (e.clientTop != null ? e.clientTop : 0);
+                    e = e.offsetParent;
+            }
+            return new Array(left,top);
+    }
 </script>
-<div id="searchboxHolder">
-<!-- start copy sourcecode from here -->
-<div id="searchboxInc">
-  <form id="frm" name="frm" action="http://www.booking.com/searchresults.html" method="get" target="_top" autocomplete="off">
-    <fieldset>
-      <div id="destinationSearch">
-        <input type="hidden" name="aid" value="<?php echo get_option('affiliate_ID'); ?>" />
-        <input type="hidden" name="error_url" value="http://www.booking.com/?aid=<?php echo get_option('affiliate_ID'); ?>;" />
-        <input type="hidden" name="si" value="ai,co,ci,re,di" />
-        <input type="hidden" name="label" value="<?php echo get_option('affiliate_label'); ?>" />
-        <input type="hidden" name="lang" value="<?php echo get_option('widget_language'); ?>" />
-        <input type="hidden" name="ifl" value="1" />
-        <p><?php echo $desc_search_hotels;?></p>
-        <label for="destination"><?php echo $desc_destination;?></label>
-        <input 
-class="text" type="text blur" id="destination" name="ss" value="<?php echo get_option('widget_destination'); ?>" title="<?php echo get_option('widget_destination'); ?>"  autocomplete="off" />
-      </div>
-      <div id="inout">
-        <div id="homein">
-          <h3><?php echo $desc_checkin;?></h3>
-          <select id="b_checkin_day" name="checkin_monthday" onChange="checkDateOrder('frm', 'b_checkin_day', 'b_checkin_month', 'b_checkout_day', 'b_checkout_month') ; tickCheckBox('b_availcheck');">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-            <option value="21">21</option>
-            <option value="22">22</option>
-            <option value="23">23</option>
-            <option value="24">24</option>
-            <option value="25">25</option>
-            <option value="26">26</option>
-            <option value="27">27</option>
-            <option value="28">28</option>
-            <option value="29">29</option>
-            <option value="30">30</option>
-            <option value="31">31</option>
-          </select>
-          <select id="b_checkin_month" name="checkin_year_month" onChange="checkDateOrder('frm', 'b_checkin_day', 'b_checkin_month', 'b_checkout_day', 'b_checkout_month') ; tickCheckBox('b_availcheck');">
-            <script language="Javascript"> 
+  <div id="searchboxInc_<?php echo $id; ?>">
+    <form id="frm" name="frm" action="http://www.booking.com/searchresults.html" method="get" target="_top" autocomplete="off">
+      <fieldset>
+        <div id="destinationSearch">
+          <input type="hidden" name="aid" value="<?php echo $post_bp_AID; ?>" />
+          <input type="hidden" name="error_url" value="http://www.booking.com/?aid=<?php echo $post_bp_AID; ?>;" />
+          <input type="hidden" name="si" value="ai,co,ci,re,di" />
+          <input type="hidden" name="label" value="<?php echo $post_bp_TRACKING; ?>" />
+          <input type="hidden" name="lang" value="<?php echo $post_bp_LANGUAGE; ?>" />
+          <input type="hidden" name="ifl" value="1" />
+          <?php if ($post_bp_DESTINATION_UI != "Hide") {?>
+          <p><?php echo $desc_search_hotels;?></p>
+          <label for="destination"><?php echo $desc_destination;?></label>
+          <input class="text" type="text blur" id="destination" name="ss" value="<?php echo $post_bp_DESTINATION_RESTRICTION.' '.$post_bp_DESTINATION; ?>" title="<?php echo $post_bp_DESTINATION_RESTRICTION.' '.$post_bp_DESTINATION; ?>"  autocomplete="off" <?php if ($post_bp_DESTINATION_UI == "Display-NOT-Editable") {?> readonly="readonly" <?php } ?>  />
+          <?php } else { ?>
+          <input type="hidden" id="destination" name="ss" value="<?php echo $bp_DESTINATION_RESTRICTION.' '.$post_bp_DESTINATION; ?>" />
+          <?php } ?>
+        </div>
+        <?php if ($post_bp_calic == "yes") {?>
+        <div id="cal_<?php echo $id; ?>"></div>
+        <script type="text/javascript">
+			var pos = getPosition('frm_<?php echo $id; ?>'); 
+			var pos_left = pos[0];
+			var pos_top = pos[1];
+	</script>
+        <?php } ?>
+        <div id="inout">
+          <div id="homein">
+            <h3><?php echo $desc_checkin;?></h3>
+            <select id="b_checkin_day" name="checkin_monthday" onChange="checkDateOrder('frm', 'b_checkin_day', 'b_checkin_month', 'b_checkout_day', 'b_checkout_month') ; tickCheckBox('b_availcheck');">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>
+            </select>
+            <select id="b_checkin_month" name="checkin_year_month" onChange="checkDateOrder('frm', 'b_checkin_day', 'b_checkin_month', 'b_checkout_day', 'b_checkout_month') ; tickCheckBox('b_availcheck');">
+              <script language="Javascript"> 
 var monthArray=new Array("<?php echo $month_short_1;?>","<?php echo $month_short_2;?>","<?php echo $month_short_3;?>","<?php echo $month_short_4;?>","<?php echo $month_short_5;?>","<?php echo $month_short_6;?>","<?php echo $month_short_7;?>","<?php echo $month_short_8;?>","<?php echo $month_short_9;?>","<?php echo $month_short_10;?>","<?php echo $month_short_11;?>","<?php echo $month_short_12;?>");
 
 var today = new Date();
@@ -428,48 +645,48 @@ fullYear++;
 document.writeln("<option value=\""+fullYear+"-"+(countMonth+1)+"\">"+monthArray[countMonth]+" '"+year);
 }
 </script>
-          </select>
-          <?php if (get_option('widget_cal_icons') == "yes") {?>
-          <a onClick="showCalendar(this, 'calendar', 'checkin');" class="calender inlineJsRequired" href="#calender"><img src="http://q.bstatic.com/static/img/button-calender.png" width="21" height="17" alt="calendar" title="Open the calendar to pick a date" /></a>
-          <?php } ?>
-        </div>
-        <div id="homeout">
-          <h3><?php echo $desc_checkout;?></h3>
-          <select id="b_checkout_day" name="checkout_monthday" onChange="tickCheckBox('b_availcheck');">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-            <option value="21">21</option>
-            <option value="22">22</option>
-            <option value="23">23</option>
-            <option value="24">24</option>
-            <option value="25">25</option>
-            <option value="26">26</option>
-            <option value="27">27</option>
-            <option value="28">28</option>
-            <option value="29">29</option>
-            <option value="30">30</option>
-            <option value="31">31</option>
-          </select>
-          <select id="b_checkout_month" name="checkout_year_month" onChange="tickCheckBox('b_availcheck');">
-            <script language="Javascript">
+            </select>
+            <?php if ($post_bp_calic == "yes") {?>
+            <a onClick="showCalendar(this, 'calendar', 'checkin');" class="calender inlineJsRequired" href="#calender"><img src="http://q.bstatic.com/static/img/button-calender.png" width="21" height="17" alt="calendar" title="Open the calendar to pick a date" /></a>
+            <?php } ?>
+          </div>
+          <div id="homeout">
+            <h3><?php echo $desc_checkout;?></h3>
+            <select id="b_checkout_day" name="checkout_monthday" onChange="tickCheckBox('b_availcheck');">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>
+            </select>
+            <select id="b_checkout_month" name="checkout_year_month" onChange="tickCheckBox('b_availcheck');">
+              <script language="Javascript">
 var monthArray=new Array("<?php echo $month_short_1;?>","<?php echo $month_short_2;?>","<?php echo $month_short_3;?>","<?php echo $month_short_4;?>","<?php echo $month_short_5;?>","<?php echo $month_short_6;?>","<?php echo $month_short_7;?>","<?php echo $month_short_8;?>","<?php echo $month_short_9;?>","<?php echo $month_short_10;?>","<?php echo $month_short_11;?>","<?php echo $month_short_12;?>");
 var today = new Date();
 var month= today.getMonth();
@@ -489,22 +706,24 @@ fullYear++;
 document.writeln("<option value=\""+fullYear+"-"+(countMonth+1)+"\">"+monthArray[countMonth]+" '"+year);
 }
 </script>
-          </select>
-          <?php if (get_option('widget_cal_icons') == "yes") {?>
-          <a onClick="showCalendar(this, 'calendar', 'checkout');" class="calender inlineJsRequired" href="#calender"><img src="http://q.bstatic.com/static/img/button-calender.png" width="21" height="17" alt="calendar" title="Open the calendar to pick a date" /></a>
-          <?php } ?>
+            </select>
+            <?php if ($post_bp_calic == "yes") {?>
+            <a onClick="showCalendar(this, 'calendar', 'checkout');" class="calender inlineJsRequired" href="#calender"><img src="http://q.bstatic.com/static/img/button-calender.png" width="21" height="17" alt="calendar" title="Open the calendar to pick a date" /></a>
+            <?php } ?>
+          </div>
+          <div class="avail">
+            <?php if ($post_bp_FLEX == "yes") {?>
+            <input id="availcheck" type="checkbox" name="idf" value="on" />
+            <label id="labfor" for="availcheck"><?php echo $desc_nodates;?></label>
+            <? }?>
+          </div>
         </div>
-        <div class="avail">
-          <input id="availcheck" type="checkbox" name="idf" value="on" />
-          <label id="labfor" for="availcheck"><?php echo $desc_nodates;?></label>
+        <div class="but">
+          <button type="submit" <?php if ($post_bp_TARGET == "yes") {?>formtarget="_new"<? }?>><?php echo $desc_search;?></button>
         </div>
-      </div>
-      <div class="but">
-        <button type="submit" <?php if (get_option('widget_target') == "yes") {?>formtarget="_new"<? }?>><?php echo $desc_search;?></button>
-      </div>
-    </fieldset>
-  </form>
-  <script language="Javascript">
+      </fieldset>
+    </form>
+    <script language="Javascript">
 var currentDate = new Date(); var currentYear = 1900 + currentDate.getYear();
 var dailyMS = 24*60*60*1000;
 var arrivalDate = new Date(currentDate.getTime());
@@ -534,12 +753,14 @@ var com = co.getMonth()+1;
 frm['b_checkout_month'].value = co.getFullYear() + "-" + com;
 }
 </script> 
+  </div>
 </div>
-</div> <!--That was the missing div :)-->
-<?php if (get_option('widget_cal_icons') == "yes") {?>
+<?php
+}
+echo '</div>';
+if ($post_bp_calic == "yes") {?>
 <div id="calendar"></div>
 <script type="text/javascript">
-
 var calendar = new Object();
 var tr = new Object();
 tr.nextMonth = "<?php echo $cal_next;?>";
@@ -547,7 +768,7 @@ tr.prevMonth = "<?php echo $cal_prev;?>";
 tr.closeCalendar = "<?php echo $cal_close;?>";
 tr.pressCtlD = "Press control-d or choose bookmarks/add or favourites/add in your browser";
 tr.pressCtlP = "Press control-p or choose file/print in your browser";
-tr.url = "http://www.booking.com/index.nl.html?aid=<?php echo get_option('affiliate_ID'); ?>;label<?php echo get_option('affiliate_label'); ?>;sid=805b890b3ec36eb43796e8b84188da15;dcid=1;tmpl=searchbox";
+tr.url = "http://www.booking.com/index.nl.html?aid=<?php echo $post_bp_AID; ?>;label<?php echo $post_bp_TRACKING; ?>;sid=805b890b3ec36eb43796e8b84188da15;dcid=1;tmpl=searchbox";
 tr.title = "Booking.com";
 tr.icons = "http://r.bstatic.com/static/img";
 var months = ['<?php echo $month_1;?>','<?php echo $month_2;?>','<?php echo $month_3;?>','<?php echo $month_4;?>','<?php echo $month_5;?>','<?php echo $month_6;?>','<?php echo $month_7;?>','<?php echo $month_8;?>','<?php echo $month_9;?>','<?php echo $month_10;?>','<?php echo $month_11;?>','<?php echo $month_12;?>'];
@@ -1207,10 +1428,10 @@ y = new Date().getFullYear();
 buildCal( y, m, d );
 var box = getDimensions( i );
 var
-left = box.x,
-top = ( box.y + i.offsetHeight );
-c.style.left = left + 'px';
-c.style.top = top + 'px';
+left = pos_left,
+top = pos_top;
+c.style.left = pos_left + 'px';
+c.style.top = pos_top + 'px';
 c.style.display = "block";
 }
 }
@@ -1499,4 +1720,12 @@ return box;
 }
 
 </script>
-<?php } ?>
+<?php };
+
+  wp_reset_postdata();
+  $content = ob_get_clean();
+  return $content;
+
+}
+add_filter('widget_text', 'do_shortcode');
+add_shortcode('booking_pluginbox', 'booking_pluginbox_func');
