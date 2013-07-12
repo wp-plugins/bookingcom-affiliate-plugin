@@ -47,7 +47,8 @@ function booking_pluginbox_form() {
     <td class="td_divider">&nbsp;</td>
 	<td valign="top" class="td_right"><select name="booking_plugin_DESTINATION_RESTRICTION" id="booking_plugin_DESTINATION_RESTRICTION">
              	<option value="<?php echo $bp_DESTINATION_RESTRICTION; ?>" selected="selected"><?php echo $bp_DESTINATION_RESTRICTION; ?></option>
-             	<option value="city">Search for a city</option>
+             	<option value="">No categorization</option>
+                <option value="city">Search for a city</option>
              	<option value="hotel">Search for a hotel</option>
 				<option value="chain">Search for hotel chains</option>
                 <option value="airport">Search for hotels near an airport</option>

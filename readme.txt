@@ -1,13 +1,13 @@
 === Booking.com Affiliate plugin ===
-Author: Greg Raby
-Contributors: gregory.raby
+Author: gregory.raby
+Contributors: Greg Raby
 Donate link: http://www.booking-plugin.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Tags: affiliates, booking, travel, reservation, hotel, booking.com, affiliation, hotels, booking calendar, online booking
 Requires at least: 3.0
 Tested up to: 3.5.1
-Stable tag: 1.0
+Stable tag: 1.0.1
 
 Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site.
 
@@ -49,6 +49,11 @@ A couple of hours later, check your traffic & bookings via the [Booking.com admi
 
 
 == Changelog ==
+
+= 1.0.1 =
+Minor update, recommended for all users.
+* I added back the widget, by "popular" demand (well, frequent, at least :)).
+* Added a "no categorization" option in the edit panel.
 
 = 1.0 =
 I now dare call this plugin STABLE. This doesn't mean there are no more bugs or that it is final, it does mean that I think it won't break sites anymore.
@@ -100,6 +105,11 @@ I now dare call this plugin STABLE. This doesn't mean there are no more bugs or 
 
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Minor update, recommended for all users.
+* I added back the widget on user request.
+* Added a "no categorization" option.
 
 = 1.00 =
 Finally here we are : Major upgrade ! 
