@@ -37,3 +37,5 @@ function booking_pluginbox_init() {
   add_action( 'save_post', 'booking_pluginbox_save_postdata' );
 }
 add_action('init', 'booking_pluginbox_init');
+
+?>

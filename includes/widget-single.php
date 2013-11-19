@@ -113,7 +113,6 @@ class booking_pluginbox_Single_Widget extends WP_Widget {
       ?>
       <select class="widefat" id="<?php echo $this->get_field_id('quote'); ?>" name="<?php echo $this->get_field_name('quote'); ?>">
         <option value="">Select a searchbox...</option>
-
         <?php foreach ($quote_data as $key => $val) : ?>
           <?php $selected = ($key == $instance['quote']) ? ' selected' : ' nope'; ?>
           <option value="<?php echo $key; ?>"<?php echo $selected; ?>><?php echo $val; ?></option>
@@ -123,3 +122,4 @@ class booking_pluginbox_Single_Widget extends WP_Widget {
     <?php
   }
 }
+?>

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Booking.com Affiliate plugin
-Version: 1.0.1
+Version: 1.5
 Plugin URI: http://www.booking-plugin.com/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=bookingplugin
 Description: Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site. Simply configure what you want the searchbox to look like and generate traffic to your booking.com  affiliate pages. Be sure to visit the plugin site to find live integration examples, booking.com affiliation tips and showcase your site.
 Author: gregory.raby
@@ -25,11 +25,26 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+define( 'booking_pluginbox_meta_boxes', 'manage_options' );
+define( 'booking_pluginbox_columns', 'manage_options' );
+define( 'booking_pluginbox_form', 'manage_options' );
+define( 'booking_pluginbox_init', 'manage_options' );
+define( 'booking_pluginbox_func', 'manage_options' );
+define( 'booking_pluginbox_edit_columns', 'manage_options' );
 
 require 'includes/post-type.php';
 require 'includes/shortcodes.php';
 require 'includes/metaboxes.php';
 require 'includes/widget-single.php';
+
+// javascrip date picker declaration
+
+add_action("wp_enqueue_scripts","javascript_datepicker_booking");
+
+function javascript_datepicker_booking() {
+	wp_enqueue_script('jquery-ui-datepicker');
+	wp_enqueue_style('jquery-ui-datepicker', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/redmond/jquery-ui.min.css' );
+}
 
 // Custom Columns
 add_action("manage_posts_custom_column",  "booking_pluginbox_columns");
@@ -125,10 +140,6 @@ function booking_pluginbox_save_postdata($post_id) {
   $new_bp_bbgc = (isset($_POST['booking_plugin_bbg_color'])) ? $_POST['booking_plugin_bbg_color'] : '';
   $current_bp_btc = get_post_meta($post_id, 'booking_plugin_bt_color', false);
   $new_bp_btc = (isset($_POST['booking_plugin_bt_color'])) ? $_POST['booking_plugin_bt_color'] : '';
-  $current_bp_calic = get_post_meta($post_id, 'booking_plugin_calic', false);
-  $new_bp_calic = (isset($_POST['booking_plugin_calic'])) ? $_POST['booking_plugin_calic'] : '';
-  $current_bp_cal_display = get_post_meta($post_id, 'booking_plugin_cal_display', false);
-  $new_bp_cal_display = (isset($_POST['booking_plugin_cal_display'])) ? $_POST['booking_plugin_cal_display'] : '';
   $current_bp_LANGUAGE = get_post_meta($post_id, 'booking_plugin_box_language', false);
   $new_bp_LANGUAGE = (isset($_POST['booking_plugin_box_language'])) ? $_POST['booking_plugin_box_language'] : '';
   $current_bp_TARGET = get_post_meta($post_id, 'booking_plugin_TARGET', false);
@@ -149,8 +160,6 @@ function booking_pluginbox_save_postdata($post_id) {
   booking_pluginbox_clean($new_bp_DESTINATION_UI);
   booking_pluginbox_clean($new_bp_bbgc);
   booking_pluginbox_clean($new_bp_btc);
-  booking_pluginbox_clean($new_bp_calic);
-  booking_pluginbox_clean($new_bp_cal_display);
   booking_pluginbox_clean($new_bp_LANGUAGE);
   booking_pluginbox_clean($new_bp_TARGET);
   booking_pluginbox_clean($new_bp_FORMAT);
@@ -230,26 +239,6 @@ if (!empty($current_bp_btc)) {
       add_post_meta($post_id,'booking_plugin_bt_color',$new_bp_btc,true);
   }   
   
-  if (!empty($current_bp_calic)) {
-    if (is_null($new_bp_calic)) {
-      delete_post_meta($post_id,'booking_plugin_calic');
-    } else {
-      update_post_meta($post_id,'booking_plugin_calic',$new_bp_calic);
-    }
-  } elseif (!is_null($new_bp_calic)) {
-      add_post_meta($post_id,'booking_plugin_calic',$new_bp_calic,true);
-  } 
-  
-  if (!empty($current_bp_cal_display)) {
-    if (is_null($new_bp_cal_display)) {
-      delete_post_meta($post_id,'booking_plugin_cal_display');
-    } else {
-      update_post_meta($post_id,'booking_plugin_cal_display',$new_bp_cal_display);
-    }
-  } elseif (!is_null($new_bp_cal_display)) {
-      add_post_meta($post_id,'booking_plugin_cal_display',$new_bp_cal_display,true);
-  } 
-  
   if (!empty($current_bp_LANGUAGE)) {
     if (is_null($new_bp_LANGUAGE)) {
       delete_post_meta($post_id,'booking_plugin_box_language');
@@ -312,3 +301,4 @@ function booking_pluginbox_clean(&$arr) {
     }
   }
 }
+?>

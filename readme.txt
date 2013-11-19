@@ -5,9 +5,9 @@ Donate link: http://www.booking-plugin.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Tags: affiliates, booking, travel, reservation, hotel, booking.com, affiliation, hotels, booking calendar, online booking
-Requires at least: 3.0
-Tested up to: 3.5.1
-Stable tag: 1.0.1
+Requires at least: 3.3
+Tested up to: 3.7.1
+Stable tag: 1.5
 
 Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site.
 
@@ -49,6 +49,13 @@ A couple of hours later, check your traffic & bookings via the [Booking.com admi
 
 
 == Changelog ==
+
+= 1.5 =
+Another big jump in version number to make sure users pay attention before making the update ! This release marks the code emancipation from the severly outdate booking.com affiliation searchbox code.
+* Calendars using native Wordpress jQuery Datepicker : SEO improvements, code maintenance improvements, UI / UX improvements
+* Fixed a big nasty compatibility issue with some installation. Anyone using WAMP will appreciate.
+* Additional languages (Danish thanks to Chris J; Greek thanks to Yiannis).
+* Cleaner CSS.
 
 = 1.0.1 =
 Minor update, recommended for all users.
@@ -105,6 +112,13 @@ I now dare call this plugin STABLE. This doesn't mean there are no more bugs or 
 
 
 == Upgrade Notice ==
+
+= 1.5 =
+Another big jump in version number to make sure users pay attention before making the update ! This release marks the code emancipation from the severly outdate booking.com affiliation searchbox code.
+* Calendars using native Wordpress jQuery Datepicker : SEO improvements, code maintenance improvements, UI / UX improvements
+* Fixed a big nasty compatibility issue with some installation. Anyone using WAMP will appreciate.
+* Additional languages (Danish thanks to Chris J; Greek thanks to Yiannis).
+* Cleaner CSS.
 
 = 1.0.1 =
 Minor update, recommended for all users.

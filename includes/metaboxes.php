@@ -16,8 +16,6 @@ function booking_pluginbox_form() {
   $bp_TARGET = get_post_meta($post->ID, 'booking_plugin_TARGET', true);
   $bp_FORMAT = get_post_meta($post->ID, 'booking_plugin_FORMAT', true);
   $bp_FLEX = get_post_meta($post->ID, 'booking_plugin_FLEX', true);
-//  $bp_wt = get_post_meta($post->ID, 'booking_plugin_widget_title', true);
-//  $bp_wpx = get_post_meta($post->ID, 'booking_plugin_widget_px', true);
   
 ?>
 
@@ -59,7 +57,7 @@ function booking_pluginbox_form() {
 </table>
   
  <br /><br />
-   <!-- Actual box looking and feel -->   
+   <!-- Actual box look and feel -->   
  <h4 style="padding-left:10px;"><span class="icon16 icon-appearance"></span>Customize your booking widget</h4>
  <br />
   <table class="tables">
@@ -82,30 +80,13 @@ function booking_pluginbox_form() {
 <tr>
 	<td width="250" valign="top" class="td_left">Box text color</td>
     <td class="td_divider">&nbsp;</td>
-	<td valign="top" class="td_right"><input type="text" class="color {required:true,hash:false}" value="<?php if ($bp_btc=="") { echo "003580"; } else echo $bp_btc; ?>" id="booking_plugin_bt_color" name="booking_plugin_bt_color" value="003580"><p class="description">(default is "003580" - no '#')</p></td>
-</tr>
-<tr>
-	<td width="250" valign="top" class="td_left">Display the calendar icons ?</td>
-    <td class="td_divider">&nbsp;</td>
-	<td valign="top" class="td_right"><select name="booking_plugin_calic" id="booking_plugin_calic">
-             	<option value="<?php echo $bp_calic; ?>" selected="selected"><?php echo $bp_calic; ?></option>
-             	<option value="yes">Display the calendar icons</option>
-             	<option value="no">Do not display the calendar icons</option>
-             </select><p class="description">This currently does NOT work if you have multiple search boxes on a single page. This is a known bug with the source javascript code provided by booking.com.</p></td>
-</tr>
-<tr>
-	<td width="250" valign="top" class="td_left">Calendar display type</td>
-    <td class="td_divider">&nbsp;</td>
-	<td valign="top" class="td_right"><select name="booking_plugin_cal_display" id="booking_plugin_cal_display">
-             	<option value="<?php echo $bp_cal_display; ?>" selected="selected"><?php echo $bp_cal_display; ?></option>
-             	<option value="inherit">Inherit</option>
-             	<option value="absolute">Absolute</option>
-                <!--<option value="Fixed">Fixed</option>-->
-             </select>
-	<p class="description">The default booking.com javascript controlling the calendar hasnt been updated in more than 5 years. It is suboptimal to say the least. This option allows you to control its display. (FYI I'll be using jQuery datepicker to control the calendar as soon as the next release !)<br />
-               <strong>Inherit</strong> : Calendar will appear right under the search box (and push the content down).<br />
-               <strong>Absolute</strong> : Calendar will appear floating over the searchbox, relative to the searchbox location (can misbehave).<br />
-               <!--<strong>Fixed</strong> : Calendar will appear floating over the searchbox, relative to scroll bar (can misbehave).--></p></td>
+	<td valign="top" class="td_right"><input type="text" class="color {required:true,hash:false}" value="<?php
+    if ($bp_btc == "") {
+		echo "003580";
+	} else {
+		echo $bp_btc;
+	}
+?>" id="booking_plugin_bt_color" name="booking_plugin_bt_color"><p class="description">(default is "003580" - no '#')</p></td>
 </tr>
 <tr>
 	<td width="250" valign="top" class="td_left">Search box Language</td>
@@ -120,18 +101,18 @@ function booking_pluginbox_form() {
 			<option value="it">Italian</option>
 			<option value="tr">Turkish</option>
             <option value="pt">Portuguese</option>  
+            <option value="el">Greek</option>
+            <option value="da">Danish</option>
 			  <!--  
 			  <option value="no">Norwegian</option>
 			  <option value="fi">Finish</option>
 			  <option value="sv">Swedish</option>
-			  <option value="da">Danish</option>
 			  <option value="cs">Czech</option>
 			  <option value="hu">Hungarian</option>
 			  <option value="ro">Romanian</option>
 			  <option value="ja">Japanese</option>
 			  <option value="zh">Chinese (Traditional)</option>
 			  <option value="pl">Polish</option>
-			  <option value="el">Greek</option>
 			  <option value="ru">Russian</option>
 			  <option value="bg">Bulgarian</option>
 			  <option value="ar">Arabic</option>
@@ -165,8 +146,8 @@ function booking_pluginbox_form() {
 		</select></td>
 </tr>
 </table>
-  
 
  <br /><br />
 <?php
 }
+?>
