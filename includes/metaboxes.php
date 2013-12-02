@@ -16,6 +16,7 @@ function booking_pluginbox_form() {
   $bp_TARGET = get_post_meta($post->ID, 'booking_plugin_TARGET', true);
   $bp_FORMAT = get_post_meta($post->ID, 'booking_plugin_FORMAT', true);
   $bp_FLEX = get_post_meta($post->ID, 'booking_plugin_FLEX', true);
+  $bp_CSS_override = get_post_meta($post->ID, 'booking_plugin_CSS_override', true);
   
 ?>
 
@@ -103,6 +104,7 @@ function booking_pluginbox_form() {
             <option value="pt">Portuguese</option>  
             <option value="el">Greek</option>
             <option value="da">Danish</option>
+            <option value="bg">Bulgarian</option>
 			  <!--  
 			  <option value="no">Norwegian</option>
 			  <option value="fi">Finish</option>
@@ -143,9 +145,19 @@ function booking_pluginbox_form() {
 		 	<option value="<?php echo $bp_FLEX; ?>" selected="selected"><?php echo $bp_FLEX; ?></option>
 			<option value="yes">Yes</option>
 			<option value="no">No</option>
-		</select></td>
+		</select><p class="description">This would display the text "I don't have specific dates yet".</p></td>
 </tr>
-</table>
+<tr>
+  <td valign="top" class="td_left">Disable skin (CSS)</td>
+  <td class="td_divider">&nbsp;</td>
+  <td valign="top" class="td_right"><select name="booking_plugin_CSS_override" id="booking_plugin_CSS_override">
+    <option value="<?php echo $bp_CSS_override; ?>" selected="selected"><?php echo $bp_CSS_override; ?></option>
+    <option value="Yes">Yes</option>
+    <option value="No">No</option>
+  </select>
+  <p class="description">If you already run jQuery UI tabs on your site, you should probably choose &quot;Yes&quot; here to avoid CSS conflicts.</p></td>
+</tr>
+ </table>
 
  <br /><br />
 <?php

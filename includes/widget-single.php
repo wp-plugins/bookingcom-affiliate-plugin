@@ -29,7 +29,8 @@ class booking_pluginbox_Single_Widget extends WP_Widget {
     $cache = wp_cache_get('widget_booking_pluginbox_single', 'widget');
 
     // Load style.css
-    wp_enqueue_style('booking_pluginbox', plugins_url('style.css', __FILE__));
+    wp_enqueue_style('booking_pluginbox', plugins_url('includes/css/jquery-ui-1.10.3.custom.min.css', __FILE__));
+
 
     if (!is_array($cache)) {
       $cache = array();

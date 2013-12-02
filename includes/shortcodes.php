@@ -6,7 +6,7 @@
 // Action target that adds the "Insert Product(s)" button to the post/page edit screen.
 function js_add_booking_pluginbox_button($context){
     $image_btn = plugins_url('images/booking_plugin-icon.png', dirname(__FILE__));
-    $out = '<a href="#TB_inline?width=400&height=300&inlineId=insert_booking_plugin" class="thickbox" title="Insert Booking.com Search Box"><img src="'.$image_btn.'" alt="Insert Booking.com Search Box" /></a>';
+    $out = '<a href="#TB_inline?width=600&height=350&inlineId=insert_booking_plugin" class="thickbox" title="Insert Booking.com Search Box"><img src="'.$image_btn.'" alt="Insert Booking.com Search Box" /></a>';
     return $context . $out;
 }
 
@@ -75,6 +75,9 @@ function booking_pluginbox_func($atts) {
       'post_type' => 'booking-pluginbox'
     );
   } 
+  
+
+  
 /////////////////////////////////////////////////////////////////
 // Generate html
 /////////////////////////////////////////////////////////////////	
@@ -82,6 +85,8 @@ function booking_pluginbox_func($atts) {
   ob_start();
   
   $query = new WP_Query($args);
+
+// get variables
 
     $query->the_post();
 	$post_bp_AID = get_post_meta(get_the_ID(), 'booking_plugin_AID', true);
@@ -95,6 +100,14 @@ function booking_pluginbox_func($atts) {
 	$post_bp_TARGET = get_post_meta(get_the_ID(), 'booking_plugin_TARGET', true);
 	$post_bp_FORMAT = get_post_meta(get_the_ID(), 'booking_plugin_FORMAT', true);
 	$post_bp_FLEX = get_post_meta(get_the_ID(), 'booking_plugin_FLEX', true);
+	$post_bp_CSS_override = get_post_meta(get_the_ID(), 'booking_plugin_CSS_override', true);
+	
+	if ($post_bp_LANGUAGE == null) {
+		$post_bp_LANGUAGE = "en";
+		}
+	if ($post_bp_TRACKING == null) {
+		$post_bp_TRACKING = "plugin";
+		}
   	
 	if (!empty($id) ) {
 ///////////////////////////
@@ -102,37 +115,10 @@ function booking_pluginbox_func($atts) {
 ///////////////////////////
 switch ($post_bp_LANGUAGE) {
     case "fr":
-		$weekdays_short_1 = "Lu";
-		$weekdays_short_2 = "Ma";
-		$weekdays_short_3 = "Me";
-		$weekdays_short_4 = "Je";
-		$weekdays_short_5 = "Ve";
-		$weekdays_short_6 = "Sa";
-		$weekdays_short_7 = "Di";
-		$month_1 ="Janvier";
-		$month_short_1 ="Jan";
-		$month_2 ="F&eacute;vrier";
-		$month_short_2 ="Fev";
-		$month_3 ="Mars";
-		$month_short_3 ="Mar";
-		$month_4 ="Avril";
-		$month_short_4 ="Avr";
-		$month_5 ="Mai";
-		$month_short_5 ="Mai";
-		$month_6 ="Juin";
-		$month_short_6 ="Jun";
-		$month_7 ="Juillet";
-		$month_short_7 ="Jui";
-		$month_8 ="Aout";
-		$month_short_8 ="Aou";
-		$month_9 ="Septembre";
-		$month_short_9 ="Sep";
-		$month_10 ="Octobre";
-		$month_short_10 ="Oct";
-		$month_11 ="Novembre";
-		$month_short_11 ="Nov";
-		$month_12 ="Decembre";
-		$month_short_12 ="Dec";
+		$dayNamesShort = "['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa']";
+		$dayNamesMin = "['D', 'L', 'M', 'M', 'J', 'V', 'S']";
+		$monthNamesShort = "['Janv.','Févr.','Mars','Avril','Mai','Juin','Juil.','Août','Sept.','Oct.','Nov.','Déc.']";
+		$monthNames = "['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre']";
 		$desc_search_hotels ="Recherche d'h&ocirc;tels";
 		$desc_destination ="Destination";
 		$desc_vanity ="Villes, R&eacute;gion, Pays, ...";
@@ -145,37 +131,10 @@ switch ($post_bp_LANGUAGE) {
 		$cal_close="Fermer le calendrier";
 	break;
 	case "de":
-		$weekdays_short_1 = "Mo";
-		$weekdays_short_2 = "Di";
-		$weekdays_short_3 = "Mi";
-		$weekdays_short_4 = "Do";
-		$weekdays_short_5 = "Fr";
-		$weekdays_short_6 = "Sa";
-		$weekdays_short_7 = "So";
-		$month_1 ="Januar";
-		$month_short_1 ="Jan";
-		$month_2 ="Februar";
-		$month_short_2 ="Feb";
-		$month_3 ="M&auml;rz";
-		$month_short_3 ="Mar";
-		$month_4 ="April";
-		$month_short_4 ="Apr";
-		$month_5 ="Mai";
-		$month_short_5 ="Mai";
-		$month_6 ="Juni";
-		$month_short_6 ="Jun";
-		$month_7 ="Juli";
-		$month_short_7 ="Jul";
-		$month_8 ="August";
-		$month_short_8 ="Aug";
-		$month_9 ="September";
-		$month_short_9 ="Sep";
-		$month_10 ="Oktober";
-		$month_short_10 ="Okt";
-		$month_11 ="November";
-		$month_short_11 ="Nov";
-		$month_12 ="Dezember";
-		$month_short_12 ="Dez";
+		$dayNamesShort = "['So','Mo','Di','Mi','Do','Fr','Sa']";
+		$dayNamesMin = "['So','Mo','Di','Mi','Do','Fr','Sa']";
+		$monthNamesShort = "['Jan','Feb','M&auml;r','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez']";
+		$monthNames = "['Januar','Februar','M&auml;rz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember']";
 		$desc_search_hotels ="Hotels suchen";
 		$desc_destination ="Reiseziel";
 		$desc_vanity ="Stadt, Region, Land...";
@@ -188,37 +147,10 @@ switch ($post_bp_LANGUAGE) {
 		$cal_close="Kalender schlie&szlig;en";
 	break;
     case "es":
-		$weekdays_short_1 = "Lu";
-		$weekdays_short_2 = "Ma";
-		$weekdays_short_3 = "Mi";
-		$weekdays_short_4 = "Ju";
-		$weekdays_short_5 = "Vi";
-		$weekdays_short_6 = "Sa";
-		$weekdays_short_7 = "Do";
-		$month_1 ="Enero";
-		$month_short_1 ="Ene";
-		$month_2 ="Febrero";
-		$month_short_2 ="Feb";
-		$month_3 ="Mazo";
-		$month_short_3 ="Mar";
-		$month_4 ="Abril";
-		$month_short_4 ="Abr";
-		$month_5 ="Mayo";
-		$month_short_5 ="May";
-		$month_6 ="Junio";
-		$month_short_6 ="Jun";
-		$month_7 ="Julio";
-		$month_short_7 ="Jul";
-		$month_8 ="Agosto";
-		$month_short_8 ="Ago";
-		$month_9 ="Septiembre";
-		$month_short_9 ="Sep";
-		$month_10 ="Octubre";
-		$month_short_10 ="Oct";
-		$month_11 ="Noviembre";
-		$month_short_11 ="Nov";
-		$month_12 ="Deciembre";
-		$month_short_12 ="Dec";
+		$dayNamesShort = "['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b']";
+		$dayNamesMin = "['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;']";
+		$monthNamesShort = "['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']";
+		$monthNames = "['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']";
 		$desc_search_hotels ="Buscar hoteles";
 		$desc_destination ="Destino";
 		$desc_vanity ="Ciudad, Regi&oacute;n, Pa&iacute;s...";
@@ -231,37 +163,10 @@ switch ($post_bp_LANGUAGE) {
 		$cal_close="Cerrar calendario";
 	break;
     case "nl":
-		$weekdays_short_1 = "Ma";
-		$weekdays_short_2 = "Di";
-		$weekdays_short_3 = "Wo";
-		$weekdays_short_4 = "Do";
-		$weekdays_short_5 = "Vr";
-		$weekdays_short_6 = "Za";
-		$weekdays_short_7 = "Zo";
-		$month_1 ="Januari";
-		$month_short_1 ="Jan";
-		$month_2 ="Februari";
-		$month_short_2 ="Feb";
-		$month_3 ="Maart";
-		$month_short_3 ="Mar";
-		$month_4 ="April";
-		$month_short_4 ="Apr";
-		$month_5 ="Mei";
-		$month_short_5 ="Mei";
-		$month_6 ="Juni";
-		$month_short_6 ="Jun";
-		$month_7 ="Juli";
-		$month_short_7 ="Jul";
-		$month_8 ="Augustus";
-		$month_short_8 ="Aug";
-		$month_9 ="September";
-		$month_short_9 ="Sep";
-		$month_10 ="Oktober";
-		$month_short_10 ="Okt";
-		$month_11 ="November";
-		$month_short_11 ="Nov";
-		$month_12 ="December";
-		$month_short_12 ="Dec";
+		$dayNamesShort = "['Zon', 'Maa', 'Din', 'Woe', 'Don', 'Vri', 'Zat']";
+		$dayNamesMin = "['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za']";
+		$monthNamesShort = "['Jan', 'Feb', 'Mrt', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec']";
+		$monthNames = "['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni','Juli', 'Augustus', 'September', 'Oktober', 'November', 'December']";
 		$desc_search_hotels ="Zoek hotels";
 		$desc_destination ="Bestemming";
 		$desc_vanity ="Ciudad, Regi&oacute;n, Pa&iacute;s...";
@@ -274,37 +179,10 @@ switch ($post_bp_LANGUAGE) {
 		$cal_close="Kalender sluiten";
 	break;
     case "it":
-		$weekdays_short_1 = "Lu";
-		$weekdays_short_2 = "Ma";
-		$weekdays_short_3 = "Me";
-		$weekdays_short_4 = "Gi";
-		$weekdays_short_5 = "Ve";
-		$weekdays_short_6 = "Sa";
-		$weekdays_short_7 = "Do";
-		$month_1 ="Gennaio";
-		$month_short_1 ="Gen";
-		$month_2 ="Febbraio";
-		$month_short_2 ="Feb";
-		$month_3 ="Marzo";
-		$month_short_3 ="Mar";
-		$month_4 ="Aprile";
-		$month_short_4 ="Apr";
-		$month_5 ="Maggio";
-		$month_short_5 ="Mag";
-		$month_6 ="Giugno";
-		$month_short_6 ="Giu";
-		$month_7 ="Luglio";
-		$month_short_7 ="Lug";
-		$month_8 ="Agosto";
-		$month_short_8 ="Ago";
-		$month_9 ="Settembre";
-		$month_short_9 ="Set";
-		$month_10 ="Ottobre";
-		$month_short_10 ="Ott";
-		$month_11 ="Novembre";
-		$month_short_11 ="Nov";
-		$month_12 ="Dicembre";
-		$month_short_12 ="Dic";
+		$dayNamesShort = "['Dom','Lun','Mar','Mer','Gio','Ven','Sab']";
+		$dayNamesMin = "['Do','Lu','Ma','Me','Gi','Ve','Sa']";
+		$monthNamesShort = "['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic']";
+		$monthNames = "['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre']";
 		$desc_search_hotels ="Cerca hotel";
 		$desc_destination ="Destinazione";
 		$desc_vanity ="Ciudad, Regi&oacute;n, Pa&iacute;s...";
@@ -317,37 +195,10 @@ switch ($post_bp_LANGUAGE) {
 		$cal_close="Chiudi calendario";
 	break;
 	case "tr":
-        $weekdays_short_1 = "Pa";
-        $weekdays_short_2 = "Sa";
-        $weekdays_short_3 = "Ça";
-        $weekdays_short_4 = "Pe";
-        $weekdays_short_5 = "Cu";
-        $weekdays_short_6 = "Cm";
-        $weekdays_short_7 = "Pa";
-        $month_1 ="Ocak";
-        $month_short_1 ="Oca";
-        $month_2 ="Şubat";
-        $month_short_2 ="Şub";
-        $month_3 ="Mart";
-        $month_short_3 ="Mar";
-        $month_4 ="Nisan";
-        $month_short_4 ="Nis";
-        $month_5 ="Mayıs";
-        $month_short_5 ="May";
-        $month_6 ="Haziran";
-        $month_short_6 ="Haz";
-        $month_7 ="Temmuz";
-        $month_short_7 ="Tem";
-        $month_8 ="Ağustos";
-        $month_short_8 ="Ağu";
-        $month_9 ="Eylül";
-        $month_short_9 ="Eyl";
-        $month_10 ="Ekim";
-        $month_short_10 ="Eki";
-        $month_11 ="Kasım";
-        $month_short_11 ="Kas";
-        $month_12 ="Aralık";
-        $month_short_12 ="Ara";
+		$dayNamesShort = "['Pa','Pa','Sa','Ça','Pe','Cu','Cm']";
+		$dayNamesMin = "['Pa','Pa','Sa','Ça','Pe','Cu','Cm']";
+		$monthNamesShort = "['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara']";
+		$monthNames = "['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık']";
         $desc_search_hotels ="Otel Ara";
         $desc_destination ="Destinasyon";
         $desc_vanity ="Şehir, Bölge, Ülke, ...";
@@ -360,37 +211,10 @@ switch ($post_bp_LANGUAGE) {
         $cal_close="Takvimi kapat";
 	break;
 	case "pt":
-		$weekdays_short_1 = "Seg";
-		$weekdays_short_2 = "Ter";
-		$weekdays_short_3 = "Qua";
-		$weekdays_short_4 = "Qui";
-		$weekdays_short_5 = "Sex";
-		$weekdays_short_6 = "Sab";
-		$weekdays_short_7 = "Dom";
-		$month_1 ="Janeiro";
-		$month_short_1 ="Jan";
-		$month_2 ="Fevereiro";
-		$month_short_2 ="Fev";
-		$month_3 ="Marco";
-		$month_short_3 ="Mar";
-		$month_4 ="Abril";
-		$month_short_4 ="Abr";
-		$month_5 ="Maio";
-		$month_short_5 ="Ma";
-		$month_6 ="Junho";
-		$month_short_6 ="Jun";
-		$month_7 ="Julho";
-		$month_short_7 ="Jul";
-		$month_8 ="Agosto";
-		$month_short_8 ="Ago";
-		$month_9 ="Setembro";
-		$month_short_9 ="Set";
-		$month_10 ="Outubro";
-		$month_short_10 ="Out";
-		$month_11 ="Novembro";
-		$month_short_11 ="Nov";
-		$month_12 ="Dezembro";
-		$month_short_12 ="Dez";
+		$dayNamesShort = "['Dom','Seg','Ter','Qua','Qui','Sex','S&aacute;b']";
+		$dayNamesMin = "['Dom','Seg','Ter','Qua','Qui','Sex','S&aacute;b']";
+		$monthNamesShort = "['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']";
+		$monthNames = "['Janeiro','Fevereiro','Mar&ccedil;o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']";
 		$desc_search_hotels ="Buscar hotel";
 		$desc_destination ="Destino";
 		$desc_vanity ="Cidade, Região, Pa&iacute;s...";
@@ -403,37 +227,10 @@ switch ($post_bp_LANGUAGE) {
 		$cal_close="Fechar calendario";
 	break;
 	case "el":
-        $weekdays_short_1 = "Δευ";
-        $weekdays_short_2 = "Τρι";
-        $weekdays_short_3 = "Τετ";
-        $weekdays_short_4 = "Πεμ";
-        $weekdays_short_5 = "Παρ";
-        $weekdays_short_6 = "Σαβ";
-        $weekdays_short_7 = "Κυρ";
-        $month_1 ="Ιανουάριος";
-        $month_short_1 ="Ιαν";
-        $month_2 ="Φεβρουάριος";
-        $month_short_2 ="Φεβ";
-        $month_3 ="Μάρτιος";
-        $month_short_3 ="Μαρ";
-        $month_4 ="Απρίλιος";
-        $month_short_4 ="Απρ";
-        $month_5 ="ΜάΪος";
-        $month_short_5 ="ΜαΪ";
-        $month_6 ="Ιούνιος";
-        $month_short_6 ="Ιούν";
-        $month_7 ="Ιούλιος";
-        $month_short_7 ="Ιούλ";
-        $month_8 ="Αύγουστος";
-        $month_short_8 ="Αυγ";
-        $month_9 ="Σεπτέμβριος";
-        $month_short_9 ="Σεπ";
-        $month_10 ="Οκτώβριος";
-        $month_short_10 ="Οκτ";
-        $month_11 ="Νοέμβριος";
-        $month_short_11 ="Νοε";
-        $month_12 ="Δεκέμβριος";
-        $month_short_12 ="Δεκ";
+		$dayNamesShort = "['Κυρ','Δευ','Τρι','Τετ','Πεμ','Παρ','Σαβ']";
+		$dayNamesMin = "['Κυρ','Δευ','Τρι','Τετ','Πεμ','Παρ','Σαβ']";
+		$monthNamesShort = "['Ιαν','Φεβ','Μαρ','Απρ','ΜαΪ','Ιούν','Ιούλ','Αύγ','Σεπ','Οκτ','Νοε','Δεκ']";
+		$monthNames = "['Ιανουάριος','Φεβρουάριος','Μάρτιος','Απρίλιος','ΜάΪος','Ιούνιος','Ιούλιος','Αύγουστος','Σεπτέμβριος','Οκτώβριος','Νοέμβριος','Δεκέμβριος']";
         $desc_search_hotels ="Αναζήτηση Ξενοδοχείων";
         $desc_destination ="Προορισμός";
         $desc_vanity ="Πόλη, Περιοχή, Χώρα ...";
@@ -446,37 +243,10 @@ switch ($post_bp_LANGUAGE) {
         $cal_close="Κλείσιμο ημερολόγιου";
 	break;
 	case "da":
-		$weekdays_short_1 = "Man";
-		$weekdays_short_2 = "Tir";
-		$weekdays_short_3 = "Ons";
-		$weekdays_short_4 = "Tor";
-		$weekdays_short_5 = "Fre";
-		$weekdays_short_6 = "Lør";
-		$weekdays_short_7 = "Søn";
-		$month_1 ="Januar";
-		$month_short_1 ="Jan";
-		$month_2 ="Februar";
-		$month_short_2 ="Feb";
-		$month_3 ="Marts";
-		$month_short_3 ="Mar";
-		$month_4 ="April";
-		$month_short_4 ="Apr";
-		$month_5 ="Maj";
-		$month_short_5 ="Maj";
-		$month_6 ="Juni";
-		$month_short_6 ="Jun";
-		$month_7 ="Juli";
-		$month_short_7 ="Jul";
-		$month_8 ="August";
-		$month_short_8 ="Aug";
-		$month_9 ="September";
-		$month_short_9 ="Sep";
-		$month_10 ="Oktober";
-		$month_short_10 ="Okt";
-		$month_11 ="November";
-		$month_short_11 ="Nov";
-		$month_12 ="December";
-		$month_short_12 ="Dec";
+		$dayNamesShort = "['Søn','Man','Tir','Ons','Tor','Fre','Lør']";
+		$dayNamesMin = "['Søn','Ma','Ti','On','To','Fr','Lør']";
+		$monthNamesShort = "['Jan','Feb','Mar','Apr','Maj','Jun','Jul','Aug','Sep','Okt','Nov','Dec']";
+		$monthNames = "['Januar','Februar','Marts','April','Maj','Juni','Juli','August','September','Oktober','November','December']";
 		$desc_search_hotels ="Søg Hoteller";
 		$desc_destination ="Destination";
 		$desc_vanity ="By, Region, Land, ...";
@@ -487,39 +257,29 @@ switch ($post_bp_LANGUAGE) {
 		$cal_next="Næste måned";
 		$cal_prev="Forgående måned";
 		$cal_close="Luk Kalender";
-  break;
+ 	break;
+	case "bg":
+		$dayNamesShort = "['Нед', 'Пон', 'Вт', 'Ср', 'Четв', 'Пет', 'Съб']";
+		$dayNamesMin = "['Нд','По','Вт','Ср','Чет','Пет','Съб']";
+		$monthNamesShort = "['ян', 'фев', 'мар', 'апр', 'май', 'юн','юл', 'авг', 'сеп', 'окт', 'ноем', 'дек']";
+		$monthNames = "['Януари','Февруари','Март','Април','Май','Юни','Юли','Август','Септември','Октомври','Ноември','Декември']";
+		$desc_search_hotels ="Търсене на хотели";
+		$desc_destination ="Дестинация";
+		$desc_vanity ="град, регион, държава, ...";
+		$desc_checkin = "Дата на настаняване";
+		$desc_checkout ="Дата на напускане";
+		$desc_nodates = "Все още нямам точни дати";
+		$desc_search = "Търси";
+		$cal_next = "Следващ месец";
+		$cal_prev = "Предишен месец";
+		$cal_close = "Затвори календара";
+  break;  
   default:
-		$weekdays_short_1 = "Mo";
-		$weekdays_short_2 = "Tu";
-		$weekdays_short_3 = "We";
-		$weekdays_short_4 = "Th";
-		$weekdays_short_5 = "Fr";
-		$weekdays_short_6 = "Sa";
-		$weekdays_short_7 = "Su";
-		$month_1 ="January";
-		$month_short_1 ="Jan";
-		$month_2 ="February";
-		$month_short_2 ="Feb";
-		$month_3 ="March";
-		$month_short_3 ="Mar";
-		$month_4 ="Avpil";
-		$month_short_4 ="Apr";
-		$month_5 ="May";
-		$month_short_5 ="May";
-		$month_6 ="June";
-		$month_short_6 ="Jun";
-		$month_7 ="July";
-		$month_short_7 ="Jul";
-		$month_8 ="August";
-		$month_short_8 ="Aug";
-		$month_9 ="September";
-		$month_short_9 ="Sep";
-		$month_10 ="October";
-		$month_short_10 ="Oct";
-		$month_11 ="November";
-		$month_short_11 ="Nov";
-		$month_12 ="December";
-		$month_short_12 ="Dec";
+		$dayNamesShort = "['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']";
+		$dayNamesMin = "['Su','Mo','Tu','We','Th','Fr','Sa']";
+		$monthNamesShort = "['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']";
+		$monthNames = "['January','February','March','April','May','June','July','August','September','October','November','December']
+		";
 		$desc_search_hotels ="Search Hotels";
 		$desc_destination ="Destination";
 		$desc_vanity ="City, Region, Country, ...";
@@ -539,43 +299,47 @@ switch ($post_bp_LANGUAGE) {
 ///////////////////////////
 // Dynamic styling & HTML
 ///////////////////////////
+
+if ($post_bp_CSS_override != "Yes") {
+wp_enqueue_style('jquery-ui-datepicker_style_redmond', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/redmond/jquery-ui.min.css'); 
+}
 ?>
 
 <style>
 .ui-datepicker-trigger {
 	position: relative;
 	left: -25px;
-	top: 3px;
+	top: 2px;
 }
 #ui-datepicker-div {
 	z-index: 9999999;
 }
-#searchboxInc {
+#searchboxInc_<?php echo $id;?> {
 	font: 12px/1.5 Arial, Helvetica, sans-serif;
 	color: #<?php echo $post_bp_btc;?> !important;
 	<?php if ($post_bp_FORMAT) {?> width: <?php echo $post_bp_FORMAT;?>px;<?php } ?>
 }
-#searchboxInc form {
+#searchboxInc_<?php echo $id;?> form {
 	background: #<?php echo $post_bp_bbgc;?>;
 }
-#searchboxInc fieldset, #searchboxInc img {
+#searchboxInc_<?php echo $id;?> fieldset, #searchboxInc img {
 	border: 0;
 }
-#searchboxInc fieldset {
+#searchboxInc_<?php echo $id;?> fieldset {
 	padding: 8px;
 }
-#searchboxInc #inout h3 {
+#searchboxInc_<?php echo $id;?> #inout h3 {
 	background-color: transparent;
 	font-size: 1.1em;
 }
-#searchboxInc h3 {
+#searchboxInc_<?php echo $id;?> h3 {
 	margin-bottom: 0.2em;
 	position: static;
 	font-size: 118%;
 	font-weight: bold;
 	margin: 0;
 }
-#searchboxInc p {
+#searchboxInc_<?php echo $id;?> p {
 	font-size: 2em;
 	margin: 0;
 }
@@ -587,10 +351,10 @@ switch ($post_bp_LANGUAGE) {
 	padding-top: 1em;
 	clear: left;
 }
-#searchboxInc a.calender {
+#searchboxInc_<?php echo $id;?> a.calender {
 	vertical-align: -4px;
 }
-#searchboxInc a.calender img {
+#searchboxInc_<?php echo $id;?> a.calender img {
 	background: #0896ff;
 }
 .blur {
@@ -609,10 +373,10 @@ button {
 }
 </style>
 
-
-<div id="searchboxHolder">
-<div id="searchboxInc">
-<form id="frm" name="frm" action="http://www.booking.com/searchresults.html" method="get" target="_blank" autocomplete="off" class="date-picker">
+<div id="Booking_com_plugin">
+<div id="searchboxHolder_<?php echo $id;?>">
+<div id="searchboxInc_<?php echo $id;?>">
+<form id="frm_<?php echo $id;?>" name="frm_<?php echo $id;?>" action="http://www.booking.com/searchresults.html" method="get" target="_blank" autocomplete="off" class="date-picker">
 <fieldset>
 <div id="destinationSearch">
 <input type="hidden" name="aid" value="<?php echo $post_bp_AID; ?>" />
@@ -626,17 +390,17 @@ button {
           <p><?php echo $desc_search_hotels;?></p>
           <label for="destination"><?php echo $desc_destination;?></label>
           <input class="text" type="text blur" id="destination" name="ss" value="<?php echo $post_bp_DESTINATION_RESTRICTION.' '.$post_bp_DESTINATION; ?>" title="<?php echo $post_bp_DESTINATION_RESTRICTION.' '.$post_bp_DESTINATION; ?>"  autocomplete="off" <?php if ($post_bp_DESTINATION_UI == "Display-NOT-Editable") { echo "readonly"; } ?>  />
-          <?php } else { ?>
+		  <?php } else { ?>
           <input type="hidden" id="destination" name="ss" value="<?php echo $bp_DESTINATION_RESTRICTION.' '.$post_bp_DESTINATION; ?>" />
           <?php } ?></div>
 <div id="inout">
 <div id="homein">
 <h3><?php echo $desc_checkin;?></h3>
-<input type="text" class="full_checkin_date" value=""  title="Check in date"/>
+<input type="text" class="full_checkin_date_<?php echo $id;?>" value=""  title="Check in date"/>
 <div hidden="">
 <?php $checkin = mktime(0, 0, 0, date("m"), date("d")+1, date("y")); ?>
 <p>
-<input type="text" name="checkin_year_month" class="checkin_year_month" value="<?php echo date("y-m", $checkin);?>"/>
+<input type="text" name="checkin_year_month" class="checkin_year_month_<?php echo $id;?>" value="<?php echo date("y-m", $checkin);?>"/>
 </p>
 <p id="checkin_monthday">
 <input name="checkin_monthday" type="text" value="<?php echo date("d", $checkin);?>"/>
@@ -645,11 +409,11 @@ button {
 </div>
 <div id="homeout">
 <h3><?php echo $desc_checkout;?></h3>
-<input type="text" class="full_checkout_date" value=""  title="Check out date"/>
+<input type="text" class="full_checkout_date_<?php echo $id;?>" value=""  title="Check out date"/>
 <div hidden="">
 <?php $checkout = mktime(0, 0, 0, date("m"), date("d")+3, date("y")); ?>
 <p>
-<input type="text" name="checkout_year_month" class="checkout_year_month" value="<?php echo date("y-m", $checkout);?>"/>
+<input type="text" name="checkout_year_month" class="checkout_year_month_<?php echo $id;?>" value="<?php echo date("y-m", $checkout);?>"/>
 </p>
 <p id="checkout_monthday">
 <input name="checkout_monthday" type="text" value="<?php echo date("d", $checkout);?>"/>
@@ -670,6 +434,7 @@ button {
 </form>
 </div>
 </div>
+</div>
 
 <?php
 ///////////////////////////
@@ -677,51 +442,53 @@ button {
 ///////////////////////////
 ?>
 
-
 <script type="text/javascript">
+
 jQuery(document).ready(function() {
-    jQuery('.full_checkin_date').datepicker({
+    jQuery('.full_checkin_date_<?php echo $id;?>').datepicker({
         firstDay: 1,
 		showOn: 'button',
 		numberOfMonths: 2,
-		dayNamesMin: ['<?php echo $weekdays_short_7;?>', '<?php echo $weekdays_short_1;?>', '<?php echo $weekdays_short_2;?>', '<?php echo $weekdays_short_3;?>', '<?php echo $weekdays_short_4;?>', '<?php echo $weekdays_short_5;?>', '<?php echo $weekdays_short_6;?>'],
-		monthNamesShort: [ "<?php echo $month_short_1;?>", "<?php echo $month_short_2;?>", "<?php echo $month_short_3;?>", "<?php echo $month_short_4;?>", "<?php echo $month_short_5;?>", "<?php echo $month_short_6;?>", "<?php echo $month_short_7;?>", "<?php echo $month_short_8;?>", "<?php echo $month_short_9;?>", "<?php echo $month_short_10;?>", "<?php echo $month_short_11;?>", "<?php echo $month_short_12;?>" ],
-		monthNames: [ "<?php echo $month_1;?>", "<?php echo $month_2;?>", "<?php echo $month_3;?>", "<?php echo $month_4;?>", "<?php echo $month_5;?>", "<?php echo $month_6;?>", "<?php echo $month_7;?>", "<?php echo $month_8;?>", "<?php echo $month_9;?>", "<?php echo $month_10;?>", "<?php echo $month_11;?>", "<?php echo $month_12;?>" ],
+		dayNamesShort: <?php echo $dayNamesShort;?>,
+		dayNamesMin: <?php echo $dayNamesMin;?>,
+		monthNamesShort: <?php echo $monthNamesShort;?>,
+		monthNames: <?php echo $monthNames;?>,
 		showOn: "both",
 		buttonImageOnly: true,
 		buttonImage: "<?php echo plugins_url(); ?>/bookingcom-affiliate-plugin/images/picto_clear_66.png",
 		minDate : "0",
 		dateFormat: 'D, dd M. yy',
 		altFormat: "yy-mm",
-		altField: ".checkin_year_month",
+		altField: ".checkin_year_month_<?php echo $id;?>",
 		onClose: function (dateText, picker) {
 			// getDate returns a js Date object
 			var dateObject = jQuery(this).datepicker("getDate");
 			console.dir(dateObject);
-			jQuery( ".full_checkout_date" ).datepicker( "option", "minDate", dateObject );
+			jQuery( ".full_checkout_date_<?php echo $id;?>" ).datepicker( "option", "minDate", dateObject );
 			// Call Date object methods
 			jQuery("#checkin_monthday input").val(dateObject.getDate());
 			},
     });
-	jQuery('.full_checkout_date').datepicker({
+	jQuery('.full_checkout_date_<?php echo $id;?>').datepicker({
 		firstDay: 1,
 		showOn: 'button',
 		numberOfMonths: 2,
-		dayNamesMin: ['<?php echo $weekdays_short_7;?>', '<?php echo $weekdays_short_1;?>', '<?php echo $weekdays_short_2;?>', '<?php echo $weekdays_short_3;?>', '<?php echo $weekdays_short_4;?>', '<?php echo $weekdays_short_5;?>', '<?php echo $weekdays_short_6;?>'],
-		monthNamesShort: [ "<?php echo $month_short_1;?>", "<?php echo $month_short_2;?>", "<?php echo $month_short_3;?>", "<?php echo $month_short_4;?>", "<?php echo $month_short_5;?>", "<?php echo $month_short_6;?>", "<?php echo $month_short_7;?>", "<?php echo $month_short_8;?>", "<?php echo $month_short_9;?>", "<?php echo $month_short_10;?>", "<?php echo $month_short_11;?>", "<?php echo $month_short_12;?>" ],
-		monthNames: [ "<?php echo $month_1;?>", "<?php echo $month_2;?>", "<?php echo $month_3;?>", "<?php echo $month_4;?>", "<?php echo $month_5;?>", "<?php echo $month_6;?>", "<?php echo $month_7;?>", "<?php echo $month_8;?>", "<?php echo $month_9;?>", "<?php echo $month_10;?>", "<?php echo $month_11;?>", "<?php echo $month_12;?>" ],
+		dayNamesShort: <?php echo $dayNamesShort;?>,
+		dayNamesMin: <?php echo $dayNamesMin;?>,
+		monthNamesShort: <?php echo $monthNamesShort;?>,
+		monthNames: <?php echo $monthNames;?>,
 		showOn: "both",
 		buttonImageOnly: true,
 		buttonImage: "<?php echo plugins_url(); ?>/bookingcom-affiliate-plugin/images/picto_clear_66.png",
-		minDate : "0",
+		minDate : "1",
 		dateFormat: 'D, dd M. yy',
 		altFormat: "yy-mm",
-		altField: ".checkout_year_month",
+		altField: ".checkout_year_month_<?php echo $id;?>",
 		onClose: function (dateText, picker) {
 			// getDate returns a js Date object
 			var dateObject = jQuery(this).datepicker("getDate");
 			console.dir(dateObject);
-			jQuery( ".full_checkin_date" ).datepicker( "option", "maxDate", dateObject );
+			jQuery( ".full_checkin_date_<?php echo $id;?>" ).datepicker( "option", "maxDate", dateObject );
 			// Call Date object methods
 			jQuery("#checkout_monthday input").val(dateObject.getDate());
 			},
