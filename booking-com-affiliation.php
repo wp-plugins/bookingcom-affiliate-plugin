@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Booking.com Affiliate plugin
-Version: 1.5.1
+Version: 1.5.2
 Plugin URI: http://www.booking-plugin.com/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=bookingplugin
 Description: Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site. Simply configure what you want the searchbox to look like and generate traffic to your booking.com  affiliate pages. Be sure to visit the plugin site to find live integration examples, booking.com affiliation tips and showcase your site.
 Author: gregory.raby
@@ -153,6 +153,8 @@ function booking_pluginbox_save_postdata($post_id) {
   $new_bp_wpx = (isset($_POST['booking_plugin_widget_px'])) ? $_POST['booking_plugin_widget_px'] : '';
   $current_bp_CSS_override = get_post_meta($post_id, 'booking_plugin_CSS_override', false);
   $new_bp_CSS_override = (isset($_POST['booking_plugin_CSS_override'])) ? $_POST['booking_plugin_CSS_override'] : '';
+  $current_bp_jqtheme = get_post_meta($post_id, 'booking_plugin_jqtheme', false);
+  $new_bp_jqtheme = (isset($_POST['booking_plugin_jqtheme'])) ? $_POST['booking_plugin_jqtheme'] : '';
   
   booking_pluginbox_clean($new_bp_AID);
   booking_pluginbox_clean($new_bp_TRACKING);
@@ -168,6 +170,7 @@ function booking_pluginbox_save_postdata($post_id) {
   booking_pluginbox_clean($new_bp_wt);
   booking_pluginbox_clean($new_bp_wpx);
   booking_pluginbox_clean($new_bp_CSS_override);
+  booking_pluginbox_clean($new_bp_jqtheme);  
   
 
   if (!empty($current_bp_AID)) {
@@ -290,6 +293,16 @@ if (!empty($current_bp_btc)) {
   } elseif (!is_null($new_bp_CSS_override)) {
       add_post_meta($post_id,'booking_plugin_CSS_override',$new_bp_CSS_override,true);
   }
+  
+  if (!empty($current_bp_jqtheme)) {
+    if (is_null($new_bp_jqtheme)) {
+      delete_post_meta($post_id,'booking_plugin_jqtheme');
+    } else {
+      update_post_meta($post_id,'booking_plugin_jqtheme',$new_bp_jqtheme);
+    }
+  } elseif (!is_null($new_bp_jqtheme)) {
+      add_post_meta($post_id,'booking_plugin_jqtheme',$new_bp_jqtheme,true);
+  }  
 
   return $post_id;
 }

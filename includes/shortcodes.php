@@ -101,6 +101,7 @@ function booking_pluginbox_func($atts) {
 	$post_bp_FORMAT = get_post_meta(get_the_ID(), 'booking_plugin_FORMAT', true);
 	$post_bp_FLEX = get_post_meta(get_the_ID(), 'booking_plugin_FLEX', true);
 	$post_bp_CSS_override = get_post_meta(get_the_ID(), 'booking_plugin_CSS_override', true);
+	$post_bp_jqtheme = get_post_meta(get_the_ID(), 'booking_plugin_jqtheme', true);
 	
 	if ($post_bp_LANGUAGE == null) {
 		$post_bp_LANGUAGE = "en";
@@ -119,22 +120,22 @@ switch ($post_bp_LANGUAGE) {
 		$dayNamesMin = "['D', 'L', 'M', 'M', 'J', 'V', 'S']";
 		$monthNamesShort = "['Janv.','Févr.','Mars','Avril','Mai','Juin','Juil.','Août','Sept.','Oct.','Nov.','Déc.']";
 		$monthNames = "['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre']";
-		$desc_search_hotels ="Recherche d'h&ocirc;tels";
+		$desc_search_hotels ="Recherche d'hôtels";
 		$desc_destination ="Destination";
-		$desc_vanity ="Villes, R&eacute;gion, Pays, ...";
-		$desc_checkin = "Date d'arriv&eacute;e";
-		$desc_checkout ="Date de d&eacute;part";
-		$desc_nodates = "Je n'ai pas de dates de s&eacute;jour pr&eacute;cises";
+		$desc_vanity ="Villes, Région, Pays, ...";
+		$desc_checkin = "Date d'arrivée";
+		$desc_checkout ="Date de départ";
+		$desc_nodates = "Je n'ai pas de dates de séjour précises";
 		$desc_search="Rechercher";
 		$cal_next="Mois suivant";
-		$cal_prev="Mois pr&eacute;cedent";
+		$cal_prev="Mois précedent";
 		$cal_close="Fermer le calendrier";
 	break;
 	case "de":
 		$dayNamesShort = "['So','Mo','Di','Mi','Do','Fr','Sa']";
 		$dayNamesMin = "['So','Mo','Di','Mi','Do','Fr','Sa']";
-		$monthNamesShort = "['Jan','Feb','M&auml;r','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez']";
-		$monthNames = "['Januar','Februar','M&auml;rz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember']";
+		$monthNamesShort = "['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez']";
+		$monthNames = "['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember']";
 		$desc_search_hotels ="Hotels suchen";
 		$desc_destination ="Reiseziel";
 		$desc_vanity ="Stadt, Region, Land...";
@@ -147,8 +148,8 @@ switch ($post_bp_LANGUAGE) {
 		$cal_close="Kalender schlie&szlig;en";
 	break;
     case "es":
-		$dayNamesShort = "['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b']";
-		$dayNamesMin = "['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;']";
+		$dayNamesShort = "['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','Sáb']";
+		$dayNamesMin = "['Do','Lu','Ma','Mi','Ju','Vi','Sá']";
 		$monthNamesShort = "['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']";
 		$monthNames = "['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']";
 		$desc_search_hotels ="Buscar hoteles";
@@ -301,7 +302,10 @@ switch ($post_bp_LANGUAGE) {
 ///////////////////////////
 
 if ($post_bp_CSS_override != "Yes") {
-wp_enqueue_style('jquery-ui-datepicker_style_redmond', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/redmond/jquery-ui.min.css'); 
+	if (is_null($post_bp_jqtheme)) {
+		 $post_bp_jqtheme = "redmond";
+	}
+wp_enqueue_style('jquery-ui-datepicker_style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/'.$post_bp_jqtheme.'/jquery-ui.min.css'); 
 }
 ?>
 
