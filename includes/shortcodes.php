@@ -4,17 +4,16 @@
 /* ------------------------------------ */
 
 // Action target that adds the "Insert Product(s)" button to the post/page edit screen.
-function js_add_booking_pluginbox_button($context){
+function js_add_booking_pluginbox_button($context) {
     $image_btn = plugins_url('images/booking_plugin-icon.png', dirname(__FILE__));
     $out = '<a href="#TB_inline?width=600&height=350&inlineId=insert_booking_plugin" class="thickbox" title="Insert Booking.com Search Box"><img src="'.$image_btn.'" alt="Insert Booking.com Search Box" /></a>';
     return $context . $out;
 }
 
-add_action('admin_footer','js_add_booking_pluginbox_popup');
 add_action('media_buttons_context','js_add_booking_pluginbox_button');
 
 //Action target that displays the popup to insert a form to a post/page
-function js_add_booking_pluginbox_popup(){
+function js_add_booking_pluginbox_popup() {
   $booking_searchboxes = get_posts(array('post_type' => 'booking-pluginbox'));
   foreach ($booking_searchboxes as $booking_searchbox) {
     $booking_searchbox_data[$booking_searchbox->ID] = (strlen($booking_searchbox->post_title) > 40) ? substr($booking_searchbox->post_title, 0, 37) . '...' : $booking_searchbox->post_title;
@@ -64,6 +63,8 @@ function js_add_booking_pluginbox_popup(){
   </script>
 <?php
 }
+add_action('admin_footer','js_add_booking_pluginbox_popup');
+
 // Shortcode [booking_pluginbox id="XXX"]
 function booking_pluginbox_func($atts) {
   extract(shortcode_atts(array('id' => null, 'num' => null, 'random' => null, 'cat' => null), $atts));
@@ -148,13 +149,13 @@ switch ($post_bp_LANGUAGE) {
 		$cal_close="Kalender schlie&szlig;en";
 	break;
     case "es":
-		$dayNamesShort = "['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','Sáb']";
+		$dayNamesShort = "['Dom','Lun','Mar','Mié','Juv','Vie','Sáb']";
 		$dayNamesMin = "['Do','Lu','Ma','Mi','Ju','Vi','Sá']";
-		$monthNamesShort = "['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']";
-		$monthNames = "['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']";
-		$desc_search_hotels ="Buscar hoteles";
-		$desc_destination ="Destino";
-		$desc_vanity ="Ciudad, Regi&oacute;n, Pa&iacute;s...";
+		$monthNamesShort ="['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']";
+		$monthNames ="['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']";
+		$desc_search_hotels = "Buscar hoteles";
+		$desc_destination="Destino";
+		$desc_vanity ="Ciudad, Región, País...";
 		$desc_checkin = "Fecha de entrada";
 		$desc_checkout ="Fecha de salida";
 		$desc_nodates = "Todavía no he decidido las fechas";
@@ -170,7 +171,7 @@ switch ($post_bp_LANGUAGE) {
 		$monthNames = "['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni','Juli', 'Augustus', 'September', 'Oktober', 'November', 'December']";
 		$desc_search_hotels ="Zoek hotels";
 		$desc_destination ="Bestemming";
-		$desc_vanity ="Ciudad, Regi&oacute;n, Pa&iacute;s...";
+		$desc_vanity ="";
 		$desc_checkin = "Aankomstdatum";
 		$desc_checkout ="Vertrekdatum";
 		$desc_nodates = "Ik heb nog geen specifieke datum";
@@ -186,7 +187,7 @@ switch ($post_bp_LANGUAGE) {
 		$monthNames = "['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre']";
 		$desc_search_hotels ="Cerca hotel";
 		$desc_destination ="Destinazione";
-		$desc_vanity ="Ciudad, Regi&oacute;n, Pa&iacute;s...";
+		$desc_vanity ="";
 		$desc_checkin = "Data di arrivo";
 		$desc_checkout ="Data di partenza";
 		$desc_nodates = "Decidi le date più tardi";
@@ -215,7 +216,7 @@ switch ($post_bp_LANGUAGE) {
 		$dayNamesShort = "['Dom','Seg','Ter','Qua','Qui','Sex','S&aacute;b']";
 		$dayNamesMin = "['Dom','Seg','Ter','Qua','Qui','Sex','S&aacute;b']";
 		$monthNamesShort = "['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']";
-		$monthNames = "['Janeiro','Fevereiro','Mar&ccedil;o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']";
+		$monthNames = "['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']";
 		$desc_search_hotels ="Buscar hotel";
 		$desc_destination ="Destino";
 		$desc_vanity ="Cidade, Região, Pa&iacute;s...";
@@ -315,8 +316,11 @@ wp_enqueue_style('jquery-ui-datepicker_style', 'http://ajax.googleapis.com/ajax/
 	left: -25px;
 	top: 2px;
 }
+.ui-widget {
+	font-size: 1em !important;
+	}
 #ui-datepicker-div {
-	z-index: 9999999;
+	z-index: 9999999 !important;
 }
 #searchboxInc_<?php echo $id;?> {
 	font: 12px/1.5 Arial, Helvetica, sans-serif;
@@ -334,7 +338,7 @@ wp_enqueue_style('jquery-ui-datepicker_style', 'http://ajax.googleapis.com/ajax/
 }
 #searchboxInc_<?php echo $id;?> #inout h3 {
 	background-color: transparent;
-	font-size: 1.1em;
+	font-size: 1em;
 }
 #searchboxInc_<?php echo $id;?> h3 {
 	margin-bottom: 0.2em;
@@ -344,7 +348,7 @@ wp_enqueue_style('jquery-ui-datepicker_style', 'http://ajax.googleapis.com/ajax/
 	margin: 0;
 }
 #searchboxInc_<?php echo $id;?> p {
-	font-size: 2em;
+	font-size: 1.5em;
 	margin: 0;
 }
 #homein, #homeout {
@@ -378,6 +382,7 @@ button {
 </style>
 
 <div id="Booking_com_plugin">
+<!--Version = 1.5.3-->
 <div id="searchboxHolder_<?php echo $id;?>">
 <div id="searchboxInc_<?php echo $id;?>">
 <form id="frm_<?php echo $id;?>" name="frm_<?php echo $id;?>" action="http://www.booking.com/searchresults.html" method="get" target="_blank" autocomplete="off" class="date-picker">
@@ -457,12 +462,12 @@ jQuery(document).ready(function() {
 		dayNamesMin: <?php echo $dayNamesMin;?>,
 		monthNamesShort: <?php echo $monthNamesShort;?>,
 		monthNames: <?php echo $monthNames;?>,
-		showOn: "both",
+		showOn: 'both',
 		buttonImageOnly: true,
 		buttonImage: "<?php echo plugins_url(); ?>/bookingcom-affiliate-plugin/images/picto_clear_66.png",
-		minDate : "0",
+		minDate : '0',
 		dateFormat: 'D, dd M. yy',
-		altFormat: "yy-mm",
+		altFormat: 'yy-mm',
 		altField: ".checkin_year_month_<?php echo $id;?>",
 		onClose: function (dateText, picker) {
 			// getDate returns a js Date object
@@ -481,12 +486,12 @@ jQuery(document).ready(function() {
 		dayNamesMin: <?php echo $dayNamesMin;?>,
 		monthNamesShort: <?php echo $monthNamesShort;?>,
 		monthNames: <?php echo $monthNames;?>,
-		showOn: "both",
+		showOn: 'both',
 		buttonImageOnly: true,
 		buttonImage: "<?php echo plugins_url(); ?>/bookingcom-affiliate-plugin/images/picto_clear_66.png",
-		minDate : "1",
+		minDate : '1',
 		dateFormat: 'D, dd M. yy',
-		altFormat: "yy-mm",
+		altFormat: 'yy-mm',
 		altField: ".checkout_year_month_<?php echo $id;?>",
 		onClose: function (dateText, picker) {
 			// getDate returns a js Date object
