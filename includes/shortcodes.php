@@ -39,9 +39,12 @@ function js_add_booking_pluginbox_popup() {
         &nbsp;&nbsp;&nbsp; <a class="button" style="color:#bbb;" href="#" onclick="tb_remove(); return false;">Cancel</a> </div>
     </div>
     <div style="padding:15px 15px 0 15px;">
-    <h3 class="media-title">Prefer the manual way ?</h3>
-        <span>Simply paste the following shortcode where it pleases you:<pre>[booking_pluginbox id="XYZ"]</pre>Obviously, "XYZ" is the ID of your searchbox. <a href="<?php echo bloginfo('url');?>/wp-admin/edit.php?post_type=booking-pluginbox">Find all IDs here</a>.</span> </div>
-  </div></div>
+      <h3 class="media-title">Prefer the manual way ?</h3>
+      <span>Simply paste the following shortcode where it pleases you:
+      <pre>[booking_pluginbox id="XYZ"]</pre>
+      Obviously, "XYZ" is the ID of your searchbox. <a href="<?php echo bloginfo('url');?>/wp-admin/edit.php?post_type=booking-pluginbox">Find all IDs here</a>.</span> </div>
+  </div>
+</div>
 </div>
 <script type="text/javascript">
 
@@ -275,7 +278,23 @@ switch ($post_bp_LANGUAGE) {
 		$cal_next = "Следващ месец";
 		$cal_prev = "Предишен месец";
 		$cal_close = "Затвори календара";
-  break;  
+  break;
+  case "ru":
+		$dayNamesShort = "['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']";
+		$dayNamesMin = "['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']";
+		$monthNamesShort = "['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь','Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']";
+		$monthNames = "['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']";
+		$desc_search_hotels ="Поиск отелей";
+		$desc_destination ="Направление";
+		$desc_vanity ="Город, Регион, Страна, ...";
+		$desc_checkin = "Дата заезда";
+		$desc_checkout ="Дата отъезда";
+		$desc_nodates = "Точные даты поездки пока неизвестны";
+		$desc_search="Поиск";
+		$cal_next="Следующий месяц";
+		$cal_prev="Предыдущий месяц";
+		$cal_close="Закрыть календарь";
+  break;
   default:
 		$dayNamesShort = "['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']";
 		$dayNamesMin = "['Su','Mo','Tu','We','Th','Fr','Sa']";
@@ -294,9 +313,6 @@ switch ($post_bp_LANGUAGE) {
 		$cal_close="Close calendar";	
 }
 ?>
-
-
-
 <?php
 ///////////////////////////
 // Dynamic styling & HTML
@@ -309,7 +325,6 @@ if ($post_bp_CSS_override != "Yes") {
 wp_enqueue_style('jquery-ui-datepicker_style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/'.$post_bp_jqtheme.'/jquery-ui.min.css'); 
 }
 ?>
-
 <style>
 .ui-datepicker-trigger {
 	position: relative;
@@ -380,77 +395,75 @@ button {
 	font: bold 1.333em/1 Arial, Helvetica, sans-serif;
 }
 </style>
-
-<div id="Booking_com_plugin">
-<!--Version = 1.5.3-->
-<div id="searchboxHolder_<?php echo $id;?>">
-<div id="searchboxInc_<?php echo $id;?>">
-<form id="frm_<?php echo $id;?>" name="frm_<?php echo $id;?>" action="http://www.booking.com/searchresults.html" method="get" target="_blank" autocomplete="off" class="date-picker">
-<fieldset>
-<div id="destinationSearch">
-<input type="hidden" name="aid" value="<?php echo $post_bp_AID; ?>" />
-<input type="hidden" name="error_url" value="http://www.booking.com/?aid=<?php echo $post_bp_AID; ?>;" />
-<input type="hidden" name="si" value="ai,co,ci,re,di" />
-<input type="hidden" name="label" value="<?php echo $post_bp_TRACKING; ?>" />
-<input type="hidden" name="lang" value="<?php echo $post_bp_LANGUAGE; ?>" />
-<input type="hidden" name="nflt" value="" />
-<input type="hidden" name="ifl" value="1" />
-<?php if ($post_bp_DESTINATION_UI != "Hide") {?>
-          <p><?php echo $desc_search_hotels;?></p>
-          <label for="destination"><?php echo $desc_destination;?></label>
-          <input class="text" type="text blur" id="destination" name="ss" value="<?php echo $post_bp_DESTINATION_RESTRICTION.' '.$post_bp_DESTINATION; ?>" title="<?php echo $post_bp_DESTINATION_RESTRICTION.' '.$post_bp_DESTINATION; ?>"  autocomplete="off" <?php if ($post_bp_DESTINATION_UI == "Display-NOT-Editable") { echo "readonly"; } ?>  />
-		  <?php } else { ?>
-          <input type="hidden" id="destination" name="ss" value="<?php echo $bp_DESTINATION_RESTRICTION.' '.$post_bp_DESTINATION; ?>" />
-          <?php } ?></div>
-<div id="inout">
-<div id="homein">
-<h3><?php echo $desc_checkin;?></h3>
-<input type="text" class="full_checkin_date_<?php echo $id;?>" value=""  title="Check in date"/>
-<div hidden="">
-<?php $checkin = mktime(0, 0, 0, date("m"), date("d")+1, date("y")); ?>
-<p>
-<input type="text" name="checkin_year_month" class="checkin_year_month_<?php echo $id;?>" value="<?php echo date("y-m", $checkin);?>"/>
-</p>
-<p id="checkin_monthday">
-<input name="checkin_monthday" type="text" value="<?php echo date("d", $checkin);?>"/>
-</p>
-</div>
-</div>
-<div id="homeout">
-<h3><?php echo $desc_checkout;?></h3>
-<input type="text" class="full_checkout_date_<?php echo $id;?>" value=""  title="Check out date"/>
-<div hidden="">
-<?php $checkout = mktime(0, 0, 0, date("m"), date("d")+3, date("y")); ?>
-<p>
-<input type="text" name="checkout_year_month" class="checkout_year_month_<?php echo $id;?>" value="<?php echo date("y-m", $checkout);?>"/>
-</p>
-<p id="checkout_monthday">
-<input name="checkout_monthday" type="text" value="<?php echo date("d", $checkout);?>"/>
-</p>
-</div>
-</div>
-          <div class="avail">
-            <?php if ($post_bp_FLEX == "yes") {?>
-            <input id="availcheck" type="checkbox" name="idf" value="on" />
-            <label id="labfor" for="availcheck"><?php echo $desc_nodates;?></label>
-            <?php }?>
+<div id="Booking_com_plugin"> 
+  <!--Version = 1.5.3-->
+  <div id="searchboxHolder_<?php echo $id;?>">
+    <div id="searchboxInc_<?php echo $id;?>">
+      <form id="frm_<?php echo $id;?>" name="frm_<?php echo $id;?>" action="http://www.booking.com/searchresults.html" method="get" target="_blank" autocomplete="off" class="date-picker">
+        <fieldset>
+          <div id="destinationSearch">
+            <input type="hidden" name="aid" value="<?php echo $post_bp_AID; ?>" />
+            <input type="hidden" name="error_url" value="http://www.booking.com/?aid=<?php echo $post_bp_AID; ?>;" />
+            <input type="hidden" name="si" value="ai,co,ci,re,di" />
+            <input type="hidden" name="label" value="<?php echo $post_bp_TRACKING; ?>" />
+            <input type="hidden" name="lang" value="<?php echo $post_bp_LANGUAGE; ?>" />
+            <input type="hidden" name="nflt" value="" />
+            <input type="hidden" name="ifl" value="1" />
+            <?php if ($post_bp_DESTINATION_UI != "Hide") {?>
+            <p><?php echo $desc_search_hotels;?></p>
+            <label for="destination"><?php echo $desc_destination;?></label>
+            <input class="text" type="text blur" id="destination" name="ss" value="<?php echo $post_bp_DESTINATION_RESTRICTION.' '.$post_bp_DESTINATION; ?>" title="<?php echo $post_bp_DESTINATION_RESTRICTION.' '.$post_bp_DESTINATION; ?>"  autocomplete="off" <?php if ($post_bp_DESTINATION_UI == "Display-NOT-Editable") { echo "readonly"; } ?>  />
+            <?php } else { ?>
+            <input type="hidden" id="destination" name="ss" value="<?php echo $bp_DESTINATION_RESTRICTION.' '.$post_bp_DESTINATION; ?>" />
+            <?php } ?>
           </div>
+          <div id="inout">
+            <div id="homein">
+              <h3><?php echo $desc_checkin;?></h3>
+              <input type="text" class="full_checkin_date_<?php echo $id;?>" value=""  title="Check in date"/>
+              <div hidden="" style="display:none;">
+                <?php $checkin = mktime(0, 0, 0, date("m"), date("d")+1, date("y")); ?>
+                <p>
+                  <input type="text" name="checkin_year_month" class="checkin_year_month_<?php echo $id;?>" value="<?php echo date("y-m", $checkin);?>"/>
+                </p>
+                <p id="checkin_monthday">
+                  <input name="checkin_monthday" type="text" value="<?php echo date("d", $checkin);?>"/>
+                </p>
+              </div>
+            </div>
+            <div id="homeout">
+              <h3><?php echo $desc_checkout;?></h3>
+              <input type="text" class="full_checkout_date_<?php echo $id;?>" value=""  title="Check out date"/>
+              <div hidden="" style="display:none;">
+                <?php $checkout = mktime(0, 0, 0, date("m"), date("d")+3, date("y")); ?>
+                <p>
+                  <input type="text" name="checkout_year_month" class="checkout_year_month_<?php echo $id;?>" value="<?php echo date("y-m", $checkout);?>"/>
+                </p>
+                <p id="checkout_monthday">
+                  <input name="checkout_monthday" type="text" value="<?php echo date("d", $checkout);?>"/>
+                </p>
+              </div>
+            </div>
+            <div class="avail">
+              <?php if ($post_bp_FLEX == "yes") {?>
+              <input id="availcheck" type="checkbox" name="idf" value="on" />
+              <label id="labfor" for="availcheck"><?php echo $desc_nodates;?></label>
+              <?php }?>
+            </div>
+          </div>
+          <div class="but">
+            <button type="submit"><?php echo $desc_search;?></button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
 </div>
-<div class="but">
-<button type="submit"><?php echo $desc_search;?></button>
-</div>
-</fieldset>
-</form>
-</div>
-</div>
-</div>
-
 <?php
 ///////////////////////////
 // Calendar parameters
 ///////////////////////////
 ?>
-
 <script type="text/javascript">
 
 jQuery(document).ready(function() {
@@ -504,7 +517,6 @@ jQuery(document).ready(function() {
 	});
 });
 </script>
-
 <?php
 }
 

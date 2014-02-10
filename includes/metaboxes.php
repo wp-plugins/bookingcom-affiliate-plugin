@@ -82,17 +82,18 @@ function booking_pluginbox_form() {
   <td class="td_divider">&nbsp;</td>
   <td valign="top" class="td_right"><select name="booking_plugin_box_language" id="booking_plugin_box_language">
     <option value="<?php echo $bp_LANGUAGE; ?>" selected="selected"><?php echo $bp_LANGUAGE; ?></option>
-    <option value="en">English</option>
-    <option value="de">German</option>
-    <option value="fr">French</option>
-    <option value="es">Spanish</option>
-    <option value="nl">Dutch</option>
-    <option value="it">Italian</option>
-    <option value="tr">Turkish</option>
-    <option value="pt">Portuguese</option>
-    <option value="el">Greek</option>
-    <option value="da">Danish</option>
     <option value="bg">Bulgarian</option>
+    <option value="da">Danish</option>
+    <option value="nl">Dutch</option>
+    <option value="en">English</option>
+    <option value="fr">French</option>
+    <option value="de">German</option>
+    <option value="el">Greek</option>
+    <option value="it">Italian</option>
+    <option value="pt">Portuguese</option>
+    <option value="es">Spanish</option>
+    <option value="tr">Turkish</option>
+    <option value="ru">Russian</option>
     <!--  
 			  <option value="no">Norwegian</option>
 			  <option value="fi">Finish</option>
@@ -103,7 +104,6 @@ function booking_pluginbox_form() {
 			  <option value="ja">Japanese</option>
 			  <option value="zh">Chinese (Traditional)</option>
 			  <option value="pl">Polish</option>
-			  <option value="ru">Russian</option>
 			  <option value="ar">Arabic</option>
 			  <option value="ko">Korean</option>
 			  <option value="he">Hebrew</option>

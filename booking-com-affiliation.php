@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Booking.com Affiliate plugin
-Version: 1.5.3
+Version: 1.5.4
 Plugin URI: http://www.booking-plugin.com/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=bookingplugin
 Description: Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site. Simply configure what you want the searchbox to look like and generate traffic to your booking.com  affiliate pages. Be sure to visit the plugin site to find live integration examples, booking.com affiliation tips and showcase your site.
 Author: gregory.raby
