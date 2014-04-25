@@ -139,8 +139,14 @@ function booking_pluginbox_save_postdata($post_id) {
   $new_bp_bbgc = (isset($_POST['booking_plugin_bbg_color'])) ? $_POST['booking_plugin_bbg_color'] : '';
   $current_bp_btc = get_post_meta($post_id, 'booking_plugin_bt_color', false);
   $new_bp_btc = (isset($_POST['booking_plugin_bt_color'])) ? $_POST['booking_plugin_bt_color'] : '';
+  $current_bp_sbbbgc = get_post_meta($post_id, 'booking_plugin_sbbbg_color', false);
+  $new_bp_sbbbgc = (isset($_POST['booking_plugin_sbbbg_color'])) ? $_POST['booking_plugin_sbbbg_color'] : '';
+  $current_bp_sbbtc = get_post_meta($post_id, 'booking_plugin_sbbt_color', false);
+  $new_bp_sbbtc = (isset($_POST['booking_plugin_sbbt_color'])) ? $_POST['booking_plugin_sbbt_color'] : '';
   $current_bp_LANGUAGE = get_post_meta($post_id, 'booking_plugin_box_language', false);
   $new_bp_LANGUAGE = (isset($_POST['booking_plugin_box_language'])) ? $_POST['booking_plugin_box_language'] : '';
+  $current_bp_CURRENCY = get_post_meta($post_id, 'booking_plugin_box_currency', false);
+  $new_bp_CURRENCY = (isset($_POST['booking_plugin_box_currency'])) ? $_POST['booking_plugin_box_currency'] : '';
   $current_bp_TARGET = get_post_meta($post_id, 'booking_plugin_TARGET', false);
   $new_bp_TARGET = (isset($_POST['booking_plugin_TARGET'])) ? $_POST['booking_plugin_TARGET'] : '';
   $current_bp_FORMAT = get_post_meta($post_id, 'booking_plugin_FORMAT', false);
@@ -163,7 +169,10 @@ function booking_pluginbox_save_postdata($post_id) {
   booking_pluginbox_clean($new_bp_DESTINATION_UI);
   booking_pluginbox_clean($new_bp_bbgc);
   booking_pluginbox_clean($new_bp_btc);
+  booking_pluginbox_clean($new_bp_sbbbgc);
+  booking_pluginbox_clean($new_bp_sbbtc);  
   booking_pluginbox_clean($new_bp_LANGUAGE);
+  booking_pluginbox_clean($new_bp_CURRENCY);
   booking_pluginbox_clean($new_bp_TARGET);
   booking_pluginbox_clean($new_bp_FORMAT);
   booking_pluginbox_clean($new_bp_FLEX);
@@ -223,7 +232,6 @@ function booking_pluginbox_save_postdata($post_id) {
       add_post_meta($post_id,'booking_plugin_DESTINATION_UI',$new_bp_DESTINATION_UI,true);
   }
   
-  
 if (!empty($current_bp_bbgc)) {
     if (is_null($new_bp_bbgc)) {
       delete_post_meta($post_id,'booking_plugin_bbg_color');
@@ -244,6 +252,26 @@ if (!empty($current_bp_btc)) {
       add_post_meta($post_id,'booking_plugin_bt_color',$new_bp_btc,true);
   }   
   
+  if (!empty($current_bp_sbbbgc)) {
+    if (is_null($new_bp_sbbbgc)) {
+      delete_post_meta($post_id,'booking_plugin_sbbbg_color');
+    } else {
+      update_post_meta($post_id,'booking_plugin_sbbbg_color',$new_bp_sbbbgc);
+    }
+  } elseif (!is_null($new_bp_sbbbgc)) {
+      add_post_meta($post_id,'booking_plugin_sbbbg_color',$new_bp_sbbbgc,true);
+  }
+  
+if (!empty($current_bp_sbbtc)) {
+    if (is_null($new_bp_sbbtc)) {
+      delete_post_meta($post_id,'booking_plugin_sbbt_color');
+    } else {
+      update_post_meta($post_id,'booking_plugin_sbbt_color',$new_bp_sbbtc);
+    }
+  } elseif (!is_null($new_bp_sbbtc)) {
+      add_post_meta($post_id,'booking_plugin_sbbt_color',$new_bp_sbbtc,true);
+  }   
+  
   if (!empty($current_bp_LANGUAGE)) {
     if (is_null($new_bp_LANGUAGE)) {
       delete_post_meta($post_id,'booking_plugin_box_language');
@@ -253,6 +281,16 @@ if (!empty($current_bp_btc)) {
   } elseif (!is_null($new_bp_LANGUAGE)) {
       add_post_meta($post_id,'booking_plugin_box_language',$new_bp_LANGUAGE,true);
   }  
+  
+  if (!empty($current_bp_CURRENCY)) {
+    if (is_null($new_bp_CURRENCY)) {
+      delete_post_meta($post_id,'booking_plugin_box_currency');
+    } else {
+      update_post_meta($post_id,'booking_plugin_box_currency',$new_bp_CURRENCY);
+    }
+  } elseif (!is_null($new_bp_CURRENCY)) {
+      add_post_meta($post_id,'booking_plugin_box_currency',$new_bp_CURRENCY,true);
+  } 
   
     if (!empty($current_bp_TARGET)) {
     if (is_null($new_bp_TARGET)) {

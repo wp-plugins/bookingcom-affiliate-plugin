@@ -10,7 +10,10 @@ function booking_pluginbox_form() {
   $bp_DESTINATION_UI = get_post_meta($post->ID, 'booking_plugin_DESTINATION_UI', true);
   $bp_bbgc = get_post_meta($post->ID, 'booking_plugin_bbg_color', true);
   $bp_btc = get_post_meta($post->ID, 'booking_plugin_bt_color', true);
+  $bp_sbbbgc = get_post_meta($post->ID, 'booking_plugin_sbbbg_color', true);
+  $bp_sbbtc = get_post_meta($post->ID, 'booking_plugin_sbbt_color', true);  
   $bp_LANGUAGE = get_post_meta($post->ID, 'booking_plugin_box_language', true);
+  $bp_CURRENCY = get_post_meta($post->ID, 'booking_plugin_box_currency', true);
   $bp_TARGET = get_post_meta($post->ID, 'booking_plugin_TARGET', true);
   $bp_FORMAT = get_post_meta($post->ID, 'booking_plugin_FORMAT', true);
   $bp_FLEX = get_post_meta($post->ID, 'booking_plugin_FLEX', true);
@@ -95,22 +98,53 @@ function booking_pluginbox_form() {
     <option value="tr">Turkish</option>
     <option value="ru">Russian</option>
     <!--  
-			  <option value="no">Norwegian</option>
-			  <option value="fi">Finish</option>
-			  <option value="sv">Swedish</option>
-			  <option value="cs">Czech</option>
-			  <option value="hu">Hungarian</option>
-			  <option value="ro">Romanian</option>
-			  <option value="ja">Japanese</option>
-			  <option value="zh">Chinese (Traditional)</option>
-			  <option value="pl">Polish</option>
-			  <option value="ar">Arabic</option>
-			  <option value="ko">Korean</option>
-			  <option value="he">Hebrew</option>
-			  <option value="lv">Latvian</option>
-			-->
+    <option value="no">Norwegian</option>
+    <option value="fi">Finish</option>
+    <option value="sv">Swedish</option>
+    <option value="cs">Czech</option>
+    <option value="hu">Hungarian</option>
+    <option value="ro">Romanian</option>
+    <option value="ja">Japanese</option>
+    <option value="zh">Chinese (Traditional)</option>
+    <option value="pl">Polish</option>
+    <option value="ar">Arabic</option>
+    <option value="ko">Korean</option>
+    <option value="he">Hebrew</option>
+    <option value="lv">Latvian</option>
+	-->
   </select>
     <p class="description">This applies to the results page too</p></td>
+</tr>
+<tr>
+<td valign="top" class="td_left">Currency determination</td>
+<td class="td_divider">&nbsp;</td>
+<td valign="top" class="td_right">
+<select name="booking_plugin_box_currency" id="booking_plugin_box_currency">
+<option value="<?php echo $bp_CURRENCY; ?>" selected="selected"><?php echo $bp_CURRENCY; ?></option>
+<option value="">Let booking.com decide</option>
+<option value="">----------------------</option>
+<option value="AED">United Arab Emirates dirham (AED)</option>
+<option value="AUD">Australian dollar (AUD)</option>
+<option value="BRL">Brazilian real (BRL)</option>
+<option value="CAD">Canadian dollar (CAD)</option>
+<option value="CHF">Swiss franc (CHF)</option>
+<option value="CLP">Chilean peso (CLP)</option>
+<option value="CZK">Czech koruna (CZK)</option>
+<option value="DKK">Danish krone (DKK)</option>
+<option value="EUR">Euro (EUR)</option>
+<option value="HUF">Hungarian forint (HUF)</option>
+<option value="GBP">Pound sterling (GBP)</option>
+<option value="INR">Indian rupee (INR)</option>
+<option value="ILS">Israeli new sheqel (ILS)</option>
+<option value="JPY">Japanese yen (JPY)</option>
+<option value="MXN">Mexican peso (MXN)</option>
+<option value="NOK">Norwegian krone (NOK)</option>
+<option value="PLN">Polish zloty (PLN)</option>
+<option value="SEK">Swedish krona (SEK)</option>
+<option value="SGD">Singapore dollar (SGD)</option>
+<option value="USD">U.S. dollar (USD)</option>
+</select>
+<p class="description">When a booker is making a reservation, both currencies - the default currency and any currency chosen by the booker- will be displayed. This is because the guest will need to pay for the accommodation in the local currency. In most cases, leave this field blank.</p></td>
 </tr>
 <tr>
   <td valign="top" class="td_left">Show results in a new browser window ?</td>
@@ -153,13 +187,21 @@ function booking_pluginbox_form() {
   <td valign="top" class="td_left">Box text color</td>
   <td class="td_divider">&nbsp;</td>
   <td valign="top" class="td_right"><input type="text" class="color {required:true,hash:false}" value="<?php
-    if ($bp_btc == "") {
-		echo "003580";
-	} else {
-		echo $bp_btc;
-	}
-?>" id="booking_plugin_bt_color" name="booking_plugin_bt_color" />
+    if ($bp_btc == "") { echo "003580"; } else { echo $bp_btc; } ?>" id="booking_plugin_bt_color" name="booking_plugin_bt_color" />
     <p class="description">(default is &quot;003580&quot; - no '#')</p></td>
+</tr>
+<tr>
+  <td valign="top" class="td_left">Search button background color</td>
+  <td class="td_divider">&nbsp;</td>
+  <td valign="top" class="td_right"><input type="text" class="color {required:true,hash:false}" value="<?php if ($bp_sbbbgc=="") { echo "0896ff"; } else { echo $bp_sbbbgc; } ?>" id="booking_plugin_sbbbg_color" name="booking_plugin_sbbbg_color" />
+    <p class="description">(default is &quot;0896ff&quot; - no '#')</p></td>
+</tr>
+<tr>
+  <td valign="top" class="td_left">Search button text color</td>
+  <td class="td_divider">&nbsp;</td>
+  <td valign="top" class="td_right"><input type="text" class="color {required:true,hash:false}" value="<?php
+    if ($bp_sbbtc == "") { echo "ffffff"; } else { echo $bp_sbbtc; } ?>" id="booking_plugin_sbbt_color" name="booking_plugin_sbbt_color" />
+    <p class="description">(default is &quot;ffffff&quot; - no '#')</p></td>
 </tr>
 <tr>
   <td valign="top" class="td_left">Calendar Skin</td>

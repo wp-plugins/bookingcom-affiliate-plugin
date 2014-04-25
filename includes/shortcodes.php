@@ -100,7 +100,10 @@ function booking_pluginbox_func($atts) {
 	$post_bp_DESTINATION_UI = get_post_meta(get_the_ID(), 'booking_plugin_DESTINATION_UI', true);
 	$post_bp_bbgc = get_post_meta(get_the_ID(), 'booking_plugin_bbg_color', true);
 	$post_bp_btc = get_post_meta(get_the_ID(), 'booking_plugin_bt_color', true);
+	$post_bp_sbbbgc = get_post_meta(get_the_ID(), 'booking_plugin_sbbbg_color', true);
+	$post_bp_sbbtc = get_post_meta(get_the_ID(), 'booking_plugin_sbbt_color', true);
 	$post_bp_LANGUAGE = get_post_meta(get_the_ID(), 'booking_plugin_box_language', true);
+	$post_bp_CURRENCY = get_post_meta(get_the_ID(), 'booking_plugin_box_currency', true);
 	$post_bp_TARGET = get_post_meta(get_the_ID(), 'booking_plugin_TARGET', true);
 	$post_bp_FORMAT = get_post_meta(get_the_ID(), 'booking_plugin_FORMAT', true);
 	$post_bp_FLEX = get_post_meta(get_the_ID(), 'booking_plugin_FLEX', true);
@@ -386,20 +389,22 @@ wp_enqueue_style('jquery-ui-datepicker_style', 'http://ajax.googleapis.com/ajax/
 button {
 	float: right;
 	-moz-border-radius: 8px;
-	background-color: #0896ff;
-	border: 2px solid #fff;
-	color: #fff;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	background-color: #<?php if ($post_bp_sbbbgc == "") { echo "0896ff"; } else { echo $post_bp_sbbbgc; }?>;
+	border: 2px solid #<?php if ($post_bp_sbbtc == "") { echo "ffffff"; } else { echo $post_bp_sbbtc; } ?>;
+	color: #<?php if ($post_bp_sbbtc == "") { echo "ffffff"; } else { echo $post_bp_sbbtc; } ?>;
 	letter-spacing: 1px;
-	padding: 0.15em 0.75em;
+	padding: 0.3em 0.9em;
 	text-transform: uppercase;
 	font: bold 1.333em/1 Arial, Helvetica, sans-serif;
 }
 </style>
 <div id="Booking_com_plugin"> 
-  <!--Version = 1.5.3-->
+  <!--Version = 1.6-->
   <div id="searchboxHolder_<?php echo $id;?>">
     <div id="searchboxInc_<?php echo $id;?>">
-      <form id="frm_<?php echo $id;?>" name="frm_<?php echo $id;?>" action="http://www.booking.com/searchresults.html" method="get" target="_blank" autocomplete="off" class="date-picker">
+      <form id="frm_<?php echo $id;?>" name="frm_<?php echo $id;?>" action="http://www.booking.com/searchresults.html" method="get" <?php if ($post_bp_TARGET == "yes") { echo "target='_blank'"; } ?> autocomplete="off" class="date-picker">
         <fieldset>
           <div id="destinationSearch">
             <input type="hidden" name="aid" value="<?php echo $post_bp_AID; ?>" />
@@ -407,6 +412,7 @@ button {
             <input type="hidden" name="si" value="ai,co,ci,re,di" />
             <input type="hidden" name="label" value="<?php echo $post_bp_TRACKING; ?>" />
             <input type="hidden" name="lang" value="<?php echo $post_bp_LANGUAGE; ?>" />
+            <?php if ($post_bp_CURRENCY != "") {?><input type="hidden" name="selected_currency" value="<?php echo $post_bp_CURRENCY; ?>" /><?php ; } ?>
             <input type="hidden" name="nflt" value="" />
             <input type="hidden" name="ifl" value="1" />
             <?php if ($post_bp_DESTINATION_UI != "Hide") {?>
@@ -451,7 +457,7 @@ button {
               <?php }?>
             </div>
           </div>
-          <div class="but">
+          <div class="button">
             <button type="submit"><?php echo $desc_search;?></button>
           </div>
         </fieldset>
