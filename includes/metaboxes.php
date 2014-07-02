@@ -92,11 +92,12 @@ function booking_pluginbox_form() {
     <option value="fr">French</option>
     <option value="de">German</option>
     <option value="el">Greek</option>
+    <option value="is">Icelandic</option>
     <option value="it">Italian</option>
     <option value="pt">Portuguese</option>
-    <option value="es">Spanish</option>
-    <option value="tr">Turkish</option>
     <option value="ru">Russian</option>
+    <option value="es">Spanish</option>
+    <option value="tr">Turkish</option>    
     <!--  
     <option value="no">Norwegian</option>
     <option value="fi">Finish</option>
@@ -133,6 +134,7 @@ function booking_pluginbox_form() {
 <option value="DKK">Danish krone (DKK)</option>
 <option value="EUR">Euro (EUR)</option>
 <option value="HUF">Hungarian forint (HUF)</option>
+<option value="ISK">Icelandic Krona (ISK)</option>
 <option value="GBP">Pound sterling (GBP)</option>
 <option value="INR">Indian rupee (INR)</option>
 <option value="ILS">Israeli new sheqel (ILS)</option>

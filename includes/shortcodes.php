@@ -298,6 +298,23 @@ switch ($post_bp_LANGUAGE) {
 		$cal_prev="Предыдущий месяц";
 		$cal_close="Закрыть календарь";
   break;
+  case "is":
+		$dayNamesShort = "['Sun', 'Mán', 'Þri', 'Mið', 'Fim', 'Fös', 'Lau']";
+		$dayNamesMin = "['Su', 'Má', 'Þr', 'Mi', 'Fi', 'Fö', 'La']";
+		$monthNamesShort = "['Jan', 'Feb', 'Mar', 'Apr', 'Maí', 'Jún','Júl', 'Ágú', 'Sep', 'Okt', 'Nóv', 'Des']";
+		$monthNames = "['Janúar','Febrúar','Mars','Apríl','Maí','Júní','Júlí','Ágúst','September','Október','Nóvember','Desember']
+		";
+		$desc_search_hotels ="Finna hótel";
+		$desc_destination ="Áfángastaður";
+		$desc_vanity ="Borg, Svæði, Land, ...";
+		$desc_checkin = "Komudagur";
+		$desc_checkout ="Brottfarardagur";
+		$desc_nodates = "Ég er ekki búin að ákveða dagsetningu";
+		$desc_search="Finna";
+		$cal_next="Næsti mánuður";
+		$cal_prev="Fyrri mánuður";
+		$cal_close="Loka dagatali";
+  break;
   default:
 		$dayNamesShort = "['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']";
 		$dayNamesMin = "['Su','Mo','Tu','We','Th','Fr','Sa']";
@@ -354,15 +371,20 @@ wp_enqueue_style('jquery-ui-datepicker_style', 'http://ajax.googleapis.com/ajax/
 #searchboxInc_<?php echo $id;?> fieldset {
 	padding: 8px;
 }
-#searchboxInc_<?php echo $id;?> #inout h3 {
+.booking-title {
+	
+}
+#searchboxInc_<?php echo $id;?> #inout .booking-title {
 	background-color: transparent;
 	font-size: 1em;
 }
-#searchboxInc_<?php echo $id;?> h3 {
+#searchboxInc_<?php echo $id;?> .booking-title {
 	margin-bottom: 0.2em;
 	position: static;
 	font-size: 118%;
 	font-weight: bold;
+	line-height: 2.6em;
+	display:block;
 	margin: 0;
 }
 #searchboxInc_<?php echo $id;?> p {
@@ -401,7 +423,7 @@ button {
 }
 </style>
 <div id="Booking_com_plugin"> 
-  <!--Version = 1.6-->
+  <!--Version = 1.6.1-->
   <div id="searchboxHolder_<?php echo $id;?>">
     <div id="searchboxInc_<?php echo $id;?>">
       <form id="frm_<?php echo $id;?>" name="frm_<?php echo $id;?>" action="http://www.booking.com/searchresults.html" method="get" <?php if ($post_bp_TARGET == "yes") { echo "target='_blank'"; } ?> autocomplete="off" class="date-picker">
@@ -425,7 +447,7 @@ button {
           </div>
           <div id="inout">
             <div id="homein">
-              <h3><?php echo $desc_checkin;?></h3>
+              <span class="booking-title"><?php echo $desc_checkin;?></span>
               <input type="text" class="full_checkin_date_<?php echo $id;?>" value=""  title="Check in date"/>
               <div hidden="" style="display:none;">
                 <?php $checkin = mktime(0, 0, 0, date("m"), date("d")+1, date("y")); ?>
@@ -438,7 +460,7 @@ button {
               </div>
             </div>
             <div id="homeout">
-              <h3><?php echo $desc_checkout;?></h3>
+              <span class="booking-title"><?php echo $desc_checkout;?></span>
               <input type="text" class="full_checkout_date_<?php echo $id;?>" value=""  title="Check out date"/>
               <div hidden="" style="display:none;">
                 <?php $checkout = mktime(0, 0, 0, date("m"), date("d")+3, date("y")); ?>
