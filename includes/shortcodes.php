@@ -315,6 +315,23 @@ switch ($post_bp_LANGUAGE) {
 		$cal_prev="Fyrri mánuður";
 		$cal_close="Loka dagatali";
   break;
+  case "no":
+                $dayNamesShort = "['Søn', 'Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lør']";
+                $dayNamesMin = "['Sø','Ma','Ti','On','To','Fr','Lø']";
+                $monthNamesShort = "['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun','Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des']";
+                $monthNames = "['Januar','Februar','Mars','April','Mai','Juni','Juli','August','September','Oktober','November','Desember']
+                ";
+                $desc_search_hotels ="Søk etter hotell";
+                $desc_destination ="Destinasjon";
+                $desc_vanity ="By, Region, Land, ...";
+                $desc_checkin = "Innsjekking - dato";
+                $desc_checkout ="Utsjekking - dato";
+                $desc_nodates = "Jeg har ikke bestemt noen dato ennå";
+                $desc_search="Søk";
+                $cal_next="Neste måned";
+                $cal_prev="Forrige måned";
+                $cal_close="Lukk kalender";
+  break;
   default:
 		$dayNamesShort = "['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']";
 		$dayNamesMin = "['Su','Mo','Tu','We','Th','Fr','Sa']";
@@ -423,7 +440,7 @@ button {
 }
 </style>
 <div id="Booking_com_plugin"> 
-  <!--Version = 1.6.1-->
+  <!--Version = 1.6.2-->
   <div id="searchboxHolder_<?php echo $id;?>">
     <div id="searchboxInc_<?php echo $id;?>">
       <form id="frm_<?php echo $id;?>" name="frm_<?php echo $id;?>" action="http://www.booking.com/searchresults.html" method="get" <?php if ($post_bp_TARGET == "yes") { echo "target='_blank'"; } ?> autocomplete="off" class="date-picker">

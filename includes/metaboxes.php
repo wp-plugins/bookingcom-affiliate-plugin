@@ -94,6 +94,7 @@ function booking_pluginbox_form() {
     <option value="el">Greek</option>
     <option value="is">Icelandic</option>
     <option value="it">Italian</option>
+    <option value="no">Norwegian</option>
     <option value="pt">Portuguese</option>
     <option value="ru">Russian</option>
     <option value="es">Spanish</option>
