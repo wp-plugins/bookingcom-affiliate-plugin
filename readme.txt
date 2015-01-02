@@ -4,12 +4,12 @@ Contributors: Greg Raby
 Donate link: http://www.booking-plugin.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
-Tags: affiliates, booking, travel, reservation, hotel, booking.com, affiliation, hotels, booking calendar, online booking
+Tags: affiliates, booking, travel, reservation, hotel, booking.com, affiliation, hotels, booking calendar, online booking, accomodation, destinations, holidays, affiliation programme, affiliation program 
 Requires at least: 3.3
 Tested up to: 4.1
 Stable tag: 1.7
 
-Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site.
+Booking.com Affiliates : this plugin allows you to add a booking.com searchbox on your wordpress site in 2 clicks.
 
 == Description ==
 
@@ -25,7 +25,7 @@ With the new plugin architecture, you can now leverage the flexibility of the sh
 
 = A calendar that gets it =
 
-Most booking site ask travelers to use dropdowns and dates. This plugin allows your customers to use a cross-browser compatible calendar. Travelers can see the date in context of the upcoming weeks and navigate from one month to another. For instance, travelers won't simply pick "20/01/2015", they will actually select "Tue, 20 Jan. 2015"... in their own language (autodetected or forced, you decide). Also, to make it foolproof, the calendar adjusts itself so the departure date can't be earlier than the arrival date. 
+Most booking sites ask travelers to use dropdowns and dates. This plugin allows your customers to use a cross-browser compatible calendar. Travelers can see the date in context of the upcoming weeks and navigate from one month to another. For instance, travelers won't simply pick "20/01/2015", they will actually select "Tue, 20 Jan. 2015"... in their own language (autodetected or forced, you decide). Also, to make it foolproof, the calendar adjusts itself so the departure date can't be earlier than the arrival date. 
 
 = Manage your search boxes centrally =
 
