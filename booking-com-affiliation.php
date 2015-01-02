@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Booking.com Affiliate plugin
-Version: 1.6.2
+Version: 1.7
 Plugin URI: http://www.booking-plugin.com/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=bookingplugin
 Description: Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site. Simply configure what you want the searchbox to look like and generate traffic to your booking.com  affiliate pages. Be sure to visit the plugin site to find live integration examples, booking.com affiliation tips and showcase your site.
 Author: gregory.raby
@@ -10,7 +10,7 @@ Author URI: http://www.booking-plugin.com/
 License: GPL v3
 WordPress Booking.com Affiliate Plugin
 
-Copyright (C) 2012-2014, Gregory Raby - http://www.booking-plugin.com/send-me-a-note
+Copyright (C) 2012-2015, Gregory Raby - http://www.booking-plugin.com/send-me-a-note
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -73,15 +73,16 @@ function booking_pluginbox_columns($column){
   }
 }
 
-// Change the default "Enter title here" text
-function booking_pluginbox_post_title($title) {
-  $screen = get_current_screen();
-  if ('booking-pluginbox' == $screen->post_type) {
-    $title = 'Type in a good title for this Booking.com searchbox';
-  }
-  return $title;
+// Change the default title text
+
+function booking_pluginbox_post_title( $post_title, $post ) {
+  if( 'booking-pluginbox' == $post->post_type ) {
+		return "Searchbox ID " .$post->ID;
+    }
+	
+    return $post_title;
 }
-add_filter('enter_title_here', 'booking_pluginbox_post_title');
+add_filter( 'default_title', 'booking_pluginbox_post_title', 20, 2 );
 
 // Add filter
 add_filter( 'post_updated_messages', 'booking_plugin_updated_messages' );
@@ -95,7 +96,7 @@ function booking_plugin_updated_messages( $messages ) {
     3  => __('Custom field deleted.'),
     4  => __('Booking.com searchbox updated.'),
     5  => isset($_GET['revision']) ? sprintf( __('Booking.com searchbox restored to revision from %s'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-    6  => sprintf( __('Booking.com searchbox published.')),
+    6  => sprintf( __('Booking.com searchbox published. Now go add it on your pages (insert from editor or use shortcode)')),
     7  => __('Booking.com searchbox saved.'),
     8  => sprintf( __('Booking.com searchbox submitted. ') ),
     9  => sprintf( __('Booking.com searchbox scheduled for: <strong>%1$s</strong>.'),

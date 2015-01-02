@@ -25,26 +25,26 @@ function booking_pluginbox_form() {
 <script type="text/javascript" src="<?php echo plugins_url( 'jscolor/jscolor.js' , __FILE__ ); ?>"></script>
 
  <!-- Program related setting --> 
-<h2 style="padding-left:10px;"><span class="icon16 icon-settings"></span>Your affiliation program</h2>
+<h2 style="padding-left:10px;"><span class="icon16 dashicons-admin-settings"></span>Your affiliation program</h2>
 <br />
 <table class="tables">
 <tr>
-	<td width="250" valign="top" class="td_left">Your Booking.com Affiliate ID ("AID")</td>
+	<td width="200" valign="top" class="td_left">Your Booking.com Affiliate ID ("AID")</td>
     <td class="td_divider">&nbsp;</td>
 	<td valign="top" class="td_right"><input name="booking_plugin_AID" type="text" id="booking_plugin_AID" value="<?php echo $bp_AID; ?>" /><p class="description">(ex. "345164" - <a href="http://www.booking.com/general.en-gb.html?dcid=1&lang=en-gb&tmpl=docs%2Faffiliates">don't have an affiliate ID yet ?</a>)</p></td>
 </tr>
 <tr>
-	<td width="250" valign="top" class="td_left">Label name for your booking.com tracking</td>
+	<td width="200" valign="top" class="td_left">Label name for your booking.com tracking</td>
     <td class="td_divider">&nbsp;</td>
 	<td valign="top" class="td_right"><input name="booking_plugin_TRACKING" type="text" id="booking_plugin_TRACKING" value="<?php echo $bp_TRACKING; ?>" /><p class="description">(ex. "Homepage")</p></td>
 </tr>
 <tr>
-	<td width="250" valign="top" class="td_left">Want to specify a default destination ?</td>
+	<td width="200" valign="top" class="td_left">Want to specify a default destination ?</td>
     <td class="td_divider">&nbsp;</td>
 	<td valign="top" class="td_right"><input name="booking_plugin_DESTINATION" type="text" id="booking_plugin_DESTINATION" value="<?php echo $bp_DESTINATION; ?>" /><p class="description">(ex. "Paris, France")</p></td>
 </tr>
 <tr>
-	<td width="250" valign="top" class="td_left">For better results, please categorize the destination type</td>
+	<td width="200" valign="top" class="td_left">For better results, please categorize the destination type</td>
     <td class="td_divider">&nbsp;</td>
 	<td valign="top" class="td_right"><select name="booking_plugin_DESTINATION_RESTRICTION" id="booking_plugin_DESTINATION_RESTRICTION">
              	<option value="<?php echo $bp_DESTINATION_RESTRICTION; ?>" selected="selected"><?php echo $bp_DESTINATION_RESTRICTION; ?></option>
@@ -58,23 +58,18 @@ function booking_pluginbox_form() {
     </select><p class="description">Please refer to the <a href="https://admin.bookings.org/affiliate/impl_sbox.html" target="_blank">booking.com documentation</a> to learn more about the categories.</p></td>
 </tr>
 </table>
-  
- <br /><br />
    <!-- Actual box look and feel -->   
- <h2 style="padding-left:10px;"><span class="icon16 icon-appearance"></span>Customize your booking widget</h2>
+ <h2 style="padding-left:10px;"><span class="icon16 dashicons-forms"></span>Customize the User Interface</h2>
  <br />
   <table class="tables">
 <tr>
-  <td colspan="3" valign="top" class="td_left"><h3>What do you want to display ?</h3></td>
-</tr>
-<tr>
-  <td width="250" valign="top" class="td_left">Should the destination be editable by the visitors ?</td>
+  <td width="200" valign="top" class="td_left">Should the destination be editable by the visitors ?</td>
   <td class="td_divider">&nbsp;</td>
   <td valign="top" class="td_right"><p>
     <select name="booking_plugin_DESTINATION_UI" id="booking_plugin_DESTINATION_UI">
       <option value="<?php echo $bp_DESTINATION_UI; ?>" selected="selected"><?php echo $bp_DESTINATION_UI; ?></option>
-      <option value="Display-Editable">Display the destination search field AND keep it editable</option>
-      <option value="Display-NOT-Editable">Display the destination search field BUT do not make it editable</option>
+      <option value="Display-Editable">Display destination AND keep it editable</option>
+      <option value="Display-NOT-Editable">Display destination BUT DO NOT make it editable</option>
       <option value="Hide">Do not display the destination field</option>
     </select>
   </p>
@@ -125,7 +120,7 @@ function booking_pluginbox_form() {
 <option value="<?php echo $bp_CURRENCY; ?>" selected="selected"><?php echo $bp_CURRENCY; ?></option>
 <option value="">Let booking.com decide</option>
 <option value="">----------------------</option>
-<option value="AED">United Arab Emirates dirham (AED)</option>
+<option value="AED">UAE dirham (AED)</option>
 <option value="AUD">Australian dollar (AUD)</option>
 <option value="BRL">Brazilian real (BRL)</option>
 <option value="CAD">Canadian dollar (CAD)</option>
@@ -155,16 +150,9 @@ function booking_pluginbox_form() {
   <td valign="top" class="td_right"><select name="booking_plugin_TARGET" id="booking_plugin_TARGET">
     <option value="<?php echo $bp_TARGET; ?>" selected="selected"><?php echo $bp_TARGET; ?></option>
     <option value="yes">Yes, display results in a new window</option>
-    <option value="no">No, open booking.com in the same window</option>
+    <option value="no">No, display results in the same window</option>
   </select>
     <p class="description">It's quite common to make results open in a NEW window.</p></td>
-</tr>
-<tr>
-  <td valign="top" class="td_left">Width for your search box</td>
-  <td class="td_divider">&nbsp;</td>
-  <td valign="top" class="td_right"><input type="text" value="<?php echo $bp_FORMAT; ?>" id="booking_plugin_FORMAT" name="booking_plugin_FORMAT" />
-    pixels
-    <p class="description">In most cases this should remain blank (blank = adaptive) unless you know exactly what you need. Do not go under 198px as it starts looking weird.</p></td>
 </tr>
 <tr>
   <td valign="top" class="td_left">Allow flexible dates ?</td>
@@ -174,11 +162,23 @@ function booking_pluginbox_form() {
     <option value="yes">Yes</option>
     <option value="no">No</option>
     </select>
-    <p class="description">This would display the text &quot;I don't have specific dates yet&quot;.</p></td>
+    <p class="description">This would display the option &quot;I don't have specific dates yet&quot;.</p></td>
 </tr>
+</table>
+ <h2 style="padding-left:10px;"><span class="icon16 icon-appearance"></span>Customize the design</h2>
+ <br />
+
+<table class="tables">
 <tr>
-  <td colspan="3" valign="top" class="td_left"><p>&nbsp;</p>
-    <p><h3>How should it all look ?</h3></p></td>
+  <td colspan="3" valign="top" class="td_left"><h3>Searchbox</h3>
+    </p></td>
+  </tr>
+<tr>
+  <td width="200" valign="top" class="td_left">Width for your search box</td>
+  <td class="td_divider">&nbsp;</td>
+  <td valign="top" class="td_right"><input type="text" value="<?php echo $bp_FORMAT; ?>" id="booking_plugin_FORMAT" name="booking_plugin_FORMAT" />
+    pixels
+    <p class="description">In most cases this should remain blank (blank = adaptive) unless you know exactly what you need. Do not go under 245px as it starts looking weird but this WILL vary greatly based on your theme. If you know a bit of CSS, anything is possible.</p></td>
 </tr>
 <tr>
   <td valign="top" class="td_left">Box background color</td>
@@ -207,48 +207,71 @@ function booking_pluginbox_form() {
     <p class="description">(default is &quot;ffffff&quot; - no '#')</p></td>
 </tr>
 <tr>
-  <td valign="top" class="td_left">Calendar Skin</td>
+  <td colspan="3" valign="top" class="td_left"><h3>Calendar</h3>
+    </p></td>
+  </tr>
+<tr>
+  <td valign="top" class="td_left">Calendar theme</td>
   <td class="td_divider">&nbsp;</td>
-  <td valign="top" class="td_right"><p>
+  <td valign="top" class="td_right">
     <select name="booking_plugin_jqtheme" id="booking_plugin_jqtheme">
-      <option value="<?php echo $bp_jqtheme; ?>" selected="selected"><?php echo $bp_jqtheme; ?></option>
-      <option value="ui-lightness">UI Lightness</option>
-      <option value="ui-darkness">UI Darkness</option>
-      <option value="smoothness">Smoothness</option>
-      <option value="start">Start</option>
-      <option value="redmond">Redmond <= This is the default</option>
-      <option value="sunny">Sunny</option>
-      <option value="overcast">Overcast</option>
-      <option value="le-frog">Le Frog</option>
-      <option value="flick">Flick</option>
-      <option value="pepper-grinder">Pepper Grinder</option>
-      <option value="eggplant">Eggplant</option>
-      <option value="dark-hive">Dark Hive</option>
-      <option value="cupertino">Cupertino</option>
-      <option value="south-street">South Street</option>
-      <option value="blitzer">Blitzer</option>
-      <option value="humanity">Humanity</option>
-      <option value="hot-sneaks">Hot Sneaks</option>
-      <option value="excite-bike">Excite Bike</option>
-      <option value="vader">Vader</option>
-      <option value="dot-luv">Dot Luv</option>
-      <option value="mint-choc">Mint Choc</option>
-      <option value="black-tie">Black Tie</option>
-      <option value="trontastic">Trontastic</option>
-      <option value="swanky-purse">Swanky Purse</option>
-    </select>
-  </p>
-    <p><span class="description">Have a look at the official <a href="http://jqueryui.com/themeroller/#themeGallery" target="_blank">jQueryUI theme Gallery</a> to pick your favorite datepicker skin.</span></p></td>
+    
+  <?php
+if ( ( (empty($bp_jqtheme)) AND ($bp_CSS_override != 'Yes') ) ) {
+	echo '<option value="" selected="selected">Select a theme ! </option>';
+} elseif ( ($bp_CSS_override == 'Yes') ) {
+	echo '<option value="" selected="selected">Calendar theme disabled - see option below</option>';
+}
+else {
+	echo '<option value="'.$bp_jqtheme.'" selected="selected">'.$bp_jqtheme.'</option>';
+}
+?>
+		<option value="">------- Regular -------</option>   
+		<option value="ui-lightness">UI Lightness</option>
+        <option value="ui-darkness">UI Darkness</option>
+        <option value="smoothness">Smoothness</option>
+        <option value="start">Start</option>
+        <option value="redmond">Redmond <= default</option>
+        <option value="sunny">Sunny</option>
+        <option value="overcast">Overcast</option>
+        <option value="le-frog">Le Frog</option>
+        <option value="flick">Flick</option>
+        <option value="pepper-grinder">Pepper Grinder</option>
+        <option value="eggplant">Eggplant</option>
+        <option value="dark-hive">Dark Hive</option>
+        <option value="cupertino">Cupertino</option>
+        <option value="south-street">South Street</option>
+        <option value="blitzer">Blitzer</option>
+        <option value="humanity">Humanity</option>
+        <option value="hot-sneaks">Hot Sneaks</option>
+        <option value="excite-bike">Excite Bike</option>
+        <option value="vader">Vader</option>
+        <option value="dot-luv">Dot Luv</option>
+        <option value="mint-choc">Mint Choc</option>
+        <option value="black-tie">Black Tie</option>
+        <option value="trontastic">Trontastic</option>
+        <option value="swanky-purse">Swanky Purse</option>
+        <option value="">------- Extra -------</option>
+        <option value="careful">Careful mode (uses Blitzer)</option>
+      </select>
+    <p class="description">Have a look at the official <a href="http://jqueryui.com/themeroller/#themeGallery" target="_blank">jQueryUI theme Gallery</a> to pick your favorite theme. The CSS file will load the complete minified CSS theme straight from the Google CDN (~30Kb).</p>
+    <p class="description">Selecting the "Careful mode" will load the calendar CSS bundled with this plugin. Its scope is limited to the jQueryUI datepicker, which will help preventing conflicting stylesheets.</p></td>
 </tr>
 <tr>
-  <td valign="top" class="td_left">Disable calendar skin (CSS)</td>
+  <td valign="top" class="td_left">Disable calendar theme</td>
   <td class="td_divider">&nbsp;</td>
   <td valign="top" class="td_right"><select name="booking_plugin_CSS_override" id="booking_plugin_CSS_override">
-    <option value="<?php echo $bp_CSS_override; ?>" selected="selected"><?php echo $bp_CSS_override; ?></option>
-    <option value="Yes">Yes</option>
-    <option value="No">No</option>
+<?php
+if ($bp_CSS_override != 'Yes') {
+	echo '<option value="No" selected="selected">No</option>';
+	echo '<option value="Yes">Yes</option>';
+} else {
+	echo '<option value="Yes" selected="selected">Yes</option>';
+	echo '<option value="No">No</option>';
+}
+?>  
     </select>
-    <p class="description">If you already run jQuery UI tabs on your site, you should probably choose &quot;Yes&quot; here to avoid CSS conflicts with multiple stylesheets.</p></td>
+    <p class="description">If you already run a jQuery UI widget (tabs, menu, accordions...) on your site -with the FULL jQuery CSS stack- you should probably choose &quot;Yes&quot; here to avoid CSS conflicts with multiple stylesheets.</p><p class="description">Selecting this option will prevent the plugin from loading a CSS file for the calendar => jQuery will use your Wordpress theme CSS file. If the calendars remain unstyled with this option, try the "Careful mode" option in the Calendar theme dropdown above.</p></td>
 </tr>
 </table>
 

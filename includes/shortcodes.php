@@ -3,9 +3,9 @@
 /* Shortcode Generator                  */
 /* ------------------------------------ */
 
-// Action target that adds the "Insert Product(s)" button to the post/page edit screen.
+// Action target that adds the "Insert" button to the post/page edit screen.
 function js_add_booking_pluginbox_button($context) {
-    $image_btn = plugins_url('images/booking_plugin-icon.png', dirname(__FILE__));
+    $image_btn = plugins_url('/includes/images/booking_plugin-icon.png', dirname(__FILE__));
     $out = '<a href="#TB_inline?width=600&height=350&inlineId=insert_booking_plugin" class="thickbox" title="Insert Booking.com Search Box"><img src="'.$image_btn.'" alt="Insert Booking.com Search Box" /></a>';
     return $context . $out;
 }
@@ -14,7 +14,7 @@ add_action('media_buttons_context','js_add_booking_pluginbox_button');
 
 //Action target that displays the popup to insert a form to a post/page
 function js_add_booking_pluginbox_popup() {
-  $booking_searchboxes = get_posts(array('post_type' => 'booking-pluginbox'));
+  $booking_searchboxes = get_posts(array('post_type' => 'booking-pluginbox', 'posts_per_page' => 25));
   foreach ($booking_searchboxes as $booking_searchbox) {
     $booking_searchbox_data[$booking_searchbox->ID] = (strlen($booking_searchbox->post_title) > 40) ? substr($booking_searchbox->post_title, 0, 37) . '...' : $booking_searchbox->post_title;
   }
@@ -25,7 +25,7 @@ function js_add_booking_pluginbox_popup() {
     <div>
       <div style="padding:15px 15px 0 15px;">
         <h3 class="media-title">Booking.com search box Shortcode Generator</h3>
-        <span>Which Booking.com Search Box do you want to insert ?</span> </div>
+        <span>Which Booking.com Search Box do you want to insert ?</span></div>
       <div style="padding:15px 15px 0 15px;">
         <select id="js_booking_pluginbox_shortcode_select">
           <option value="">Select here</option>
@@ -316,21 +316,20 @@ switch ($post_bp_LANGUAGE) {
 		$cal_close="Loka dagatali";
   break;
   case "no":
-                $dayNamesShort = "['Søn', 'Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lør']";
-                $dayNamesMin = "['Sø','Ma','Ti','On','To','Fr','Lø']";
-                $monthNamesShort = "['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun','Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des']";
-                $monthNames = "['Januar','Februar','Mars','April','Mai','Juni','Juli','August','September','Oktober','November','Desember']
-                ";
-                $desc_search_hotels ="Søk etter hotell";
-                $desc_destination ="Destinasjon";
-                $desc_vanity ="By, Region, Land, ...";
-                $desc_checkin = "Innsjekking - dato";
-                $desc_checkout ="Utsjekking - dato";
-                $desc_nodates = "Jeg har ikke bestemt noen dato ennå";
-                $desc_search="Søk";
-                $cal_next="Neste måned";
-                $cal_prev="Forrige måned";
-                $cal_close="Lukk kalender";
+        $dayNamesShort = "['Søn', 'Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lør']";
+        $dayNamesMin = "['Sø','Ma','Ti','On','To','Fr','Lø']";
+        $monthNamesShort = "['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun','Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des']";
+        $monthNames = "['Januar','Februar','Mars','April','Mai','Juni','Juli','August','September','Oktober','November','Desember']";
+        $desc_search_hotels ="Søk etter hotell";
+        $desc_destination ="Destinasjon";
+        $desc_vanity ="By, Region, Land, ...";
+        $desc_checkin = "Innsjekking - dato";
+        $desc_checkout ="Utsjekking - dato";
+        $desc_nodates = "Jeg har ikke bestemt noen dato ennå";
+        $desc_search="Søk";
+        $cal_next="Neste måned";
+        $cal_prev="Forrige måned";
+        $cal_close="Lukk kalender";
   break;
   default:
 		$dayNamesShort = "['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']";
@@ -355,19 +354,32 @@ switch ($post_bp_LANGUAGE) {
 // Dynamic styling & HTML
 ///////////////////////////
 
-if ($post_bp_CSS_override != "Yes") {
-	if (is_null($post_bp_jqtheme)) {
-		 $post_bp_jqtheme = "redmond";
-	}
-wp_enqueue_style('jquery-ui-datepicker_style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/'.$post_bp_jqtheme.'/jquery-ui.min.css'); 
+
+if ( ($post_bp_CSS_override != "Yes") AND ($post_bp_jqtheme != "careful") ) {
+	$enqueue_url_booking = 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/'.$post_bp_jqtheme.'/jquery-ui.min.css';
 }
+if ( ($post_bp_CSS_override != "Yes") AND ($post_bp_jqtheme != "careful") AND ($enqueue_url_booking == 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes//jquery-ui.min.css') ) {
+	$enqueue_url_booking = 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/ui-lightness/jquery-ui.min.css';
+}
+if ($post_bp_jqtheme == "careful") {
+	$enqueue_url_booking = plugins_url().'/bookingcom-affiliate-plugin/includes/debug-jquery-ui.min.css';
+}
+if ($post_bp_CSS_override != "Yes") {
+	wp_enqueue_style('jquery-ui-datepicker_style', $enqueue_url_booking);
+}
+
+
 ?>
+<!--Version = 1.7-->
 <style>
 .ui-datepicker-trigger {
 	position: relative;
 	left: -25px;
 	top: 2px;
+    width:17px;
+    height:16px;
 }
+
 .ui-widget {
 	font-size: 1em !important;
 	}
@@ -387,9 +399,6 @@ wp_enqueue_style('jquery-ui-datepicker_style', 'http://ajax.googleapis.com/ajax/
 }
 #searchboxInc_<?php echo $id;?> fieldset {
 	padding: 8px;
-}
-.booking-title {
-	
 }
 #searchboxInc_<?php echo $id;?> #inout .booking-title {
 	background-color: transparent;
@@ -439,8 +448,7 @@ button {
 	font: bold 1.333em/1 Arial, Helvetica, sans-serif;
 }
 </style>
-<div id="Booking_com_plugin"> 
-  <!--Version = 1.6.2-->
+<div id="Booking_com_plugin" class="Booking_com_plugin"> 
   <div id="searchboxHolder_<?php echo $id;?>">
     <div id="searchboxInc_<?php echo $id;?>">
       <form id="frm_<?php echo $id;?>" name="frm_<?php echo $id;?>" action="http://www.booking.com/searchresults.html" method="get" <?php if ($post_bp_TARGET == "yes") { echo "target='_blank'"; } ?> autocomplete="off" class="date-picker">
@@ -456,8 +464,8 @@ button {
             <input type="hidden" name="ifl" value="1" />
             <?php if ($post_bp_DESTINATION_UI != "Hide") {?>
             <p><?php echo $desc_search_hotels;?></p>
-            <label for="destination"><?php echo $desc_destination;?></label>
-            <input class="text" type="text blur" id="destination" name="ss" value="<?php echo $post_bp_DESTINATION_RESTRICTION.' '.$post_bp_DESTINATION; ?>" title="<?php echo $post_bp_DESTINATION_RESTRICTION.' '.$post_bp_DESTINATION; ?>"  autocomplete="off" <?php if ($post_bp_DESTINATION_UI == "Display-NOT-Editable") { echo "readonly"; } ?>  />
+            <span class="booking-title"><?php echo $desc_destination;?></span>
+            <input type="text" id="destination" name="ss" value="<?php echo $post_bp_DESTINATION_RESTRICTION.' '.$post_bp_DESTINATION; ?>" title="<?php echo $post_bp_DESTINATION_RESTRICTION.' '.$post_bp_DESTINATION; ?>"  autocomplete="off" <?php if ($post_bp_DESTINATION_UI == "Display-NOT-Editable") { echo "readonly"; } ?>  />
             <?php } else { ?>
             <input type="hidden" id="destination" name="ss" value="<?php echo $bp_DESTINATION_RESTRICTION.' '.$post_bp_DESTINATION; ?>" />
             <?php } ?>
@@ -514,7 +522,6 @@ button {
 jQuery(document).ready(function() {
     jQuery('.full_checkin_date_<?php echo $id;?>').datepicker({
         firstDay: 1,
-		showOn: 'button',
 		numberOfMonths: 2,
 		dayNamesShort: <?php echo $dayNamesShort;?>,
 		dayNamesMin: <?php echo $dayNamesMin;?>,
@@ -522,7 +529,7 @@ jQuery(document).ready(function() {
 		monthNames: <?php echo $monthNames;?>,
 		showOn: 'both',
 		buttonImageOnly: true,
-		buttonImage: "<?php echo plugins_url(); ?>/bookingcom-affiliate-plugin/images/picto_clear_66.png",
+		buttonImage: "<?php echo plugins_url(); ?>/bookingcom-affiliate-plugin/includes/images/picto_clear_66.png",
 		minDate : '0',
 		dateFormat: 'D, dd M. yy',
 		altFormat: 'yy-mm',
@@ -535,10 +542,14 @@ jQuery(document).ready(function() {
 			// Call Date object methods
 			jQuery("#checkin_monthday input").val(dateObject.getDate());
 			},
+		beforeShow: function(input, inst) { 
+			var newclass = 'calendar-base'; 
+			if (!inst.dpDiv.parent().hasClass('calendar-base')){ 
+			inst.dpDiv.wrap('<div class="'+newclass+'"></div>')};
+		},
     });
 	jQuery('.full_checkout_date_<?php echo $id;?>').datepicker({
 		firstDay: 1,
-		showOn: 'button',
 		numberOfMonths: 2,
 		dayNamesShort: <?php echo $dayNamesShort;?>,
 		dayNamesMin: <?php echo $dayNamesMin;?>,
@@ -546,7 +557,7 @@ jQuery(document).ready(function() {
 		monthNames: <?php echo $monthNames;?>,
 		showOn: 'both',
 		buttonImageOnly: true,
-		buttonImage: "<?php echo plugins_url(); ?>/bookingcom-affiliate-plugin/images/picto_clear_66.png",
+		buttonImage: "<?php echo plugins_url(); ?>/bookingcom-affiliate-plugin/includes/images/picto_clear_66.png",
 		minDate : '1',
 		dateFormat: 'D, dd M. yy',
 		altFormat: 'yy-mm',

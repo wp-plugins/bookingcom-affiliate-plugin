@@ -28,7 +28,7 @@ function booking_pluginbox_init() {
     'hierarchical'         => false,
     'has_archive'          => true,
     'menu_position'        => 100,
-    'menu_icon'            => plugins_url('images/booking_plugin-icon.png', dirname(__FILE__)),
+    'menu_icon'            => plugins_url('/includes/images/booking_plugin-icon.png', dirname(__FILE__)),
     'supports'             => array('title'),
     'register_meta_box_cb' => 'booking_pluginbox_meta_boxes'
   );

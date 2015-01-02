@@ -6,8 +6,8 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Tags: affiliates, booking, travel, reservation, hotel, booking.com, affiliation, hotels, booking calendar, online booking
 Requires at least: 3.3
-Tested up to: 3.9.1
-Stable tag: 1.6.2
+Tested up to: 4.1
+Stable tag: 1.7
 
 Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site.
 
@@ -21,7 +21,11 @@ All you need is a Booking.com affiliate ID and a wordpress site. Configure your 
 
 = Display your box where you need it =
 
-With the new plugin architecture, you can now leverage the flexibility of the shortcodes to display your search box in your posts, in your pages or on your widgetized areas (sidebar, footer). 
+With the new plugin architecture, you can now leverage the flexibility of the shortcodes to display your search box in your posts, in your pages or on your widgetized areas (sidebar, footer). It also features a "careful" mode in case your theme already uses a jQueryUi item, like tabs. The plugin can use your existing CSS code to blend into your wordpress theme OR apply a specific CSS to the date picker only to make it stand out.
+
+= A calendar that gets it =
+
+Most booking site ask travelers to use dropdowns and dates. This plugin allows your customers to use a cross-browser compatible calendar. Travelers can see the date in context of the upcoming weeks and navigate from one month to another. For instance, travelers won't simply pick "20/01/2015", they will actually select "Tue, 20 Jan. 2015"... in their own language (autodetected or forced, you decide). Also, to make it foolproof, the calendar adjusts itself so the departure date can't be earlier than the arrival date. 
 
 = Manage your search boxes centrally =
 
@@ -43,12 +47,24 @@ A couple of hours later, check your traffic & bookings via the [Booking.com admi
 
 == Screenshots ==
 
-1. Plugin page.
-2. Plugin settings.
-3. Live example.
+1. The plugin page lists all your searchboxes.
+2. Create a new searchbox.
+3. The default look and feel - completelly customizable.
+4. Insert a searchbox in 2 clicks.
+5. Insert a widget.
 
 
 == Changelog ==
+
+= 1.7 =
+
+* Updated jQuery CDN version
+* Added a "careful" calendar theme mode
+* Default searchbox title (admin side)
+* Bug fix :  jQuery CDN link syntax
+* Bug fix :  Insert menu (dropdown) now lists the last 25 searchboxes
+* Bug fix :  Edited out some CSS.
+* Bug fix :  Readjusted the code to align the calendar icons.
 
 = 1.6.2 =
 
@@ -151,6 +167,16 @@ I now dare call this plugin STABLE. This doesn't mean there are no more bugs or 
 
 
 == Upgrade Notice ==
+
+= 1.7 =
+
+* Updated jQuery CDN version
+* Added a "careful" calendar theme mode
+* Default searchbox title (admin side)
+* Bug fix :  jQuery CDN link syntax
+* Bug fix :  Insert menu (dropdown) now lists the last 25 searchboxes
+* Bug fix :  Edited out some CSS.
+* Bug fix :  Readjusted the code to align the calendar icons.
 
 = 1.6.2 =
 
