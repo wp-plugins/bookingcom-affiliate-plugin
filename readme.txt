@@ -7,7 +7,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Tags: affiliates, booking, travel, reservation, hotel, booking.com, affiliation, hotels, booking calendar, online booking, accomodation, destinations, holidays, affiliation programme, affiliation program 
 Requires at least: 3.3
 Tested up to: 4.1
-Stable tag: 1.7
+Stable tag: 1.8
 
 Booking.com Affiliates : this plugin allows you to add a booking.com searchbox on your wordpress site in 2 clicks.
 
@@ -55,6 +55,10 @@ A couple of hours later, check your traffic & bookings via the [Booking.com admi
 
 
 == Changelog ==
+
+= 1.8 =
+
+* Bug fix :  Plugin was creating extra-entries into the "wp_postmeta" table.
 
 = 1.7 =
 
@@ -168,69 +172,7 @@ I now dare call this plugin STABLE. This doesn't mean there are no more bugs or 
 
 == Upgrade Notice ==
 
-= 1.7 =
+= 1.8 =
 
-* Updated jQuery CDN version
-* Added a "careful" calendar theme mode
-* Default searchbox title (admin side)
-* Bug fix :  jQuery CDN link syntax
-* Bug fix :  Insert menu (dropdown) now lists the last 25 searchboxes
-* Bug fix :  Edited out some CSS.
-* Bug fix :  Readjusted the code to align the calendar icons.
+* Bug fix :  Plugin was creating extra-entries into the "wp_postmeta" table.
 
-= 1.6.2 =
-
-* Additional language (Norwegian thanks to kjetil)
-
-= 1.6.1 =
-
-* Removed the H3 reference from the searchbox to facilitate themes integration
-* Additional language (Icelandic thanks to bikingviking)
-
-= 1.6 =
-
-* New feature : customize the look of the search button + fresher button shape
-* New feature : currency determination
-* bug fix : open result in the same / new window
-
-= 1.5.4 =
-
-* IE10 conflicts
-* Additional language (Russian thanks to Massimiliano)
-
-= 1.5.3 =
-
-* Bug fixes (CSS conflicts)
-* translation fixes
-* Code cleanup
-
-= 1.5.2 =
-
-* Ability to select the jQuery UI style applied to the calendar.
-* Bug fixes (CSS conflicts)
-* Code cleanup
-* Admin panel cleanup
-
-= 1.5.1 =
-
-* Bug fixes (CSS conflicts)
-* Code cleanup
-* Additional language (Bulgarian thanks to Georgi)
-
-= 1.5 =
-Another big jump in version number to make sure users pay attention before making the update ! This release marks the code emancipation from the severly outdate booking.com affiliation searchbox code.
-* Calendars using native Wordpress jQuery Datepicker : SEO improvements, code maintenance improvements, UI / UX improvements
-* Fixed a big nasty compatibility issue with some installation. Anyone using WAMP will appreciate.
-* Additional languages (Danish thanks to Chris J; Greek thanks to Yiannis).
-* Cleaner CSS.
-
-= 1.0.1 =
-Minor update, recommended for all users.
-* I added back the widget on user request.
-* Added a "no categorization" option.
-
-= 1.00 =
-Finally here we are : Major upgrade ! 
-* DO NOT UPGRADE ON THE GO !!! THIS UPDATE REQUIRES TIME TO RECONFIG YOUR SEARCHBOXES
-* Upgrade immediately to make sure your WordPress install is secure.
-* Completely new code base, rewritten from the ground up.

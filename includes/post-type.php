@@ -33,8 +33,8 @@ function booking_pluginbox_init() {
     'register_meta_box_cb' => 'booking_pluginbox_meta_boxes'
   );
 
-  register_post_type('booking-pluginbox',$args);
-  add_action( 'save_post', 'booking_pluginbox_save_postdata' );
+	register_post_type('booking-pluginbox',$args);
+	add_action( 'save_post', 'booking_pluginbox_save_postdata' );
 }
 add_action('init', 'booking_pluginbox_init');
 

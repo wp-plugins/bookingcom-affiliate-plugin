@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Booking.com Affiliate plugin
-Version: 1.7
+Version: 1.8
 Plugin URI: http://www.booking-plugin.com/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=bookingplugin
 Description: Booking.com Affiliates, this plugin allows you to add a typical booking.com booking module on any wordpress site. Simply configure what you want the searchbox to look like and generate traffic to your booking.com  affiliate pages. Be sure to visit the plugin site to find live integration examples, booking.com affiliation tips and showcase your site.
 Author: gregory.raby
@@ -114,16 +114,24 @@ function booking_pluginbox_meta_boxes() {
 }
 
 function booking_pluginbox_save_postdata($post_id) {
-  if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-    return $post_id;
-  } 
+      if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return $post_id;
+      } 
 
-//   Check user permissions
-  if ($_POST['post_type'] == 'page') {
-    if (!current_user_can('edit_page', $post_id)) return $post_id;
-  } else {
-    if (!current_user_can('edit_post', $post_id)) return $post_id;
-  }
+    // check post type
+
+    if ($_POST['post_type'] != 'booking-pluginbox') {
+        return $post_id;    
+    }   
+
+
+//   Check user permissions -- it was just checking if the post type was a page.
+    if ($_POST['post_type'] == 'booking-pluginbox') {
+        if (!current_user_can('edit_page', $post_id)) return $post_id;
+    } else {
+        if (!current_user_can('edit_post', $post_id)) return $post_id;
+    }
+
 
 //   OK, we're authenticated: we need to find and save the data
   $current_bp_AID = get_post_meta($post_id, 'booking_plugin_AID', false);
