@@ -1,0 +1,129 @@
+/* For the shortcode */
+
+@import url('http://aff.bstatic.com/static/affiliate_base/css/position.1951.css');
+@import url('http://aff.bstatic.com/static/affiliate_base/css/color.1951.css');
+@import url('http://aff.bstatic.com/static/affiliate_base/css/text.1951.css');
+* {
+margin: 0;
+}
+a img {
+border: 0;
+}
+#homein, #homeout {
+float: left;
+padding: 0.5em 1em 0 0;
+}
+.avail {
+padding-top: 1em;
+clear: left;
+}
+.blur {
+color: #999;
+}
+button {
+float: right;
+-moz-border-radius: 8px;
+background-color: #0896ff;
+border: 2px solid #fff;
+color: #fff;
+letter-spacing: 1px;
+padding: 0.15em 0.75em;
+text-transform: uppercase;
+font: bold 1.333em/1 Arial, Helvetica, sans-serif;
+}
+
+/* For calendar */
+.caltable {
+border: 1px solid #003580;
+background-color: #fff;
+}
+.caltable a:link, .caltable a:visited {
+color: #0896ff !important;
+}
+.caltable a:hover {
+color: #feba02 !important;
+border-color: #feba02 !important;
+}
+.caltable a:active {
+color: #b30000 !important;
+border-color: #b30000 !important;
+}
+.caltable td {
+text-align: center;
+}
+.caltable td a {
+display: block;
+text-decoration: none;
+}
+.caltable td.calheader a {
+display: inline;
+vertical-align: -.4em;
+}
+.caltable td.calheader img.calNoPrevMonth {
+background: white url(http://r.bstatic.com/static/img/butPrevMonth.png) 0 -72px no-repeat;
+vertical-align: -.4em;
+}
+.caltable td.calheader img.calNoNextMonth {
+background: white url(http://r.bstatic.com/static/img/butNextMonth.png) 0 -72px no-repeat;
+vertical-align: -.4em;
+}
+.caltable td.calheader .calNextMonth img {
+background: white url(http://r.bstatic.com/static/img/butNextMonth2.png) 0 0 no-repeat;
+}
+.caltable td.calheader .calPrevMonth img {
+background: white url(http://r.bstatic.com/static/img/butPrevMonth2.png) 0 0 no-repeat;
+}
+.caltable td.calheader .calNextMonth:hover img, .caltable td.calheader .calPrevMonth:hover img {
+background-position: 0 -24px;
+}
+.caltable td.calheader .calNextMonth:active img, .caltable td.calheader .calPrevMonth:active img {
+background-position: 0 -48px;
+}
+.calheader {
+padding: .4em;
+white-space: nowrap;
+}
+.calheader select {
+margin: 0 .6em;
+}
+.monthYear {
+background-color: #ffffff;
+color: white;
+}
+.dayNames td {
+border-bottom: 1px solid #003580;
+background-color: #e6edf6;
+}
+.days td {
+color: #779bca;
+background-color: #e6edf6;
+padding: .2em;
+border: 2px solid #e6edf6;
+}
+.days td.weekend {
+background-color: #c5d4e9;
+border-color: #c5d4e9;
+}
+.days td.past {
+text-decoration: line-through;
+}
+.days td.today, .days td.future {
+border: none;
+padding: 0;
+}
+.days td a {
+padding: .2em;
+border: 2px solid #e6edf6;
+}
+.days td.weekend a {
+border-color: #c5d4e9;
+}
+.days td.today a {
+background-color: #fff;
+}
+.days td.selected {
+font-weight: bold;
+}
+.days td.selected a {
+border-color: #0896ff;
+}
