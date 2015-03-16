@@ -9,7 +9,7 @@ Requires at least: 3.3
 Tested up to: 4.1
 Stable tag: 1.8
 
-Booking.com Affiliates : this plugin allows you to add a booking.com searchbox on your wordpress site in 2 clicks.
+Booking.com Affiliates : add a customized booking.com searchbox to your wordpress site in 2 clicks.
 
 == Description ==
 
