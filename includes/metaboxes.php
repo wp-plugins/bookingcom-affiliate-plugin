@@ -19,11 +19,8 @@ function booking_pluginbox_form() {
   $bp_FLEX = get_post_meta($post->ID, 'booking_plugin_FLEX', true);
   $bp_CSS_override = get_post_meta($post->ID, 'booking_plugin_CSS_override', true);
   $bp_jqtheme = get_post_meta($post->ID, 'booking_plugin_jqtheme', true);
-  
 ?>
-
 <script type="text/javascript" src="<?php echo plugins_url( 'jscolor/jscolor.js' , __FILE__ ); ?>"></script>
-
  <!-- Program related setting --> 
 <h2 style="padding-left:10px;"><span class="icon16 dashicons-admin-settings"></span>Your affiliation program</h2>
 <br />
@@ -41,21 +38,22 @@ function booking_pluginbox_form() {
 <tr>
 	<td width="200" valign="top" class="td_left">Want to specify a default destination ?</td>
     <td class="td_divider">&nbsp;</td>
-	<td valign="top" class="td_right"><input name="booking_plugin_DESTINATION" type="text" id="booking_plugin_DESTINATION" value="<?php echo $bp_DESTINATION; ?>" /><p class="description">(ex. "Paris, France")</p></td>
+	<td valign="top" class="td_right"><input name="booking_plugin_DESTINATION" type="text" id="booking_plugin_DESTINATION" value="<?php echo $bp_DESTINATION; ?>" /><p class="description">(ex. "Paris, France", or "53316")</p></td>
 </tr>
 <tr>
 	<td width="200" valign="top" class="td_left">For better results, please categorize the destination type</td>
     <td class="td_divider">&nbsp;</td>
 	<td valign="top" class="td_right"><select name="booking_plugin_DESTINATION_RESTRICTION" id="booking_plugin_DESTINATION_RESTRICTION">
              	<option value="<?php echo $bp_DESTINATION_RESTRICTION; ?>" selected="selected"><?php echo $bp_DESTINATION_RESTRICTION; ?></option>
-             	<option value="">No categorization</option>
-                <option value="city">Search for a city</option>
-             	<option value="hotel">Search for a hotel</option>
-				<option value="chain">Search for hotel chains</option>
-                <option value="airport">Search for hotels near an airport</option>
-                <option value="landmark">Search for hotels near a landmark</option>
-                <option value="region">Search for hotels in a region</option>         
-    </select><p class="description">Please refer to the <a href="https://admin.bookings.org/affiliate/impl_sbox.html" target="_blank">booking.com documentation</a> to learn more about the categories.</p></td>
+             	<option value="">No restrictions</option>
+                <option value="city: ">Restrict to a city</option>
+                <option value="hotelid:">Restrict to a SINGLE hotel*</option>
+             	<option value="hotel: ">Restrict to a FEW hotels</option>
+				<option value="chain: ">Restrict to hotel chains</option>
+                <option value="airport: ">Restrict to hotels near an airport</option>
+                <option value="landmark: ">Restrict to hotels near a landmark</option>
+                <option value="region: ">Restrict to hotels in a region</option>         
+    </select><p class="description">Please refer to the <a href="https://admin.booking.com/partner/login.html" target="_blank">booking.com documentation</a> (go to the booking.com extranet, then select "Implementation" in the top navigation) to learn more about the categories.</p><p class="description">If you want to restirct the search results to a SINGLE hotel, make sure you enter the booking.com hotel ID in the destination field. You can find hotel IDs in the booking.com extranet. <a href="http://www.booking-plugin.com/integration-tips/restrict-results-to-a-single-hotel" target="_blank">See a walkthrough here</a>.</td> 
 </tr>
 </table>
    <!-- Actual box look and feel -->   
@@ -83,6 +81,7 @@ function booking_pluginbox_form() {
     <option value="bg">Bulgarian</option>
     <option value="da">Danish</option>
     <option value="nl">Dutch</option>
+    <option value="cs">Czech</option>    
     <option value="en">English</option>
     <option value="fr">French</option>
     <option value="de">German</option>
@@ -98,7 +97,6 @@ function booking_pluginbox_form() {
     <option value="no">Norwegian</option>
     <option value="fi">Finish</option>
     <option value="sv">Swedish</option>
-    <option value="cs">Czech</option>
     <option value="hu">Hungarian</option>
     <option value="ro">Romanian</option>
     <option value="ja">Japanese</option>

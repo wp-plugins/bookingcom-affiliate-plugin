@@ -6,8 +6,8 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Tags: affiliates, booking, travel, reservation, hotel, booking.com, affiliation, hotels, booking calendar, online booking, accomodation, destinations, holidays, affiliation programme, affiliation program 
 Requires at least: 3.3
-Tested up to: 4.1
-Stable tag: 1.8
+Tested up to: 4.2.2
+Stable tag: 1.8.1
 
 Booking.com Affiliates : add a customized booking.com searchbox to your wordpress site in 2 clicks.
 
@@ -55,6 +55,11 @@ A couple of hours later, check your traffic & bookings via the [Booking.com admi
 
 
 == Changelog ==
+
+= 1.8.1 =
+
+* Additional language (Czech thanks to Martin Dvorak)
+* Bug fix :  streamlined the process to create a searchbox pointing to a single hotel (using hotelid).
 
 = 1.8 =
 
@@ -172,7 +177,7 @@ I now dare call this plugin STABLE. This doesn't mean there are no more bugs or 
 
 == Upgrade Notice ==
 
-= 1.8 =
+= 1.8.1 =
 
-* Bug fix :  Plugin was creating extra-entries into the "wp_postmeta" table.
-
+* Additional language (Czech thanks to Martin Dvorak)
+* Bug fix :  streamlined the process to create a searchbox pointing to a single hotel (using hotelid).

@@ -331,6 +331,22 @@ switch ($post_bp_LANGUAGE) {
         $cal_prev="Forrige måned";
         $cal_close="Lukk kalender";
   break;
+  case "cs":
+        $dayNamesShort = "['Ne', 'Po', 'Ut', 'St', 'Ct', 'Pa', 'So']";
+        $dayNamesMin = "['Ne', 'Po', 'Ut', 'St', 'Ct', 'Pa', 'So']";
+        $monthNamesShort = "['Led', 'Uno', 'Bre', 'Dub', 'Kve', 'Cer','Cvc', 'Srp', 'Zar', 'Rij', 'Lis', 'Pro']";
+        $monthNames = "['Leden','Unor','Brezen','Duben','Kveten','Cerven','Cervenec','Srpen','Zari','Rijen','Listopad','Prosinec']";
+        $desc_search_hotels ="Hledej hotely";
+        $desc_destination ="Misto";
+        $desc_vanity ="Mesto, Region, Zeme, ...";
+        $desc_checkin = "Datum nastupu";
+        $desc_checkout ="Datum odjezdu";
+        $desc_nodates = "Zatim nemam vybrane datum";
+        $desc_search="Hledej";
+        $cal_next="Dalsi mesic";
+        $cal_prev="Predchozi mesic";
+        $cal_close="Zavri kalendar";
+  break;
   default:
 		$dayNamesShort = "['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']";
 		$dayNamesMin = "['Su','Mo','Tu','We','Th','Fr','Sa']";
@@ -370,7 +386,7 @@ if ($post_bp_CSS_override != "Yes") {
 
 
 ?>
-<!--Version = 1.7-->
+<!--Version = 1.8.1 -->
 <style>
 .ui-datepicker-trigger {
 	position: relative;
@@ -379,7 +395,6 @@ if ($post_bp_CSS_override != "Yes") {
     width:17px;
     height:16px;
 }
-
 .ui-widget {
 	font-size: 1em !important;
 	}
@@ -456,7 +471,29 @@ button {
           <div id="destinationSearch">
             <input type="hidden" name="aid" value="<?php echo $post_bp_AID; ?>" />
             <input type="hidden" name="error_url" value="http://www.booking.com/?aid=<?php echo $post_bp_AID; ?>;" />
-            <input type="hidden" name="si" value="ai,co,ci,re,di" />
+    <?php switch ($post_bp_DESTINATION_RESTRICTION) {
+    case "city:":
+    	echo "<input type='hidden' name='si' value='ci' />";
+	break;
+	case "hotel:":
+    	echo "<input type='hidden' name='si' value='ci' />";		
+	break;
+	case "chain:":
+    	echo "<input type='hidden' name='si' value='ci' />";		
+	break;
+	case "airport:":
+    	echo "<input type='hidden' name='si' value='ci' />";		
+	break;
+	case "landmark:":
+    	echo "<input type='hidden' name='si' value='ci' />";		
+	break;
+	case "region:":
+    	echo "<input type='hidden' name='si' value='ci' />";		
+	break;
+  	default:
+		echo "<input type='hidden' name='si' value='ai,co,ci,re,di' />";
+	}
+	?>    
             <input type="hidden" name="label" value="<?php echo $post_bp_TRACKING; ?>" />
             <input type="hidden" name="lang" value="<?php echo $post_bp_LANGUAGE; ?>" />
             <?php if ($post_bp_CURRENCY != "") {?><input type="hidden" name="selected_currency" value="<?php echo $post_bp_CURRENCY; ?>" /><?php ; } ?>
